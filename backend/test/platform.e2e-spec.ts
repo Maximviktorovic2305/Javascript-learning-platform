@@ -8,6 +8,7 @@ import { PrismaService } from '../src/common/database/prisma.service';
 import { CatalogService } from '../src/catalog/catalog.service';
 import { RunnerService } from '../src/learning/runner.service';
 import { SESSION_COOKIE } from '../src/auth/auth.types';
+import { LEGAL_VERSION } from '../src/auth/legal.constants';
 
 describe('Script Lab HTTP and PostgreSQL', () => {
   let app: INestApplication, db: PrismaService, catalog: CatalogService;
@@ -16,6 +17,11 @@ describe('Script Lab HTTP and PostgreSQL', () => {
   const password = 'a-strong-test-password-42';
   const origin = 'http://127.0.0.1:3020';
   const headers = { origin: origin, 'x-lab-request': '1' };
+  const consent = {
+    termsAccepted: true,
+    dataConsent: true,
+    legalVersion: LEGAL_VERSION,
+  };
   let cookie: string, userId: string;
   const runner = { execute: jest.fn() };
   beforeAll(async () => {
@@ -81,12 +87,18 @@ describe('Script Lab HTTP and PostgreSQL', () => {
     const r = await request(app.getHttpServer())
       .post('/api/auth/register')
       .set(headers)
-      .send({ email, name: 'Ученик', password })
+      .send({ email, name: 'Ученик', password, ...consent })
       .expect(201);
     expect(r.body.passwordHash).toBeUndefined();
     expect(r.body.credentialVersion).toBeUndefined();
     expect(r.body.token).toBeUndefined();
     userId = r.body.id;
+    expect(r.body.legalVersion).toBeUndefined();
+    expect(r.body.dataConsentAt).toBeUndefined();
+    const recorded = await db.user.findUniqueOrThrow({ where: { id: userId } });
+    expect(recorded.legalVersion).toBe(LEGAL_VERSION);
+    expect(recorded.dataConsentAt).toBeInstanceOf(Date);
+    expect(recorded.termsAcceptedAt).toBeInstanceOf(Date);
     cookie = r.headers['set-cookie'][0].split(';')[0];
     expect(r.headers['set-cookie'][0]).toContain('HttpOnly');
     expect(r.headers['set-cookie'][0]).toContain('Path=/api');
@@ -242,7 +254,7 @@ describe('Script Lab HTTP and PostgreSQL', () => {
     const second = await request(app.getHttpServer())
       .post('/api/auth/register')
       .set(headers)
-      .send({ email, name: 'Другой', password })
+      .send({ email, name: 'Другой', password, ...consent })
       .expect(201);
     const secondCookie = second.headers['set-cookie'][0].split(';')[0];
     const progress = await request(app.getHttpServer())

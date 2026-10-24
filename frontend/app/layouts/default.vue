@@ -6,6 +6,9 @@
       <BrandLogo />
       <p>Меньше смотреть. Больше писать код.</p>
       <span>JavaScript / TypeScript / Backend</span>
+      <NuxtLink to="/legal-documents" class="text-link"
+        >Правовые документы</NuxtLink
+      >
     </footer>
     <p class="music-credit container">
       Музыка:
@@ -24,6 +27,7 @@
         >CC BY 4.0</a
       >
     </p>
+    <div class="container"><LegalLinks /></div>
     <AuthorSupport />
     <AnalyticsConsent />
   </div>

@@ -1,37 +1,49 @@
 <script setup lang="ts">
-const route = useRoute()
+import { LEGAL_VERSION } from "~/utils/legal";
+const route = useRoute();
 const mode = computed(() =>
-  route.params.mode === 'register' ? 'register' : 'login',
-)
-if (!['register', 'login'].includes(String(route.params.mode)))
-  throw createError({ statusCode: 404, statusMessage: 'Страница не найдена' })
+  route.params.mode === "register" ? "register" : "login",
+);
+if (!["register", "login"].includes(String(route.params.mode)))
+  throw createError({ statusCode: 404, statusMessage: "Страница не найдена" });
 useSeoMeta({
-  title: () => (mode.value === 'register' ? 'Создать аккаунт' : 'Войти'),
-})
-const { signIn } = useSession()
-const name = ref(''),
-  email = ref(''),
-  password = ref('')
+  title: () => (mode.value === "register" ? "Создать аккаунт" : "Войти"),
+});
+const { signIn } = useSession();
+const name = ref(""),
+  email = ref(""),
+  password = ref("");
 const busy = ref(false),
-  error = ref('')
+  error = ref("");
+const termsAccepted = ref(false),
+  dataConsent = ref(false);
 watch(mode, () => {
-  error.value = ''
-  password.value = ''
-})
+  error.value = "";
+  password.value = "";
+  termsAccepted.value = false;
+  dataConsent.value = false;
+});
 async function submit() {
-  busy.value = true
-  error.value = ''
+  busy.value = true;
+  error.value = "";
   try {
     await signIn(mode.value, {
       email: email.value,
       password: password.value,
-      ...(mode.value === 'register' ? { name: name.value } : {}),
-    })
-    await navigateTo('/dashboard')
+      ...(mode.value === "register"
+        ? {
+            name: name.value,
+            termsAccepted: termsAccepted.value,
+            dataConsent: dataConsent.value,
+            legalVersion: LEGAL_VERSION,
+          }
+        : {}),
+    });
+    await navigateTo("/dashboard");
   } catch (e) {
-    error.value = errorMessage(e)
+    error.value = errorMessage(e);
   } finally {
-    busy.value = false
+    busy.value = false;
   }
 }
 </script>
@@ -61,16 +73,16 @@ async function submit() {
     <div class="auth-card">
       <span class="eyebrow"
         >JSlab /
-        {{ mode === 'register' ? 'Новый старт' : 'С возвращением' }}</span
+        {{ mode === "register" ? "Новый старт" : "С возвращением" }}</span
       >
       <h2>
-        {{ mode === 'register' ? 'Создай свой аккаунт' : 'Продолжим учиться?' }}
+        {{ mode === "register" ? "Создай свой аккаунт" : "Продолжим учиться?" }}
       </h2>
       <p>
         {{
-          mode === 'register'
-            ? 'Начни свой путь в разработку. Бесплатно.'
-            : 'Войди, чтобы открыть свой прогресс.'
+          mode === "register"
+            ? "Начни свой путь в разработку. Бесплатно."
+            : "Войди, чтобы открыть свой прогресс."
         }}
       </p>
       <form @submit.prevent="submit">
@@ -106,14 +118,59 @@ async function submit() {
             required
             placeholder="Не менее 10 символов"
         /></label>
+        <div v-if="mode === 'register'" class="consent-fields">
+          <label
+            ><input
+              v-model="termsAccepted"
+              type="checkbox"
+              name="termsAccepted"
+              required
+            />
+            <span
+              >Принимаю
+              <NuxtLink
+                to="/user-agreement"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-link"
+                >условия использования</NuxtLink
+              >.</span
+            >
+          </label>
+          <label
+            ><input
+              v-model="dataConsent"
+              type="checkbox"
+              name="dataConsent"
+              required
+            />
+            <span
+              >Даю
+              <NuxtLink
+                to="/data-consent"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-link"
+                >согласие на обработку персональных данных</NuxtLink
+              >.
+              <NuxtLink
+                to="/private-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-link"
+                >Политика конфиденциальности</NuxtLink
+              >.</span
+            >
+          </label>
+        </div>
         <p v-if="error" class="error-text" role="alert">{{ error }}</p>
         <button class="button" type="submit" :disabled="busy">
           {{
             busy
-              ? 'Подождите…'
-              : mode === 'register'
-                ? 'Создать аккаунт'
-                : 'Войти'
+              ? "Подождите…"
+              : mode === "register"
+                ? "Создать аккаунт"
+                : "Войти"
           }}<AppIcon
             :name="busy ? 'loading' : 'arrow'"
             :class="{ spin: busy }"
@@ -122,10 +179,10 @@ async function submit() {
         </button>
       </form>
       <p class="auth-switch">
-        {{ mode === 'register' ? 'Уже есть аккаунт?' : 'Пока нет аккаунта?' }}
+        {{ mode === "register" ? "Уже есть аккаунт?" : "Пока нет аккаунта?" }}
         <NuxtLink
           :to="mode === 'register' ? '/auth/login' : '/auth/register'"
-          >{{ mode === 'register' ? 'Войти' : 'Зарегистрироваться' }}</NuxtLink
+          >{{ mode === "register" ? "Войти" : "Зарегистрироваться" }}</NuxtLink
         >
       </p>
       <p class="auth-privacy">
@@ -135,3 +192,24 @@ async function submit() {
     </div>
   </div>
 </template>
+<style scoped>
+.consent-fields {
+  display: grid;
+  gap: 0.75rem;
+}
+.consent-fields label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.75rem;
+  line-height: 1.65;
+  font-weight: 400;
+}
+.consent-fields input {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 1rem;
+  margin: 0.2rem 0 0;
+  padding: 0;
+}
+</style>

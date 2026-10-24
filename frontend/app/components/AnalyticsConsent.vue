@@ -1,72 +1,78 @@
 <script setup lang="ts">
-import { createMetrikaClient } from '~/utils/metrika'
-const config = useRuntimeConfig()
-const route = useRoute()
-const id = Number(config.public.metrikaId)
-const choice = ref<'accepted' | 'rejected' | null>(null)
-const ready = ref(false)
-const opened = ref(false)
-const storageKey = 'jslab:analytics-consent'
-let counter: ReturnType<typeof createMetrikaClient> | undefined
+import { createMetrikaClient } from "~/utils/metrika";
+const config = useRuntimeConfig();
+const route = useRoute();
+const id = Number(config.public.metrikaId);
+const choice = ref<"accepted" | "rejected" | null>(null);
+const ready = ref(false);
+const opened = ref(false);
+const storageKey = "jslab:analytics-consent";
+let counter: ReturnType<typeof createMetrikaClient> | undefined;
 function sync() {
-  if (choice.value === 'accepted') {
-    counter?.start(id)
-    counter?.page(route.path)
-  } else counter?.stop()
+  if (choice.value === "accepted") {
+    counter?.start(id);
+    counter?.page(route.path);
+  } else counter?.stop();
 }
-function choose(value: 'accepted' | 'rejected') {
-  choice.value = value
-  opened.value = false
+function choose(value: "accepted" | "rejected") {
+  choice.value = value;
+  opened.value = false;
   try {
-    localStorage.setItem(storageKey, value)
+    localStorage.setItem(storageKey, value);
   } catch {
     /* Keep this tab's choice. */
   }
-  sync()
+  sync();
 }
 function restore() {
   try {
-    const stored = localStorage.getItem(storageKey)
+    const stored = localStorage.getItem(storageKey);
     choice.value =
-      stored === 'accepted' || stored === 'rejected' ? stored : null
+      stored === "accepted" || stored === "rejected" ? stored : null;
   } catch {
-    choice.value = null
+    choice.value = null;
   }
-  sync()
+  sync();
 }
 onMounted(() => {
-  counter = createMetrikaClient(window, document)
-  restore()
-  ready.value = true
-  window.addEventListener('storage', restore)
-})
+  counter = createMetrikaClient(window, document);
+  restore();
+  ready.value = true;
+  window.addEventListener("storage", restore);
+});
 watch(
   () => route.path,
   () => {
-    nextTick(sync)
+    nextTick(sync);
   },
-)
+);
 onBeforeUnmount(() => {
-  window.removeEventListener('storage', restore)
-  counter?.stop()
-})
+  window.removeEventListener("storage", restore);
+  counter?.stop();
+});
 </script>
 <template>
-  <template v-if="ready && Number.isSafeInteger(id) && id > 0">
+  <template v-if="ready">
     <button class="analytics-settings text-link" @click="opened = true">
       Настройки cookie
     </button>
     <section
       v-if="choice === null || opened"
       class="analytics-consent"
-      aria-label="Настройки аналитики"
+      aria-label="Информация о cookie"
     >
       <div>
-        <strong>Поможешь сделать JSlab лучше?</strong>
+        <strong>Мы используем cookie</strong>
         <p>
-          С разрешения используем Яндекс Метрику: статистику посещений и
-          Вебвизор. Пароли, код и данные профиля скрыты. Выбор можно изменить в
-          настройках cookie.
+          Технические cookie помогают сохранять вход и тему. Локальное хранилище
+          запоминает настройки и черновики.
+          <template v-if="Number.isSafeInteger(id) && id > 0">
+            С вашего разрешения подключаем Яндекс Метрику со статистикой
+            посещений и Вебвизором.
+          </template>
+          <NuxtLink to="/cookie-policy" class="text-link"
+            >Подробнее о cookie</NuxtLink
+          >.
         </p>
       </div>
       <div class="analytics-actions">
@@ -74,9 +80,13 @@ onBeforeUnmount(() => {
           class="button button-outline button-small"
           @click="choose('rejected')"
         >
-          Без аналитики</button
-        ><button class="button button-small" @click="choose('accepted')">
-          Разрешить
+          {{ id > 0 ? "Только необходимые" : "Понятно" }}</button
+        ><button
+          v-if="Number.isSafeInteger(id) && id > 0"
+          class="button button-small"
+          @click="choose('accepted')"
+        >
+          Разрешить аналитику
         </button>
       </div>
     </section>

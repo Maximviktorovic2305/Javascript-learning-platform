@@ -9,6 +9,7 @@ import { PrismaService } from '../common/database/prisma.service';
 import { Prisma } from '../generated/prisma/client';
 import { LoginDto, RegisterDto } from './auth.dto';
 import { publicUserSelect, SESSION_TTL } from './auth.types';
+import { LEGAL_VERSION } from './legal.constants';
 
 @Injectable()
 export class AuthService {
@@ -37,7 +38,14 @@ export class AuthService {
     });
     try {
       const user = await this.db.user.create({
-        data: { email: dto.email, name: dto.name, passwordHash },
+        data: {
+          email: dto.email,
+          name: dto.name,
+          passwordHash,
+          termsAcceptedAt: new Date(),
+          dataConsentAt: new Date(),
+          legalVersion: LEGAL_VERSION,
+        },
         select: publicUserSelect,
       });
       return { user, token: await this.session(user.id) };

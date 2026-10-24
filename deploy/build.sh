@@ -11,6 +11,8 @@ export npm_config_cache="$app/build-cache/npm"
 mkdir -p "$app/releases" "$app/runtime"
 exec 9>"$app/deploy.lock"
 flock 9
+if [[ -f "$app/runtime/$sha/ready" ]]; then printf 'Native runtime already built: %s\n' "$sha"; exit 0; fi
+test ! -L "$app/runtime/$sha"
 git -C "$app/repo" fetch origin main
 if [[ ! -d "$release" ]]; then git -C "$app/repo" worktree add --detach "$release" "$sha"; fi
 cd "$release"

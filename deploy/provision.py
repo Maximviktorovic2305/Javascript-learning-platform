@@ -51,7 +51,7 @@ write('/etc/sudoers.d/jslab','max ALL=(root) NOPASSWD: /usr/local/sbin/jslab-adm
 run(['visudo','-cf','/etc/sudoers.d/jslab'],stdout=subprocess.DEVNULL)
 for name,folder,env,command,memory in [
     ('api','api','EnvironmentFile=/etc/jslab/api.env','dist/main.js','384M'),
-    ('web','web','Environment=NODE_ENV=production HOST=127.0.0.1 PORT=3020 NUXT_API_BASE=http://127.0.0.1:8020','server/index.mjs','384M'),
+    ('web','web','Environment=NODE_ENV=production HOST=127.0.0.1 PORT=3020 NUXT_API_BASE=http://127.0.0.1:8020\nEnvironmentFile=-/etc/jslab/web.env','server/index.mjs','384M'),
     ('runner','runner','EnvironmentFile=/etc/jslab/runner.env','server.mjs','128M')]:
     root=app/'current-runtime'/folder
     broker=name=='runner'

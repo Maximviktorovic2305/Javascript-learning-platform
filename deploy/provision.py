@@ -20,7 +20,7 @@ assert pathlib.Path('/usr/local/bin/nsjail').is_file()
 def run(args,**kw):return subprocess.run(args,check=True,**kw)
 def write(path,text,mode=0o644):
     p=pathlib.Path(path);p.write_text(text);p.chmod(mode)
-for name in ['jslab-api','jslab-web','jslab-runner']:
+for name in ['jslab-api','jslab-web','jslab-runner','jslab-migrate']:
     try:pwd.getpwnam(name)
     except KeyError:run(['useradd','--system','--no-create-home','--shell','/usr/sbin/nologin',name])
 etc=pathlib.Path('/etc/jslab');etc.mkdir(mode=0o700,exist_ok=True)

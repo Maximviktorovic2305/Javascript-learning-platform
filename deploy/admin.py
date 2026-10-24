@@ -73,7 +73,7 @@ def activate(sha):
         raise
     if old and old != release: link(old,'previous')
     subprocess.run(['systemctl','enable',*SERVICES],check=True)
-    retain()
+    if (APP / 'previous').is_symlink(): retain()
 
 
 def retain():
@@ -124,5 +124,5 @@ if __name__=='__main__':
     elif len(args)==2 and args[0]=='activate':activate(args[1])
     elif len(args)==2 and args[0]=='migrate':
         release=path(args[1],'releases')
-        subprocess.run(['/opt/jslab/node/bin/node',str(release/'backend/node_modules/prisma/build/index.js'),'migrate','deploy'],cwd=release/'backend',env=environment('migrate'),user='jslab-api',group='jslab-api',extra_groups=[],check=True)
+        subprocess.run(['/opt/jslab/node/bin/node',str(release/'backend/node_modules/prisma/build/index.js'),'migrate','deploy'],cwd=release/'backend',env=environment('migrate'),user='jslab-migrate',group='jslab-migrate',extra_groups=[],check=True)
     else:raise ValueError('Unknown operation')

@@ -29,7 +29,7 @@ def command(args):
         '/usr/bin/systemd-run', '--quiet', '--pipe', '--wait', '--collect',
         '--service-type=exec', '--unit=' + unit,
         '--description=JSlab isolated exercise',
-        '--property=MemoryMax=256M', '--property=MemorySwapMax=0',
+        '--property=MemoryMax=384M', '--property=MemorySwapMax=0',
         '--property=TasksMax=64', '--property=CPUQuota=75%',
         '--property=RuntimeMaxSec=17', '--property=TimeoutStopSec=2',
         '--property=KillMode=control-group',

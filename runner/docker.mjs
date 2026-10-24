@@ -1,7 +1,7 @@
 import {spawn} from 'node:child_process';
 import {randomUUID} from 'node:crypto';
 export const image='script-lab-sandbox:1';
-export function dockerArgs(name){return ['run','--rm','-i','--name',name,'--network','none','--read-only','--cap-drop','ALL','--security-opt','no-new-privileges','--pids-limit','64','--memory','256m','--memory-swap','256m','--cpus','0.75','--ulimit','nofile=128:128','--user','65534:65534','--tmpfs','/tmp:rw,noexec,nosuid,size=32m,mode=1777',image]}
+export function dockerArgs(name){return ['run','--rm','-i','--name',name,'--network','none','--read-only','--cap-drop','ALL','--security-opt','no-new-privileges','--pids-limit','64','--memory','384m','--memory-swap','384m','--cpus','0.75','--ulimit','nofile=128:128','--user','65534:65534','--tmpfs','/tmp:rw,noexec,nosuid,size=32m,mode=1777',image]}
 export async function execute(job,{signal,spawnProcess=spawn,timeoutMs=15000}={}){
   const name=`sl-${randomUUID()}`;
   return new Promise(resolve=>{

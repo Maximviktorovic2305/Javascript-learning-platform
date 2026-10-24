@@ -4,9 +4,9 @@ const fs=require('node:fs');
 const path=require('node:path');
 const ts=require('typescript');
 const main=async()=>{
-  let payload=process.argv[2];
-  if(payload===undefined){const chunks=[];for await(const chunk of process.stdin)chunks.push(chunk);payload=Buffer.concat(chunks).toString('utf8')}
-  const job=JSON.parse(payload);
+  let rawPayload=process.argv[2];
+  if(rawPayload===undefined){const chunks=[];for await(const chunk of process.stdin)chunks.push(chunk);rawPayload=Buffer.concat(chunks).toString('utf8')}
+  const job=JSON.parse(rawPayload);
   fs.mkdirSync('/tmp/work',{recursive:true});
   fs.symlinkSync('/opt/app/node_modules','/tmp/work/node_modules','dir');
   const source=job.code+'\n;module.exports = solve;\n';

@@ -36,7 +36,11 @@ if not (etc/'api.env').exists():
         if statement.strip():run(['runuser','-u','postgres','--','psql','-X','-q','-p','5432','-v','ON_ERROR_STOP=1'],input=statement+';',text=True,stdout=subprocess.DEVNULL)
     write(etc/'api.env',f'NODE_ENV=production\nHOST=127.0.0.1\nPORT=8020\nDATABASE_URL=postgresql://jslab:{password}@127.0.0.1:5432/jslab\nALLOWED_ORIGIN=https://js-lab.site\nCOOKIE_SECURE=true\nTRUST_PROXY_HOPS=1\nEXECUTION_RUNNER=remote\nRUNNER_URL=http://127.0.0.1:8092\nRUNNER_TOKEN={token}\n',0o600)
     write(etc/'runner.env',f'NODE_ENV=production\nSANDBOX_ENGINE=nsjail\nRUNNER_HOST=127.0.0.1\nRUNNER_TOKEN={token}\n',0o600)
-if not (opt/'sandbox').exists():shutil.copytree(release/'runner/sandbox',opt/'sandbox',ignore=shutil.ignore_patterns('Dockerfile','package-lock.json','package.json'))
+source=release/'runner/sandbox'
+for p in source.rglob('*'):
+    if p.is_symlink():assert p.resolve().is_relative_to(source.resolve()),'Sandbox dependency symlink escapes source'
+if not (opt/'sandbox').exists():shutil.copytree(source,opt/'sandbox',symlinks=True,ignore=shutil.ignore_patterns('Dockerfile','package-lock.json','package.json'))
+shutil.copy2(source/'execute.cjs',opt/'sandbox/execute.cjs')
 for p in (opt/'sandbox').rglob('*'):
     if not p.is_symlink():p.chmod((p.stat().st_mode&0o777)|0o444|(0o111 if p.is_dir() else 0))
 shutil.copy2(release/'deploy/jail.cfg',etc/'jail.cfg')

@@ -1,6 +1,13 @@
 <script setup lang="ts">
 const { user, logout } = useSession()
 const message = ref('')
+watch(
+  user,
+  (account) => {
+    if (!account) void navigateTo('/auth/login', { replace: true })
+  },
+  { flush: 'sync' },
+)
 async function signout() {
   try {
     await logout()
@@ -10,7 +17,7 @@ async function signout() {
 }
 </script>
 <template>
-  <div class="site-shell">
+  <div v-if="user" class="site-shell">
     <a href="#main" class="skip-link">К содержимому</a><SiteHeader />
     <div class="workspace container">
       <aside class="workspace-sidebar">

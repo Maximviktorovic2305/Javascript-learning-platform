@@ -23,6 +23,9 @@ const selected = computed(() =>
 const optionId = (index: number) => `${uid}-option-${index}`
 function reveal() {
   if (props.disabled) return
+  // Safari does not focus a button on pointer activation. Keep keyboard
+  // navigation and Escape on the combobox after opening with the mouse.
+  trigger.value?.focus()
   open.value = true
   const index = props.options.findIndex(
     (option) => option.value === props.modelValue && !option.disabled,

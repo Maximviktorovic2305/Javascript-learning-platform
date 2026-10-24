@@ -62,17 +62,13 @@ onBeforeUnmount(() => {
       aria-label="Информация о cookie"
     >
       <div>
-        <strong>Мы используем cookie</strong>
+        <strong>Используем cookie</strong>
         <p>
-          Технические cookie помогают сохранять вход и тему. Локальное хранилище
-          запоминает настройки и черновики.
+          Сохраняем вход, настройки и черновики.
           <template v-if="Number.isSafeInteger(id) && id > 0">
-            С вашего разрешения подключаем Яндекс Метрику со статистикой
-            посещений и Вебвизором.
+            Яндекс Метрика — только с вашего разрешения.
           </template>
-          <NuxtLink to="/cookie-policy" class="text-link"
-            >Подробнее о cookie</NuxtLink
-          >.
+          <NuxtLink to="/cookie-policy" class="text-link">Подробнее</NuxtLink>.
         </p>
       </div>
       <div class="analytics-actions">
@@ -101,38 +97,32 @@ onBeforeUnmount(() => {
 .analytics-consent {
   position: fixed;
   z-index: 100;
-  inset: auto 1rem 1rem;
-  max-width: 44rem;
-  margin-inline: auto;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  width: min(23rem, calc(100vw - 2rem));
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  padding: 0.875rem;
   border: 1px solid var(--line);
   border-radius: 0.75rem;
   background: var(--surface);
   color: var(--ink);
   box-shadow: 0 0.5rem 2rem #0002;
+  font-size: 0.8125rem;
 }
 .analytics-consent p {
-  margin: 0.5rem 0 0;
+  margin: 0.375rem 0 0;
   color: var(--muted);
-  font-size: 0.75rem;
-  line-height: 1.6;
+  font-size: 0.6875rem;
+  line-height: 1.55;
 }
 .analytics-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   flex-shrink: 0;
-}
-@media (max-width: 640px) {
-  .analytics-consent {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .analytics-actions {
-    justify-content: flex-end;
-  }
+  justify-content: flex-end;
 }
 </style>

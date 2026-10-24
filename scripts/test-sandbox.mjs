@@ -1,6 +1,6 @@
 import {readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
-import {execute} from '../runner/docker.mjs';
+const {execute}=await import(process.env.SANDBOX_ENGINE==='nsjail'?'../runner/nsjail.mjs':'../runner/docker.mjs');
 const lessons=JSON.parse(readFileSync(new URL('../backend/src/catalog/data/lessons.json',import.meta.url),'utf8'));
 let passed=0;
 for(const lesson of lessons){

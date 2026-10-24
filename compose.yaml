@@ -19,6 +19,7 @@ services:
     environment: &api-environment
       NODE_ENV: ${NODE_ENV:-development}
       PORT: 8020
+      HOST: 0.0.0.0
       TRUST_PROXY_HOPS: 1
       DATABASE_URL: postgresql://script:${POSTGRES_PASSWORD}@postgres:5432/script_lab
       ALLOWED_ORIGIN: ${ALLOWED_ORIGIN:-http://localhost:3020}
@@ -66,6 +67,7 @@ services:
     profiles: [sandbox]
     environment:
       DOCKER_HOST: tcp://sandbox-daemon:2375
+      RUNNER_HOST: 0.0.0.0
       RUNNER_TOKEN: ${RUNNER_TOKEN:-}
     depends_on:
       sandbox-daemon: {condition: service_healthy}

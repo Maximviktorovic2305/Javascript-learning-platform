@@ -1,12 +1,12 @@
-// This program ONLY runs inside the disposable, networkless Docker sandbox.
+// This program ONLY runs inside the disposable, networkless sandbox.
 // Expected answers never enter this container; the API compares its outputs.
 const fs=require('node:fs');
 const path=require('node:path');
 const ts=require('typescript');
 const main=async()=>{
-  const chunks=[];
-  for await(const chunk of process.stdin)chunks.push(chunk);
-  const job=JSON.parse(Buffer.concat(chunks).toString('utf8'));
+  let payload=process.argv[2];
+  if(payload===undefined){const chunks=[];for await(const chunk of process.stdin)chunks.push(chunk);payload=Buffer.concat(chunks).toString('utf8')}
+  const job=JSON.parse(payload);
   fs.mkdirSync('/tmp/work',{recursive:true});
   fs.symlinkSync('/opt/app/node_modules','/tmp/work/node_modules','dir');
   const source=job.code+'\n;module.exports = solve;\n';

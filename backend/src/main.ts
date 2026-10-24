@@ -8,7 +8,7 @@ async function bootstrap() {
   configureApp(app);
   await app.listen(
     app.get(ConfigService).getOrThrow<number>('PORT'),
-    '0.0.0.0',
+    app.get(ConfigService).getOrThrow<string>('HOST'),
   );
 }
 void bootstrap();

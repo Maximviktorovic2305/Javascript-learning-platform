@@ -1,6 +1,10 @@
 import {createServer} from 'node:http';
 import {timingSafeEqual} from 'node:crypto';
-import {execute} from './docker.mjs';
+import {execute as dockerExecute} from './docker.mjs';
+import {execute as nativeExecute} from './nsjail.mjs';
+const engine=process.env.SANDBOX_ENGINE??'docker';
+if(!['docker','nsjail'].includes(engine))throw new Error('Invalid sandbox engine');
+const execute=engine==='nsjail'?nativeExecute:dockerExecute;
 export function validJob(value){return value&&typeof value==='object'&&typeof value.code==='string'&&value.code.length>0&&value.code.length<=20000&&['javascript','typescript'].includes(value.language)&&Array.isArray(value.inputs)&&value.inputs.length>=1&&value.inputs.length<=10&&value.inputs.every(v=>Array.isArray(v)&&v.length<=10)}
 export function createRunnerServer(token,run=execute){
   if(typeof token!=='string'||token.length<32)throw new Error('RUNNER_TOKEN requires at least 32 characters');
@@ -28,6 +32,6 @@ export function createRunnerServer(token,run=execute){
 }
 if(process.env.NODE_ENV!=='test'){
   const server=createRunnerServer(process.env.RUNNER_TOKEN);
-  server.listen(8092,'0.0.0.0');
+  server.listen(8092,process.env.RUNNER_HOST??'127.0.0.1');
   process.on('SIGTERM',()=>server.close());
 }

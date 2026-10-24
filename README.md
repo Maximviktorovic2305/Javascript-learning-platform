@@ -1,5 +1,9 @@
 # JSlab
 
+Production: **https://js-lab.site**. На сервере используются PostgreSQL 18 и отдельные службы systemd (`jslab-web`, `jslab-api`, `jslab-runner`) под разными системными пользователями, без Docker. Учебный код выполняется в одноразовом NsJail с отдельными namespaces, read-only корнем, без внешней сети и с ограничениями памяти/CPU/процессов. Корневой helper принимает только проверенный JSON задания и фиксированные операции, API не имеет sudo-доступа.
+
+Исходники: `/home/max/jslab/releases/<commit>`; автономные runtime: `/home/max/jslab/runtime/<commit>`. `current` и `previous` указывают на текущую и единственную резервную версию. Секреты находятся в `/etc/jslab/*.env` с правами 0600; в репозитории их нет. Сборка: `bash deploy/build.sh <commit>`, затем `sudo /usr/local/sbin/jslab-admin backup`, `migrate <commit>`, `activate <commit>`. Первичная установка root-конфигурации: `deploy/provision.py`. Откат: `activate <предыдущий commit>`; миграции БД автоматически назад не выполняются. Nginx обслуживает HTTPS, Certbot продлевает сертификат через systemd timer.
+
 Платформа для изучения **JavaScript, TypeScript, Express и NestJS**. Frontend — Nuxt 4 и Vue 3, backend — NestJS, Prisma 7 и PostgreSQL 18. Nest создан официальной командой:
 
 ```sh

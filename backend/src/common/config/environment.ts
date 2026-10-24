@@ -5,6 +5,8 @@ export function validateEnvironment(env: Record<string, unknown>) {
     return value;
   };
   const port = Number(env.PORT ?? 8020);
+  const host = readString('HOST', '127.0.0.1');
+  if (!['127.0.0.1', '0.0.0.0'].includes(host)) throw new Error('Invalid HOST');
   const hops = Number(env.TRUST_PROXY_HOPS ?? 0);
   if (!Number.isInteger(port) || port < 1 || port > 65535)
     throw new Error('Invalid PORT');
@@ -40,6 +42,7 @@ export function validateEnvironment(env: Record<string, unknown>) {
   return {
     ...env,
     PORT: port,
+    HOST: host,
     TRUST_PROXY_HOPS: hops,
     DATABASE_URL: databaseUrl,
     ALLOWED_ORIGIN: origin,

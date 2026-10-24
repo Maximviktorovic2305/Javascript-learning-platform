@@ -15,15 +15,6 @@ const languageLabels: Record<string, string> = {
 }
 const codeLabel = (language?: string) =>
   languageLabels[language ?? 'javascript'] ?? language
-const sources = computed(() =>
-  (props.lesson.sources ?? []).filter((source) => {
-    try {
-      return new URL(source.url).protocol === 'https:'
-    } catch {
-      return false
-    }
-  }),
-)
 </script>
 <template>
   <article class="theory-reader">
@@ -93,23 +84,5 @@ const sources = computed(() =>
         </div>
       </template>
     </section>
-    <aside
-      v-if="sources.length"
-      class="theory-sources"
-      aria-label="Источники и дополнительное чтение"
-    >
-      <h2>Продолжить изучение</h2>
-      <p>
-        Глава написана для JSlab. В первоисточниках можно уточнить детали API и
-        изучить дополнительные случаи.
-      </p>
-      <ul>
-        <li v-for="source in sources" :key="source.url">
-          <a :href="source.url" target="_blank" rel="noopener noreferrer"
-            >{{ source.title }} ↗</a
-          >
-        </li>
-      </ul>
-    </aside>
   </article>
 </template>

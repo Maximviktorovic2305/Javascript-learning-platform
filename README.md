@@ -95,7 +95,7 @@ Nest организован как `my-songs-site/server`: связанные fe
 
 Материал написан для JavaScript, TypeScript, Express 5 и NestJS 11; Python-контент и Python runtime отсутствуют. Исходная теория находится в `scripts/curriculum/theory/*.md`, карта тем — в `outline.mjs`, задания и вопросы — в файлах `practice-*.mjs` и `base-lessons.json`. Каталог воспроизводимо создаётся командой `node scripts/build-curriculum.mjs`; обычная сборка требует все 60 глав. Эталонные решения и скрытые проверки остаются на backend и не выдаются через публичное API. Подробнее — [CURRICULUM.md](CURRICULUM.md).
 
-В каждой главе есть ссылки на первоисточники: [JavaScript / MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide), [Современный учебник JavaScript](https://learn.javascript.ru/), [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html), [Express](https://expressjs.com/en/guide/routing.html), [NestJS](https://docs.nestjs.com/). Русские объяснения и задания написаны для JSlab; тексты сторонних сайтов не копируются целиком.
+Источники программы: [JavaScript / MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide), [Современный учебник JavaScript](https://learn.javascript.ru/), [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html), [Express](https://expressjs.com/en/guide/routing.html), [NestJS](https://docs.nestjs.com/). Русские объяснения и задания написаны для JSlab; тексты сторонних сайтов не копируются целиком.
 
 ## Музыка и поддержка автора
 

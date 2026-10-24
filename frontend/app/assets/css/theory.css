@@ -34,8 +34,7 @@
   color: var(--muted);
   font-size: 13px;
 }
-.theory-toc a:hover,
-.theory-sources a:hover {
+.theory-toc a:hover {
   color: var(--interaction);
 }
 .theory-section {
@@ -75,22 +74,6 @@
   white-space: pre;
   overflow-wrap: normal;
   font-size: 12px;
-}
-.theory-sources {
-  border-top: 1px solid var(--line);
-  padding-top: 26px;
-  margin: 36px 0;
-}
-.theory-sources h2 {
-  font-size: 20px;
-}
-.theory-sources p {
-  font-size: 12px;
-}
-.theory-sources ul {
-  padding-left: 20px;
-  font-size: 13px;
-  line-height: 2;
 }
 .lesson-sidebar nav {
   max-height: min(65vh, 650px);

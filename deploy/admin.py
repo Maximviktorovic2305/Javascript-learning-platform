@@ -73,6 +73,33 @@ def activate(sha):
         raise
     if old and old != release: link(old,'previous')
     subprocess.run(['systemctl','enable',*SERVICES],check=True)
+    retain()
+
+
+def retain():
+    kept = set()
+    for name in ['current', 'previous']:
+        link = APP / name
+        if not link.is_symlink(): raise ValueError('Missing rollback link')
+        release = link.resolve(strict=True)
+        if release.parent != APP / 'releases': raise ValueError('Unsafe rollback link')
+        path(release.name, 'releases')
+        if not (path(release.name, 'runtime') / 'ready').is_file():
+            raise ValueError('Incomplete retained runtime')
+        kept.add(release.name)
+    if len(kept) != 2: raise ValueError('Two distinct releases are required')
+    for runtime in (APP / 'runtime').iterdir():
+        if runtime.name not in kept:
+            shutil.rmtree(path(runtime.name, 'runtime'))
+    for release in (APP / 'releases').iterdir():
+        if release.name in kept: continue
+        path(release.name, 'releases')
+        status = subprocess.check_output(['runuser', '-u', 'max', '--', 'git', '-C', str(release), 'status', '--porcelain', '--untracked-files=no'], text=True)
+        if status.strip():
+            print('Preserved modified worktree ' + release.name)
+            continue
+        subprocess.run(['runuser', '-u', 'max', '--', 'git', '-C', str(APP / 'repo'), 'worktree', 'remove', '--force', str(release)], check=True)
+    print('Retained current JSlab release and one rollback')
 
 def backup():
     root=Path('/var/backups/jslab');root.mkdir(mode=0o700,exist_ok=True)
@@ -93,6 +120,7 @@ if __name__=='__main__':
     args=sys.argv[1:]
     if args==['health']:health()
     elif args==['backup']:backup()
+    elif args==['retain']:health();retain()
     elif len(args)==2 and args[0]=='activate':activate(args[1])
     elif len(args)==2 and args[0]=='migrate':
         release=path(args[1],'releases')

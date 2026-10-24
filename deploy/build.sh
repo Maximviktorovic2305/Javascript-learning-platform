@@ -35,4 +35,6 @@ cp runner/{server,docker,nsjail}.mjs "$app/runtime/$sha/runner/"
 find "$app/runtime/$sha" -type d -exec chmod 755 {} +
 find "$app/runtime/$sha" -type f -exec chmod a+r {} +
 touch "$app/runtime/$sha/ready"
+# Production runs the copied standalone bundle; frontend build dependencies are regenerable.
+rm -rf -- "$release/frontend/.output" "$release/frontend/node_modules"
 printf 'Built native release %s\n' "$sha"

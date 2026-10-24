@@ -122,6 +122,7 @@ onBeforeUnmount(() => {
 }
 .analytics-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   flex-shrink: 0;
 }

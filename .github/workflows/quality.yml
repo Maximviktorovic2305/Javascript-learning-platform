@@ -37,6 +37,7 @@ jobs:
       - run: npm run typecheck
       - run: npm --prefix backend run lint
       - run: npm test
+      - run: python3 -m unittest discover -s deploy/test
       - run: npm --prefix backend run db:migrate
       - run: npm --prefix backend run test:e2e -- --runInBand
       - run: npm run build

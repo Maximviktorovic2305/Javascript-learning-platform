@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs><pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#ffffff" stroke-opacity=".045"/></pattern></defs>
+  <rect width="1200" height="630" fill="#111510"/><rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="1160" cy="550" r="260" fill="#c6e65b" opacity=".055"/><circle cx="1160" cy="550" r="195" fill="none" stroke="#c6e65b" stroke-opacity=".15"/>
+  <rect x="68" y="58" width="76" height="76" rx="13" fill="#c6e65b"/>
+  <g font-family="Arial, sans-serif"><text x="106" y="111" fill="#111510" font-weight="700" font-size="43" text-anchor="middle">JS</text>
+  <text x="163" y="109" fill="#f4f6ec" font-size="42" font-weight="700">JSlab</text>
+  <text x="70" y="219" fill="#c6e65b" font-size="25">JavaScript · TypeScript · Express · NestJS</text>
+  <text x="66" y="325" fill="#f4f6ec" font-size="62" font-weight="700">Учись. Пиши код. Создавай.</text>
+  <text x="70" y="393" fill="#c8cebf" font-size="29">Полный курс бесплатно · практика · тесты</text>
+  <path d="M70 483H1130" stroke="#ffffff" stroke-opacity=".16"/>
+  <text x="70" y="550" fill="#e8eddf" font-size="26">js-lab.site</text><text x="1128" y="554" text-anchor="end" fill="#c6e65b" font-size="43">↗</text></g></svg>

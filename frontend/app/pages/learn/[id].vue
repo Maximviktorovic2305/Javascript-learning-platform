@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Lesson, Track } from '#shared/types/api'
+import { breadcrumb, canonicalUrl, PUBLISHER } from '#shared/seo'
 const route = useRoute()
 definePageMeta({ key: (route) => route.params.id as string })
 const id = String(route.params.id)
@@ -11,6 +12,11 @@ const {
 } = await useFetch<Lesson>(`/api/catalog/lessons/${encodeURIComponent(id)}`)
 if (error.value?.statusCode === 404)
   throw createError({ statusCode: 404, statusMessage: 'Тема не найдена' })
+if (import.meta.server && error.value)
+  throw createError({
+    statusCode: 503,
+    statusMessage: 'Урок временно недоступен',
+  })
 const { data: tracks } = await useFetch<Track[]>('/api/catalog/tracks')
 const track = computed(() =>
   tracks.value?.find((t) => t.id === lesson.value?.trackId),
@@ -31,10 +37,44 @@ const api = useApi()
 const reading = ref(false)
 const message = ref('')
 const readError = ref('')
-useSeoMeta({
-  title: () => lesson.value?.title ?? 'Урок',
+usePageSeo({
+  title: () =>
+    lesson.value
+      ? `${lesson.value.title} — ${track.value?.name ?? 'Урок'}`
+      : 'Урок',
   description: () => lesson.value?.summary,
 })
+useJsonLd('lesson', () =>
+  lesson.value
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'LearningResource',
+        name: lesson.value.title,
+        description: lesson.value.summary,
+        url: canonicalUrl(`/learn/${id}`),
+        inLanguage: 'ru',
+        isAccessibleForFree: true,
+        learningResourceType: 'Урок с практикой и тестами',
+        provider: PUBLISHER,
+        isPartOf: {
+          '@type': 'Course',
+          '@id': `${canonicalUrl(`/courses/${lesson.value.trackId}`)}#course`,
+          name: `Курс ${track.value?.name ?? lesson.value.trackId}`,
+        },
+      }
+    : {},
+)
+useJsonLd('breadcrumbs', () =>
+  breadcrumb([
+    { name: 'JSlab', path: '/' },
+    { name: 'Курсы', path: '/courses' },
+    {
+      name: track.value?.name ?? 'Курс',
+      path: `/courses/${lesson.value?.trackId ?? 'javascript'}`,
+    },
+    { name: lesson.value?.title ?? 'Урок', path: `/learn/${id}` },
+  ]),
+)
 watch(
   () => route.query.step,
   (value) => {

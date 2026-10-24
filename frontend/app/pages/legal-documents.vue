@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { LEGAL_LINKS } from "~/utils/legal";
-useSeoMeta({
-  title: "Правовые документы — JSlab",
+import { LEGAL_LINKS } from '~/utils/legal'
+usePageSeo({
+  title: 'Правовые документы — JSlab',
   description:
-    "Условия использования JSlab, политика конфиденциальности, cookie и согласие на обработку данных.",
-});
+    'Условия использования JSlab, политика конфиденциальности, cookie и согласие на обработку данных.',
+})
 </script>
 <template>
   <div class="container documents-page">

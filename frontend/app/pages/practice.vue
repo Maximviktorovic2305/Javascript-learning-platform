@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ExerciseSummary, TrackId } from '#shared/types/api'
-useSeoMeta({
+usePageSeo({
   title: 'Практика',
   description:
     'Задачи на JavaScript и TypeScript, практика Express и NestJS с проверкой решений.',
@@ -8,6 +8,11 @@ useSeoMeta({
 const { data, status, error, refresh } = await useFetch<ExerciseSummary[]>(
   '/api/catalog/exercises',
 )
+if (import.meta.server && error.value)
+  throw createError({
+    statusCode: 503,
+    statusMessage: 'Практика временно недоступна',
+  })
 const search = ref('')
 const selected = ref<'all' | TrackId>('all')
 const state = ref('all')
@@ -17,7 +22,12 @@ function resetFilters() {
   state.value = 'all'
 }
 const { user } = useSession()
-watch(() => user.value?.id, () => { state.value = 'all' })
+watch(
+  () => user.value?.id,
+  () => {
+    state.value = 'all'
+  },
+)
 const {
   data: progress,
   status: progressStatus,

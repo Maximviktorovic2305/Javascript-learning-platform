@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { User, Track } from '#shared/types/api'
 definePageMeta({ layout: 'workspace', middleware: 'auth' })
-useSeoMeta({ title: 'Профиль', robots: 'noindex' })
+usePageSeo({ title: 'Профиль', robots: 'noindex' })
 const { user, clear } = useSession()
 const api = useApi()
 const {

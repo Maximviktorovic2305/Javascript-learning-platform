@@ -6,7 +6,7 @@ const mode = computed(() =>
 );
 if (!["register", "login"].includes(String(route.params.mode)))
   throw createError({ statusCode: 404, statusMessage: "Страница не найдена" });
-useSeoMeta({
+usePageSeo({
   title: () => (mode.value === "register" ? "Создать аккаунт" : "Войти"),
 });
 const { signIn } = useSession();

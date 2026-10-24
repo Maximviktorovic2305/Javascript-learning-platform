@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { LEGAL_DOCUMENTS } from "~/utils/legal";
-const props = defineProps<{ document: keyof typeof LEGAL_DOCUMENTS }>();
-const content = computed(() => LEGAL_DOCUMENTS[props.document]);
-useSeoMeta({
+import { LEGAL_DOCUMENTS } from '~/utils/legal'
+const props = defineProps<{ document: keyof typeof LEGAL_DOCUMENTS }>()
+const content = computed(() => LEGAL_DOCUMENTS[props.document])
+usePageSeo({
   title: () => `${content.value.title} — JSlab`,
   description: () => content.value.sections[0].paragraphs[0],
-});
+})
 </script>
 <template>
   <article class="legal-page container">

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-useSeoMeta({
-  title: "Cookie и настройки приватности — JSlab",
+usePageSeo({
+  title: 'Cookie и настройки приватности — JSlab',
   description:
-    "Какие cookie и данные локального хранилища использует JSlab и как изменить настройки аналитики.",
-});
+    'Какие cookie и данные локального хранилища использует JSlab и как изменить настройки аналитики.',
+})
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Track } from '#shared/types/api'
 definePageMeta({ layout: 'workspace', middleware: 'auth' })
-useSeoMeta({ title: 'Мой кабинет', robots: 'noindex' })
+usePageSeo({ title: 'Мой кабинет', robots: 'noindex' })
 const { user } = useSession()
 const { data: progress, status, error, refresh } = useProgress()
 const { data: tracks } = await useFetch<Track[]>('/api/catalog/tracks')

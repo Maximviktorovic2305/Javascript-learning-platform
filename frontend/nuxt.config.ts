@@ -26,8 +26,16 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    '/dashboard': { ssr: false },
-    '/profile': { ssr: false },
+    '/dashboard': {
+      ssr: false,
+      headers: { 'X-Robots-Tag': 'noindex, nofollow' },
+    },
+    '/profile': {
+      ssr: false,
+      headers: { 'X-Robots-Tag': 'noindex, nofollow' },
+    },
+    '/auth/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+    '/api/**': { headers: { 'X-Robots-Tag': 'noindex' } },
     '/**': {
       headers: {
         'X-Content-Type-Options': 'nosniff',

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Track } from '#shared/types/api'
-useSeoMeta({
+import { courseSchema } from '#shared/seo'
+usePageSeo({
   title: 'Курсы',
   description:
     'Последовательный маршрут: JavaScript, TypeScript, Express и NestJS.',
@@ -8,6 +9,20 @@ useSeoMeta({
 const { data, status, error, refresh } = await useFetch<Track[]>(
   '/api/catalog/tracks',
 )
+if (import.meta.server && error.value)
+  throw createError({
+    statusCode: 503,
+    statusMessage: 'Каталог временно недоступен',
+  })
+useJsonLd('courses', () => ({
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: (data.value ?? []).map((track, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    item: courseSchema(track),
+  })),
+}))
 </script>
 <template>
   <div class="container page-content">

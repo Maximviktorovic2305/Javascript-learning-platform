@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Project, ProjectSubmission } from '#shared/types/api'
-useSeoMeta({
+usePageSeo({
   title: 'Проекты',
   description:
     'Закрепите JavaScript, TypeScript, Express и NestJS в самостоятельных проектах.',
@@ -8,6 +8,11 @@ useSeoMeta({
 const { data, status, error, refresh } = await useFetch<Project[]>(
   '/api/catalog/projects',
 )
+if (import.meta.server && error.value)
+  throw createError({
+    statusCode: 503,
+    statusMessage: 'Проекты временно недоступны',
+  })
 const { user } = useSession()
 const api = useApi()
 const { data: submissions, refresh: refreshSubmissions } = useAsyncData(

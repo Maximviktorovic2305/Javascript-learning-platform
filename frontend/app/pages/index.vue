@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Track } from '#shared/types/api'
-useSeoMeta({
+usePageSeo({
   title: 'JavaScript и TypeScript бесплатно',
   description:
     'Бесплатные курсы JavaScript и TypeScript: полный доступ к программе, практике и проектам без подписок и оплаты. Дополнительные направления — Express и NestJS.',
@@ -11,6 +11,11 @@ const {
   error,
   refresh,
 } = await useFetch<Track[]>('/api/catalog/tracks')
+if (import.meta.server && error.value)
+  throw createError({
+    statusCode: 503,
+    statusMessage: 'Каталог временно недоступен',
+  })
 </script>
 <template>
   <HeroScene />

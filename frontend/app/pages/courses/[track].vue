@@ -1,18 +1,35 @@
 <script setup lang="ts">
 import type { Track } from '#shared/types/api'
+import { breadcrumb, courseSchema } from '#shared/seo'
 const route = useRoute()
 const { data, status, error, refresh } = await useFetch<Track[]>(
   '/api/catalog/tracks',
 )
+if (import.meta.server && error.value)
+  throw createError({
+    statusCode: 503,
+    statusMessage: 'Каталог временно недоступен',
+  })
 const track = computed(() =>
   data.value?.find((t) => t.id === route.params.track),
 )
 if (data.value && !track.value)
   throw createError({ statusCode: 404, statusMessage: 'Курс не найден' })
-useSeoMeta({
-  title: () => track.value?.name ?? 'Курс',
+usePageSeo({
+  title: () =>
+    track.value
+      ? `Курс ${track.value.name} бесплатно — теория и практика`
+      : 'Курс',
   description: () => track.value?.description,
 })
+useJsonLd('course', () => (track.value ? courseSchema(track.value) : {}))
+useJsonLd('breadcrumbs', () =>
+  breadcrumb([
+    { name: 'JSlab', path: '/' },
+    { name: 'Курсы', path: '/courses' },
+    { name: track.value?.name ?? 'Курс', path: route.path },
+  ]),
+)
 const { user } = useSession()
 const {
   data: progress,

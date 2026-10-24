@@ -1,0 +1,1869 @@
+[
+  {
+    "id": "javascript-values",
+    "trackId": "javascript",
+    "title": "Значения и переменные",
+    "summary": "Различайте const и let, работайте с числами и шаблонными строками.",
+    "exercise": {
+      "id": "javascript-values",
+      "title": "Значения и переменные",
+      "prompt": "Верните строку «Привет, ИМЯ!», подставив переданное имя. Не выводите результат вместо return.",
+      "language": "javascript",
+      "runtime": "universal",
+      "starterCode": "function solve(name) {\n  // Напишите решение здесь\n}\n",
+      "solution": "function solve(name) { return `Привет, ${name}!`; }",
+      "tests": [
+        {
+          "input": [
+            "Мир"
+          ],
+          "expected": "Привет, Мир!"
+        },
+        {
+          "input": [
+            "Анна"
+          ],
+          "expected": "Привет, Анна!"
+        },
+        {
+          "input": [
+            "JS"
+          ],
+          "expected": "Привет, JS!"
+        }
+      ],
+      "hint": "Используйте return и шаблонную строку."
+    },
+    "questions": [
+      {
+        "id": "javascript-values-1",
+        "prompt": "Что произойдёт при const n = 1; n = 2?",
+        "options": [
+          "n станет 2",
+          "Возникнет TypeError",
+          "const превратится в let"
+        ],
+        "answer": 1,
+        "explanation": "Присваивать новое значение const нельзя."
+      },
+      {
+        "id": "javascript-values-2",
+        "prompt": "Что вернёт typeof 42?",
+        "options": [
+          "\"number\"",
+          "\"integer\"",
+          "42"
+        ],
+        "answer": 0,
+        "explanation": "В JavaScript обычные числовые значения имеют тип number."
+      },
+      {
+        "id": "javascript-values-3",
+        "prompt": "Можно ли выполнить const a = []; a.push(1)?",
+        "options": [
+          "Нет: const замораживает массив",
+          "Да: ссылка не переназначается",
+          "Только в strict mode"
+        ],
+        "answer": 1,
+        "explanation": "const запрещает переназначение переменной, а не изменение содержимого объекта."
+      }
+    ]
+  },
+  {
+    "id": "javascript-conditions",
+    "trackId": "javascript",
+    "title": "Условия и сравнения",
+    "summary": "Стройте ветвления и различайте строгое равенство и приведение типов.",
+    "exercise": {
+      "id": "javascript-conditions",
+      "title": "Условия и сравнения",
+      "prompt": "Верните «взрослый» для возраста от 18 включительно, иначе «ребёнок».",
+      "language": "javascript",
+      "runtime": "universal",
+      "starterCode": "function solve(age) {\n  // Напишите решение здесь\n}\n",
+      "solution": "function solve(age) { return age >= 18 ? \"взрослый\" : \"ребёнок\"; }",
+      "tests": [
+        {
+          "input": [
+            18
+          ],
+          "expected": "взрослый"
+        },
+        {
+          "input": [
+            17
+          ],
+          "expected": "ребёнок"
+        },
+        {
+          "input": [
+            0
+          ],
+          "expected": "ребёнок"
+        },
+        {
+          "input": [
+            80
+          ],
+          "expected": "взрослый"
+        }
+      ],
+      "hint": "Граница 18 относится к первой ветке."
+    },
+    "questions": [
+      {
+        "id": "javascript-conditions-1",
+        "prompt": "Чему равно \"5\" === 5?",
+        "options": [
+          "true",
+          "false",
+          "undefined"
+        ],
+        "answer": 1,
+        "explanation": "Операнды имеют разные типы."
+      },
+      {
+        "id": "javascript-conditions-2",
+        "prompt": "Какое значение истинно в условии if?",
+        "options": [
+          "0",
+          "Пустая строка",
+          "Пустой массив []"
+        ],
+        "answer": 2,
+        "explanation": "Массивы — объекты, и объекты truthy, даже когда пусты."
+      },
+      {
+        "id": "javascript-conditions-3",
+        "prompt": "Чему равно false || \"fallback\"?",
+        "options": [
+          "true",
+          "\"fallback\"",
+          "false"
+        ],
+        "answer": 1,
+        "explanation": "|| возвращает правый операнд, если левый falsy."
+      }
+    ]
+  },
+  {
+    "id": "javascript-functions",
+    "trackId": "javascript",
+    "title": "Функции и область видимости",
+    "summary": "Передавайте аргументы, возвращайте значения и используйте замыкания.",
+    "exercise": {
+      "id": "javascript-functions",
+      "title": "Функции и область видимости",
+      "prompt": "Верните сумму квадратов двух переданных чисел a и b.",
+      "language": "javascript",
+      "runtime": "universal",
+      "starterCode": "function solve(a, b) {\n  // Напишите решение здесь\n}\n",
+      "solution": "function solve(a, b) { return a ** 2 + b ** 2; }",
+      "tests": [
+        {
+          "input": [
+            3,
+            4
+          ],
+          "expected": 25
+        },
+        {
+          "input": [
+            0,
+            0
+          ],
+          "expected": 0
+        },
+        {
+          "input": [
+            -2,
+            3
+          ],
+          "expected": 13
+        },
+        {
+          "input": [
+            1,
+            1
+          ],
+          "expected": 2
+        }
+      ],
+      "hint": "Возведение в квадрат записывается как x ** 2."
+    },
+    "questions": [
+      {
+        "id": "javascript-functions-1",
+        "prompt": "Что возвращает функция без return?",
+        "options": [
+          "null",
+          "undefined",
+          "0"
+        ],
+        "answer": 1,
+        "explanation": "Без явного return результат — undefined."
+      },
+      {
+        "id": "javascript-functions-2",
+        "prompt": "Что сохраняет замыкание?",
+        "options": [
+          "Доступ к лексическому окружению",
+          "Копию всего процесса",
+          "Только имя функции"
+        ],
+        "answer": 0,
+        "explanation": "Функция продолжает обращаться к переменным внешней области видимости."
+      },
+      {
+        "id": "javascript-functions-3",
+        "prompt": "Где доступна переменная let внутри блока if?",
+        "options": [
+          "Во всех модулях",
+          "Только в её блоке и вложенных областях",
+          "Только в console.log"
+        ],
+        "answer": 1,
+        "explanation": "let имеет блочную область видимости."
+      }
+    ]
+  },
+  {
+    "id": "javascript-arrays",
+    "trackId": "javascript",
+    "title": "Массивы и преобразования",
+    "summary": "Используйте map, filter и reduce для обработки коллекций.",
+    "exercise": {
+      "id": "javascript-arrays",
+      "title": "Массивы и преобразования",
+      "prompt": "Верните сумму только положительных чисел массива. Для пустого массива верните 0. Исходный массив не изменяйте.",
+      "language": "javascript",
+      "runtime": "universal",
+      "starterCode": "function solve(values) {\n  // Напишите решение здесь\n}\n",
+      "solution": "function solve(values) { return values.filter(n => n > 0).reduce((sum, n) => sum + n, 0); }",
+      "tests": [
+        {
+          "input": [
+            [
+              1,
+              -2,
+              3,
+              0
+            ]
+          ],
+          "expected": 4
+        },
+        {
+          "input": [
+            []
+          ],
+          "expected": 0
+        },
+        {
+          "input": [
+            [
+              -4,
+              -1
+            ]
+          ],
+          "expected": 0
+        },
+        {
+          "input": [
+            [
+              2,
+              2,
+              5
+            ]
+          ],
+          "expected": 9
+        }
+      ],
+      "hint": "Отфильтруйте положительные числа и сложите их с начальным 0."
+    },
+    "questions": [
+      {
+        "id": "javascript-arrays-1",
+        "prompt": "Какой метод оставляет элементы по условию?",
+        "options": [
+          "map",
+          "filter",
+          "push"
+        ],
+        "answer": 1,
+        "explanation": "filter использует предикат и возвращает новый массив."
+      },
+      {
+        "id": "javascript-arrays-2",
+        "prompt": "Чему равно [1,2,3].map(n => n * 2)?",
+        "options": [
+          "6",
+          "[1,2,3,2]",
+          "[2,4,6]"
+        ],
+        "answer": 2,
+        "explanation": "map возвращает новый массив результатов вызова callback."
+      },
+      {
+        "id": "javascript-arrays-3",
+        "prompt": "Как безопасно суммировать пустой массив?",
+        "options": [
+          "values.reduce((a,b)=>a+b, 0)",
+          "values.reduce((a,b)=>a+b)",
+          "values.push(0)"
+        ],
+        "answer": 0,
+        "explanation": "Начальное значение 0 определяет результат reduce для пустой коллекции."
+      }
+    ]
+  },
+  {
+    "id": "javascript-objects",
+    "trackId": "javascript",
+    "title": "Объекты и деструктуризация",
+    "summary": "Читайте свойства, копируйте объекты и применяйте optional chaining.",
+    "exercise": {
+      "id": "javascript-objects",
+      "title": "Объекты и деструктуризация",
+      "prompt": "Верните name объекта user; если user равен null или name отсутствует/null, верните «Гость». Пустое имя сохраняйте.",
+      "language": "javascript",
+      "runtime": "universal",
+      "starterCode": "function solve(user) {\n  // Напишите решение здесь\n}\n",
+      "solution": "function solve(user) { return user?.name ?? \"Гость\"; }",
+      "tests": [
+        {
+          "input": [
+            {
+              "name": "Ира"
+            }
+          ],
+          "expected": "Ира"
+        },
+        {
+          "input": [
+            null
+          ],
+          "expected": "Гость"
+        },
+        {
+          "input": [
+            {}
+          ],
+          "expected": "Гость"
+        },
+        {
+          "input": [
+            {
+              "name": ""
+            }
+          ],
+          "expected": ""
+        }
+      ],
+      "hint": "Совместите ?. и ??."
+    },
+    "questions": [
+      {
+        "id": "javascript-objects-1",
+        "prompt": "Чему равно 0 ?? 10?",
+        "options": [
+          "10",
+          "0",
+          "null"
+        ],
+        "answer": 1,
+        "explanation": "?? заменяет только null и undefined."
+      },
+      {
+        "id": "javascript-objects-2",
+        "prompt": "Создаёт ли {...user} независимую копию вложенного user.settings?",
+        "options": [
+          "Да, глубокую",
+          "Нет, копия поверхностная",
+          "Только для const"
+        ],
+        "answer": 1,
+        "explanation": "Вложенный объект остаётся общей ссылкой."
+      },
+      {
+        "id": "javascript-objects-3",
+        "prompt": "Что вернёт null?.name?",
+        "options": [
+          "Выбросит TypeError",
+          "Строку \"null\"",
+          "undefined"
+        ],
+        "answer": 2,
+        "explanation": "Optional chaining завершает доступ, когда получатель null или undefined."
+      }
+    ]
+  },
+  {
+    "id": "javascript-async",
+    "trackId": "javascript",
+    "title": "Промисы и async/await",
+    "summary": "Пишите асинхронные функции и запускайте независимые операции вместе.",
+    "exercise": {
+      "id": "javascript-async",
+      "title": "Промисы и async/await",
+      "prompt": "Асинхронно удвойте каждый элемент массива с Promise.all и верните массив результатов в исходном порядке.",
+      "language": "javascript",
+      "runtime": "universal",
+      "starterCode": "async function solve(values) {\n  // Напишите решение здесь\n}\n",
+      "solution": "async function solve(values) { return Promise.all(values.map(async n => n * 2)); }",
+      "tests": [
+        {
+          "input": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            2,
+            4,
+            6
+          ]
+        },
+        {
+          "input": [
+            []
+          ],
+          "expected": []
+        },
+        {
+          "input": [
+            [
+              -1,
+              0
+            ]
+          ],
+          "expected": [
+            -2,
+            0
+          ]
+        }
+      ],
+      "hint": "Передайте в Promise.all результат map с async-функцией."
+    },
+    "questions": [
+      {
+        "id": "javascript-async-1",
+        "prompt": "Что возвращает async-функция?",
+        "options": [
+          "Всегда строку",
+          "Promise",
+          "Только undefined"
+        ],
+        "answer": 1,
+        "explanation": "Даже обычный return внутри async упаковывается в Promise."
+      },
+      {
+        "id": "javascript-async-2",
+        "prompt": "Как Promise.all упорядочивает результаты?",
+        "options": [
+          "По скорости завершения",
+          "В порядке входных промисов",
+          "Случайным образом"
+        ],
+        "answer": 1,
+        "explanation": "Результаты сохраняют порядок переданных промисов."
+      },
+      {
+        "id": "javascript-async-3",
+        "prompt": "Отменяет ли отклонение Promise.all остальные операции?",
+        "options": [
+          "Да, всегда",
+          "Нет, само по себе не отменяет",
+          "Только таймеры"
+        ],
+        "answer": 1,
+        "explanation": "Для отмены нужна отдельная координация, например AbortController."
+      }
+    ]
+  },
+  {
+    "id": "javascript-errors",
+    "trackId": "javascript",
+    "title": "Ошибки и надёжный JSON",
+    "summary": "Обрабатывайте исключения и отделяйте некорректные данные от корректных.",
+    "exercise": {
+      "id": "javascript-errors",
+      "title": "Ошибки и надёжный JSON",
+      "prompt": "Разберите JSON-строку и верните значение. При ошибке разбора верните null.",
+      "language": "javascript",
+      "runtime": "universal",
+      "starterCode": "function solve(text) {\n  // Напишите решение здесь\n}\n",
+      "solution": "function solve(text) { try { return JSON.parse(text); } catch { return null; } }",
+      "tests": [
+        {
+          "input": [
+            "{\"a\":1}"
+          ],
+          "expected": {
+            "a": 1
+          }
+        },
+        {
+          "input": [
+            "broken"
+          ],
+          "expected": null
+        },
+        {
+          "input": [
+            "[1,2]"
+          ],
+          "expected": [
+            1,
+            2
+          ]
+        },
+        {
+          "input": [
+            "false"
+          ],
+          "expected": false
+        }
+      ],
+      "hint": "Выполните JSON.parse внутри try и верните null из catch."
+    },
+    "questions": [
+      {
+        "id": "javascript-errors-1",
+        "prompt": "Как ведёт себя JSON.parse при ошибке синтаксиса?",
+        "options": [
+          "Возвращает false",
+          "Выбрасывает исключение",
+          "Возвращает {}"
+        ],
+        "answer": 1,
+        "explanation": "Некорректный JSON вызывает SyntaxError."
+      },
+      {
+        "id": "javascript-errors-2",
+        "prompt": "Выполнится ли finally после return в try?",
+        "options": [
+          "Да",
+          "Нет",
+          "Только при исключении"
+        ],
+        "answer": 0,
+        "explanation": "finally выполняется и на пути возврата результата."
+      },
+      {
+        "id": "javascript-errors-3",
+        "prompt": "Как поймать отклонение промиса через try/catch?",
+        "options": [
+          "Запустить его без await",
+          "Вызвать console.log",
+          "Использовать await внутри try"
+        ],
+        "answer": 2,
+        "explanation": "При await отклонение промиса становится исключением в текущей async-функции."
+      }
+    ]
+  },
+  {
+    "id": "javascript-collections",
+    "trackId": "javascript",
+    "title": "Map, Set и модули",
+    "summary": "Убирайте дубликаты и разделяйте код на модули с явными зависимостями.",
+    "exercise": {
+      "id": "javascript-collections",
+      "title": "Map, Set и модули",
+      "prompt": "Верните массив уникальных строк в порядке первого появления.",
+      "language": "javascript",
+      "runtime": "universal",
+      "starterCode": "function solve(values) {\n  // Напишите решение здесь\n}\n",
+      "solution": "function solve(values) { return [...new Set(values)]; }",
+      "tests": [
+        {
+          "input": [
+            [
+              "js",
+              "ts",
+              "js"
+            ]
+          ],
+          "expected": [
+            "js",
+            "ts"
+          ]
+        },
+        {
+          "input": [
+            []
+          ],
+          "expected": []
+        },
+        {
+          "input": [
+            [
+              "a",
+              "a",
+              "b",
+              "a"
+            ]
+          ],
+          "expected": [
+            "a",
+            "b"
+          ]
+        }
+      ],
+      "hint": "Создайте Set, затем разверните его в массив."
+    },
+    "questions": [
+      {
+        "id": "javascript-collections-1",
+        "prompt": "Какой тип коллекции хранит уникальные значения?",
+        "options": [
+          "Array",
+          "Set",
+          "Promise"
+        ],
+        "answer": 1,
+        "explanation": "Set сохраняет каждое значение только один раз."
+      },
+      {
+        "id": "javascript-collections-2",
+        "prompt": "Сколько элементов в new Set([1,1,2])?",
+        "options": [
+          "3",
+          "2",
+          "1"
+        ],
+        "answer": 1,
+        "explanation": "Два уникальных числа: 1 и 2."
+      },
+      {
+        "id": "javascript-collections-3",
+        "prompt": "Как публикуют значение в ES-модуле?",
+        "options": [
+          "export",
+          "require",
+          "console.log"
+        ],
+        "answer": 0,
+        "explanation": "export объявляет публичный API ES-модуля; require относится к CommonJS."
+      }
+    ]
+  },
+  {
+    "id": "typescript-types",
+    "trackId": "typescript",
+    "title": "Типы и вывод TypeScript",
+    "summary": "Добавляйте статические контракты без потери вывода типов.",
+    "exercise": {
+      "id": "typescript-types",
+      "title": "Типы и вывод TypeScript",
+      "prompt": "Объявите типизированную функцию, которая возвращает произведение price и quantity.",
+      "language": "typescript",
+      "runtime": "universal",
+      "starterCode": "function solve(price: number, quantity: number): number {\n  // Напишите решение здесь\n}\n",
+      "solution": "function solve(price: number, quantity: number): number { return price * quantity; }",
+      "tests": [
+        {
+          "input": [
+            20,
+            3
+          ],
+          "expected": 60
+        },
+        {
+          "input": [
+            0,
+            10
+          ],
+          "expected": 0
+        },
+        {
+          "input": [
+            12.5,
+            2
+          ],
+          "expected": 25
+        }
+      ],
+      "hint": "У параметров и результата используйте number."
+    },
+    "questions": [
+      {
+        "id": "typescript-types-1",
+        "prompt": "Что происходит с аннотациями типов при компиляции?",
+        "options": [
+          "Они остаются проверками в JS",
+          "Они удаляются",
+          "Они становятся JSON"
+        ],
+        "answer": 1,
+        "explanation": "Аннотации отсутствуют в исполняемом JavaScript."
+      },
+      {
+        "id": "typescript-types-2",
+        "prompt": "Проверит ли x as User JSON-объект во время исполнения?",
+        "options": [
+          "Да",
+          "Нет",
+          "Только со strict"
+        ],
+        "answer": 1,
+        "explanation": "Утверждение типа не добавляет runtime-проверок."
+      },
+      {
+        "id": "typescript-types-3",
+        "prompt": "Какой тип выводится у let n = 5?",
+        "options": [
+          "string",
+          "boolean",
+          "number"
+        ],
+        "answer": 2,
+        "explanation": "Из числового начального значения выводится number."
+      }
+    ]
+  },
+  {
+    "id": "typescript-unions",
+    "trackId": "typescript",
+    "title": "Union и сужение типов",
+    "summary": "Обрабатывайте несколько типов безопасными ветвлениями.",
+    "exercise": {
+      "id": "typescript-unions",
+      "title": "Union и сужение типов",
+      "prompt": "Для строки верните её длину, для числа — само число.",
+      "language": "typescript",
+      "runtime": "universal",
+      "starterCode": "function solve(value: string | number): number {\n  // Напишите решение здесь\n}\n",
+      "solution": "function solve(value: string | number): number { return typeof value === \"string\" ? value.length : value; }",
+      "tests": [
+        {
+          "input": [
+            "hello"
+          ],
+          "expected": 5
+        },
+        {
+          "input": [
+            7
+          ],
+          "expected": 7
+        },
+        {
+          "input": [
+            ""
+          ],
+          "expected": 0
+        },
+        {
+          "input": [
+            -2
+          ],
+          "expected": -2
+        }
+      ],
+      "hint": "Используйте typeof и две ветки."
+    },
+    "questions": [
+      {
+        "id": "typescript-unions-1",
+        "prompt": "Какая проверка сузит string | number до string?",
+        "options": [
+          "value as string",
+          "typeof value === \"string\"",
+          "String(value) без условия"
+        ],
+        "answer": 1,
+        "explanation": "typeof создаёт проверяемое ветвление."
+      },
+      {
+        "id": "typescript-unions-2",
+        "prompt": "Можно ли вызвать toUpperCase у string | number до сужения?",
+        "options": [
+          "Да, оба типа поддерживают",
+          "Нет, нужно сузить до string",
+          "Только с const"
+        ],
+        "answer": 1,
+        "explanation": "Число не имеет метода toUpperCase."
+      },
+      {
+        "id": "typescript-unions-3",
+        "prompt": "Что использовать для проверки массива?",
+        "options": [
+          "Array.isArray(value)",
+          "typeof value === \"array\"",
+          "value as []"
+        ],
+        "answer": 0,
+        "explanation": "typeof массива возвращает object; Array.isArray проверяет массив во время исполнения."
+      }
+    ]
+  },
+  {
+    "id": "typescript-interfaces",
+    "trackId": "typescript",
+    "title": "Интерфейсы и optional-свойства",
+    "summary": "Описывайте форму объектов и значения по умолчанию.",
+    "exercise": {
+      "id": "typescript-interfaces",
+      "title": "Интерфейсы и optional-свойства",
+      "prompt": "Объект содержит price: number и discount?: number. Верните price - discount, считая отсутствующую скидку нулевой.",
+      "language": "typescript",
+      "runtime": "universal",
+      "starterCode": "function solve(item: { price: number; discount?: number }): number {\n  // Напишите решение здесь\n}\n",
+      "solution": "function solve(item: { price: number; discount?: number }): number { return item.price - (item.discount ?? 0); }",
+      "tests": [
+        {
+          "input": [
+            {
+              "price": 100,
+              "discount": 20
+            }
+          ],
+          "expected": 80
+        },
+        {
+          "input": [
+            {
+              "price": 50
+            }
+          ],
+          "expected": 50
+        },
+        {
+          "input": [
+            {
+              "price": 0,
+              "discount": 0
+            }
+          ],
+          "expected": 0
+        }
+      ],
+      "hint": "Сгруппируйте discount ?? 0 скобками."
+    },
+    "questions": [
+      {
+        "id": "typescript-interfaces-1",
+        "prompt": "Какой тип имеет чтение optional visits?: number в strict-режиме?",
+        "options": [
+          "Всегда number",
+          "number | undefined",
+          "Всегда null"
+        ],
+        "answer": 1,
+        "explanation": "Optional-свойство может отсутствовать."
+      },
+      {
+        "id": "typescript-interfaces-2",
+        "prompt": "Замораживает ли readonly объект во время исполнения?",
+        "options": [
+          "Да",
+          "Нет",
+          "Только вложенные поля"
+        ],
+        "answer": 1,
+        "explanation": "readonly — статическое ограничение записи, а не Object.freeze."
+      },
+      {
+        "id": "typescript-interfaces-3",
+        "prompt": "На чём основана совместимость объектов TypeScript?",
+        "options": [
+          "Только на имени interface",
+          "На порядке объявления",
+          "На структуре свойств"
+        ],
+        "answer": 2,
+        "explanation": "TypeScript использует структурную систему типов."
+      }
+    ]
+  },
+  {
+    "id": "typescript-generics",
+    "trackId": "typescript",
+    "title": "Обобщённые функции",
+    "summary": "Сохраняйте связь между типом входа и результата.",
+    "exercise": {
+      "id": "typescript-generics",
+      "title": "Обобщённые функции",
+      "prompt": "Верните последний элемент массива. Для пустого массива верните null. Сохраните generic T в сигнатуре.",
+      "language": "typescript",
+      "runtime": "universal",
+      "starterCode": "function solve<T>(items: T[]): T | null {\n  // Напишите решение здесь\n}\n",
+      "solution": "function solve<T>(items: T[]): T | null { return items.length ? items[items.length - 1]! : null; }",
+      "tests": [
+        {
+          "input": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 3
+        },
+        {
+          "input": [
+            [
+              "a",
+              "b"
+            ]
+          ],
+          "expected": "b"
+        },
+        {
+          "input": [
+            []
+          ],
+          "expected": null
+        },
+        {
+          "input": [
+            [
+              false
+            ]
+          ],
+          "expected": false
+        }
+      ],
+      "hint": "Проверьте length до чтения последнего элемента."
+    },
+    "questions": [
+      {
+        "id": "typescript-generics-1",
+        "prompt": "Зачем нужен T в функции first<T>(items: T[]): T | undefined?",
+        "options": [
+          "Чтобы выключить проверку",
+          "Чтобы связать тип элемента входа и результата",
+          "Чтобы вернуть только строку"
+        ],
+        "answer": 1,
+        "explanation": "Тип результата сохраняет тип элемента массива."
+      },
+      {
+        "id": "typescript-generics-2",
+        "prompt": "Какой тип результата у first([\"a\",\"b\"]) из примера?",
+        "options": [
+          "number",
+          "string | undefined",
+          "any"
+        ],
+        "answer": 1,
+        "explanation": "T выводится как string, а функция допускает отсутствие элемента."
+      },
+      {
+        "id": "typescript-generics-3",
+        "prompt": "Что означает T extends {length:number}?",
+        "options": [
+          "Тип T должен иметь числовой length",
+          "T всегда массив",
+          "T отключает проверку"
+        ],
+        "answer": 0,
+        "explanation": "Ограничение требует определённое свойство, не предписывая конкретный класс."
+      }
+    ]
+  },
+  {
+    "id": "typescript-utility",
+    "trackId": "typescript",
+    "title": "Utility types и неизменяемость",
+    "summary": "Используйте Pick, Omit, Partial и Record на границах данных.",
+    "exercise": {
+      "id": "typescript-utility",
+      "title": "Utility types и неизменяемость",
+      "prompt": "Из объекта {id, name, password} верните новый объект только с id и name.",
+      "language": "typescript",
+      "runtime": "universal",
+      "starterCode": "function solve(user: { id: number; name: string; password: string }): { id: number; name: string } {\n  // Напишите решение здесь\n}\n",
+      "solution": "function solve(user: { id: number; name: string; password: string }): { id: number; name: string } { return { id: user.id, name: user.name }; }",
+      "tests": [
+        {
+          "input": [
+            {
+              "id": 1,
+              "name": "Аня",
+              "password": "secret"
+            }
+          ],
+          "expected": {
+            "id": 1,
+            "name": "Аня"
+          }
+        },
+        {
+          "input": [
+            {
+              "id": 2,
+              "name": "JS",
+              "password": "hidden"
+            }
+          ],
+          "expected": {
+            "id": 2,
+            "name": "JS"
+          }
+        }
+      ],
+      "hint": "Перечислите публичные поля вручную, без spread исходного user."
+    },
+    "questions": [
+      {
+        "id": "typescript-utility-1",
+        "prompt": "Удалит ли Omit поле из JSON автоматически?",
+        "options": [
+          "Да",
+          "Нет",
+          "Только при strict"
+        ],
+        "answer": 1,
+        "explanation": "Utility types существуют только во время проверки типов."
+      },
+      {
+        "id": "typescript-utility-2",
+        "prompt": "Что делает Partial<User>?",
+        "options": [
+          "Удаляет поля из объекта",
+          "Делает свойства типа optional",
+          "Замораживает объект"
+        ],
+        "answer": 1,
+        "explanation": "Partial преобразует тип, делая все его свойства необязательными."
+      },
+      {
+        "id": "typescript-utility-3",
+        "prompt": "Что описывает Record<string, number>?",
+        "options": [
+          "Словарь со строковыми ключами и числовыми значениями",
+          "Массив строк",
+          "Только одно число"
+        ],
+        "answer": 0,
+        "explanation": "Record задаёт тип ключей и значений словаря."
+      }
+    ]
+  },
+  {
+    "id": "typescript-unknown",
+    "trackId": "typescript",
+    "title": "unknown и runtime-проверки",
+    "summary": "Проверяйте неизвестные данные до использования.",
+    "exercise": {
+      "id": "typescript-unknown",
+      "title": "unknown и runtime-проверки",
+      "prompt": "Если неизвестное значение — объект с полем name типа string, верните name, иначе null.",
+      "language": "typescript",
+      "runtime": "universal",
+      "starterCode": "function solve(value: unknown): string | null {\n  // Напишите решение здесь\n}\n",
+      "solution": "function solve(value: unknown): string | null { return typeof value === \"object\" && value !== null && \"name\" in value && typeof value.name === \"string\" ? value.name : null; }",
+      "tests": [
+        {
+          "input": [
+            {
+              "name": "TS"
+            }
+          ],
+          "expected": "TS"
+        },
+        {
+          "input": [
+            null
+          ],
+          "expected": null
+        },
+        {
+          "input": [
+            {
+              "name": 7
+            }
+          ],
+          "expected": null
+        },
+        {
+          "input": [
+            "text"
+          ],
+          "expected": null
+        },
+        {
+          "input": [
+            {}
+          ],
+          "expected": null
+        }
+      ],
+      "hint": "Проверьте object, не-null, наличие name и typeof name."
+    },
+    "questions": [
+      {
+        "id": "typescript-unknown-1",
+        "prompt": "Почему typeof value === \"object\" недостаточно?",
+        "options": [
+          "Массивы запрещены в JS",
+          "null также имеет typeof \"object\"",
+          "typeof всегда возвращает boolean"
+        ],
+        "answer": 1,
+        "explanation": "Для null нужна отдельная проверка."
+      },
+      {
+        "id": "typescript-unknown-2",
+        "prompt": "Что требуется перед доступом к свойствам unknown?",
+        "options": [
+          "Присвоить any",
+          "Проверить и сузить тип",
+          "Ничего"
+        ],
+        "answer": 1,
+        "explanation": "unknown требует доказать подходящую форму до использования."
+      },
+      {
+        "id": "typescript-unknown-3",
+        "prompt": "Что означает возвращаемый тип value is User?",
+        "options": [
+          "Гарантию от компилятора независимо от тела",
+          "Преобразование значения в User",
+          "Обещание реализации type guard о проверке User"
+        ],
+        "answer": 2,
+        "explanation": "Разработчик отвечает за корректность runtime-проверки в type predicate."
+      }
+    ]
+  },
+  {
+    "id": "express-routing",
+    "trackId": "express",
+    "title": "Маршруты Express",
+    "summary": "Создайте HTTP-маршрут и верните JSON-ответ.",
+    "exercise": {
+      "id": "express-routing",
+      "title": "Маршруты Express",
+      "prompt": "Создайте Express app с GET /health, возвращающим {ok:true}. В solve выполните запрос через supertest и верните body. express и supertest доступны в серверной песочнице.",
+      "language": "javascript",
+      "runtime": "node",
+      "starterCode": "async function solve() {\n  // Напишите решение здесь\n}\n",
+      "solution": "const express = require(\"express\");\nconst request = require(\"supertest\");\nasync function solve() { const app = express(); app.get(\"/health\", (_req,res)=>res.json({ok:true})); return (await request(app).get(\"/health\")).body; }",
+      "tests": [
+        {
+          "input": [],
+          "expected": {
+            "ok": true
+          }
+        }
+      ],
+      "hint": "Используйте require(\"express\"), require(\"supertest\"), app.get и await request(app).get(...)."
+    },
+    "questions": [
+      {
+        "id": "express-routing-1",
+        "prompt": "Что делает res.json(value)?",
+        "options": [
+          "Читает файл",
+          "Отправляет JSON-ответ",
+          "Перезапускает сервер"
+        ],
+        "answer": 1,
+        "explanation": "res.json сериализует значение в JSON."
+      },
+      {
+        "id": "express-routing-2",
+        "prompt": "Как зарегистрировать обработчик POST /users?",
+        "options": [
+          "app.get(\"POST /users\", handler)",
+          "app.post(\"/users\", handler)",
+          "app.usePost(handler)"
+        ],
+        "answer": 1,
+        "explanation": "Метод app.post соответствует HTTP POST, а путь передаётся отдельно."
+      },
+      {
+        "id": "express-routing-3",
+        "prompt": "Нужен ли app.listen при тестировании приложения через supertest(app)?",
+        "options": [
+          "Нет, supertest управляет тестовым сервером",
+          "Да, всегда на 3000",
+          "Только на Linux"
+        ],
+        "answer": 0,
+        "explanation": "Отделённое приложение позволяет supertest управлять жизненным циклом тестового listener."
+      }
+    ]
+  },
+  {
+    "id": "express-middleware",
+    "trackId": "express",
+    "title": "Порядок middleware",
+    "summary": "Подготовьте данные перед обработчиком и передайте управление.",
+    "exercise": {
+      "id": "express-middleware",
+      "title": "Порядок middleware",
+      "prompt": "Создайте middleware, задающее res.locals.tag из аргумента tag. GET /tag должен вернуть {tag}. Выполните запрос через supertest и верните body.",
+      "language": "javascript",
+      "runtime": "node",
+      "starterCode": "async function solve(tag) {\n  // Напишите решение здесь\n}\n",
+      "solution": "const express = require(\"express\");\nconst request = require(\"supertest\");\nasync function solve(tag) { const app=express(); app.use((_req,res,next)=>{res.locals.tag=tag;next();}); app.get(\"/tag\",(_req,res)=>res.json({tag:res.locals.tag})); return (await request(app).get(\"/tag\")).body; }",
+      "tests": [
+        {
+          "input": [
+            "js"
+          ],
+          "expected": {
+            "tag": "js"
+          }
+        },
+        {
+          "input": [
+            "ts"
+          ],
+          "expected": {
+            "tag": "ts"
+          }
+        }
+      ],
+      "hint": "res.locals принадлежит конкретному ответу; вызовите next после присваивания."
+    },
+    "questions": [
+      {
+        "id": "express-middleware-1",
+        "prompt": "Зачем middleware вызывает next()?",
+        "options": [
+          "Для передачи управления следующему обработчику",
+          "Для закрытия сервера",
+          "Для очистки всех маршрутов"
+        ],
+        "answer": 0,
+        "explanation": "next продолжает цепочку обработки запроса."
+      },
+      {
+        "id": "express-middleware-2",
+        "prompt": "Что произойдёт без next и без отправки ответа?",
+        "options": [
+          "Запрос останется незавершённым",
+          "Автоматически вернётся 200",
+          "Express перезапустится"
+        ],
+        "answer": 0,
+        "explanation": "Нужно завершить ответ или передать управление дальше."
+      },
+      {
+        "id": "express-middleware-3",
+        "prompt": "Для чего подходит res.locals?",
+        "options": [
+          "Для глобального кэша всех пользователей",
+          "Для данных конкретного запроса/ответа",
+          "Для хранения пароля в браузере"
+        ],
+        "answer": 1,
+        "explanation": "res.locals изолирован в рамках обработки текущего ответа."
+      }
+    ]
+  },
+  {
+    "id": "express-validation",
+    "trackId": "express",
+    "title": "Валидация HTTP-ввода",
+    "summary": "Проверяйте req.body и возвращайте корректные статусы.",
+    "exercise": {
+      "id": "express-validation",
+      "title": "Валидация HTTP-ввода",
+      "prompt": "Создайте POST /users: непустое строковое name после trim возвращает 201; другой ввод — 400. solve(body) отправляет JSON через supertest и возвращает только status.",
+      "language": "javascript",
+      "runtime": "node",
+      "starterCode": "async function solve(body) {\n  // Напишите решение здесь\n}\n",
+      "solution": "const express = require(\"express\");\nconst request = require(\"supertest\");\nasync function solve(body) { const app=express(); app.use(express.json({limit:\"16kb\"})); app.post(\"/users\",(req,res)=>res.sendStatus(typeof req.body?.name === \"string\" && req.body.name.trim() ? 201 : 400)); return (await request(app).post(\"/users\").send(body)).status; }",
+      "tests": [
+        {
+          "input": [
+            {
+              "name": "Аня"
+            }
+          ],
+          "expected": 201
+        },
+        {
+          "input": [
+            {}
+          ],
+          "expected": 400
+        },
+        {
+          "input": [
+            {
+              "name": "   "
+            }
+          ],
+          "expected": 400
+        },
+        {
+          "input": [
+            {
+              "name": 12
+            }
+          ],
+          "expected": 400
+        }
+      ],
+      "hint": "Сначала проверьте typeof name, затем trim()."
+    },
+    "questions": [
+      {
+        "id": "express-validation-1",
+        "prompt": "Проверяет ли express.json бизнес-форму объекта?",
+        "options": [
+          "Да",
+          "Нет, только разбирает JSON",
+          "Только для POST"
+        ],
+        "answer": 1,
+        "explanation": "Проверку полей и правил пишет приложение."
+      },
+      {
+        "id": "express-validation-2",
+        "prompt": "Где ставить express.json относительно маршрута с req.body?",
+        "options": [
+          "После маршрута",
+          "Только в обработчике ошибок",
+          "До маршрута"
+        ],
+        "answer": 2,
+        "explanation": "Тело должно быть разобрано до чтения req.body."
+      },
+      {
+        "id": "express-validation-3",
+        "prompt": "Какой статус подходит для успешного создания ресурса?",
+        "options": [
+          "201",
+          "404",
+          "500"
+        ],
+        "answer": 0,
+        "explanation": "201 Created сообщает об успешном создании ресурса."
+      }
+    ]
+  },
+  {
+    "id": "express-errors",
+    "trackId": "express",
+    "title": "Обработка ошибок Express",
+    "summary": "Направляйте ошибки в централизованный обработчик.",
+    "exercise": {
+      "id": "express-errors",
+      "title": "Обработка ошибок Express",
+      "prompt": "Создайте GET /fail, выбрасывающий Error. Error middleware должен вернуть 500 и {error:\"Ошибка сервера\"}. solve возвращает {status, body} из supertest.",
+      "language": "javascript",
+      "runtime": "node",
+      "starterCode": "async function solve() {\n  // Напишите решение здесь\n}\n",
+      "solution": "const express = require(\"express\");\nconst request = require(\"supertest\");\nasync function solve() { const app=express(); app.get(\"/fail\",()=>{throw new Error(\"internal\");}); app.use((err,req,res,next)=>res.status(500).json({error:\"Ошибка сервера\"})); const r=await request(app).get(\"/fail\"); return {status:r.status,body:r.body}; }",
+      "tests": [
+        {
+          "input": [],
+          "expected": {
+            "status": 500,
+            "body": {
+              "error": "Ошибка сервера"
+            }
+          }
+        }
+      ],
+      "hint": "Объявите все четыре аргумента error middleware, даже если часть не используется."
+    },
+    "questions": [
+      {
+        "id": "express-errors-1",
+        "prompt": "Сколько аргументов в Express error middleware?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": 2,
+        "explanation": "Четыре аргумента отличают обработчик ошибок от обычного middleware."
+      },
+      {
+        "id": "express-errors-2",
+        "prompt": "Где регистрируют error middleware?",
+        "options": [
+          "До всех маршрутов как единственный обработчик",
+          "После маршрутов",
+          "В CSS"
+        ],
+        "answer": 1,
+        "explanation": "Обработчик ошибок должен находиться дальше в цепочке."
+      },
+      {
+        "id": "express-errors-3",
+        "prompt": "Что делает Express 5 с rejected Promise async-обработчика?",
+        "options": [
+          "Передаёт ошибку в error middleware",
+          "Игнорирует всегда",
+          "Превращает в успешный JSON"
+        ],
+        "answer": 0,
+        "explanation": "В Express 5 отклонения async-обработчиков передаются в цепочку обработки ошибок."
+      }
+    ]
+  },
+  {
+    "id": "express-router",
+    "trackId": "express",
+    "title": "Router и параметры",
+    "summary": "Собирайте маршруты в модули и валидируйте параметры пути.",
+    "exercise": {
+      "id": "express-router",
+      "title": "Router и параметры",
+      "prompt": "Смонтируйте Router на /api. GET /api/items/:id возвращает {id} со строковым id. solve(id) делает запрос и возвращает body.",
+      "language": "javascript",
+      "runtime": "node",
+      "starterCode": "async function solve(id) {\n  // Напишите решение здесь\n}\n",
+      "solution": "const express = require(\"express\");\nconst request = require(\"supertest\");\nasync function solve(id) { const app=express(), router=express.Router(); router.get(\"/items/:id\",(req,res)=>res.json({id:req.params.id})); app.use(\"/api\",router); return (await request(app).get(\"/api/items/\"+encodeURIComponent(id))).body; }",
+      "tests": [
+        {
+          "input": [
+            "42"
+          ],
+          "expected": {
+            "id": "42"
+          }
+        },
+        {
+          "input": [
+            "abc"
+          ],
+          "expected": {
+            "id": "abc"
+          }
+        }
+      ],
+      "hint": "Путь внутри Router не должен повторять /api."
+    },
+    "questions": [
+      {
+        "id": "express-router-1",
+        "prompt": "Какой тип имеет req.params.id из /users/:id?",
+        "options": [
+          "number",
+          "string",
+          "boolean"
+        ],
+        "answer": 1,
+        "explanation": "URL-параметры представляются строками."
+      },
+      {
+        "id": "express-router-2",
+        "prompt": "При app.use(\"/api\",router) и router.get(\"/items\") какой итоговый путь?",
+        "options": [
+          "/items/api",
+          "/api/items",
+          "/api/api/items"
+        ],
+        "answer": 1,
+        "explanation": "Префикс монтирования добавляется к пути Router."
+      },
+      {
+        "id": "express-router-3",
+        "prompt": "Почему нельзя без проверки считать req.params.id числом?",
+        "options": [
+          "Потому что параметры всегда undefined",
+          "Потому что числа запрещены в URL",
+          "Потому что URL-параметры — недоверенные строки"
+        ],
+        "answer": 2,
+        "explanation": "Нужно валидировать формат и допустимость, а затем преобразовывать строку."
+      }
+    ]
+  },
+  {
+    "id": "nest-modules",
+    "trackId": "nest",
+    "title": "Модули NestJS",
+    "summary": "Собирайте возможности приложения в связанные feature-модули.",
+    "exercise": {
+      "id": "nest-modules",
+      "title": "Модули NestJS",
+      "prompt": "Создайте GreetingService с message(), возвращающим аргумент text через useValue-провайдер токена \"GREETING\". Получите провайдер из application context, верните его значение и закройте context. Используйте NestFactory и @Module.",
+      "language": "typescript",
+      "runtime": "node",
+      "starterCode": "async function solve(text: string): Promise<string> {\n  // Напишите решение здесь\n}\n",
+      "solution": "import \"reflect-metadata\";\nimport { Module, Injectable } from \"@nestjs/common\";\nimport { NestFactory } from \"@nestjs/core\";\nasync function solve(text: string): Promise<string> { @Module({providers:[{provide:\"GREETING\",useValue:text}]}) class AppModule {} const app=await NestFactory.createApplicationContext(AppModule,{logger:false}); try { return app.get<string>(\"GREETING\"); } finally { await app.close(); } }",
+      "tests": [
+        {
+          "input": [
+            "Привет, Nest"
+          ],
+          "expected": "Привет, Nest"
+        },
+        {
+          "input": [
+            "DI"
+          ],
+          "expected": "DI"
+        }
+      ],
+      "hint": "providers: [{provide:\"GREETING\", useValue:text}], затем app.get(\"GREETING\")."
+    },
+    "questions": [
+      {
+        "id": "nest-modules-1",
+        "prompt": "Где регистрируют сервис в @Module?",
+        "options": [
+          "В providers",
+          "Только в imports",
+          "В styles"
+        ],
+        "answer": 0,
+        "explanation": "providers содержит зависимости модуля."
+      },
+      {
+        "id": "nest-modules-2",
+        "prompt": "Как открыть провайдер одного модуля другим модулям?",
+        "options": [
+          "Добавить его в exports, затем импортировать модуль",
+          "Объявить interface",
+          "Вызвать console.log"
+        ],
+        "answer": 0,
+        "explanation": "exports задаёт публичные провайдеры модуля, imports подключает модуль-поставщик."
+      },
+      {
+        "id": "nest-modules-3",
+        "prompt": "Как завершить application context после теста?",
+        "options": [
+          "Забыть о нём",
+          "await app.close()",
+          "process.exit в контроллере"
+        ],
+        "answer": 1,
+        "explanation": "app.close запускает lifecycle shutdown и освобождает ресурсы."
+      }
+    ]
+  },
+  {
+    "id": "nest-injection",
+    "trackId": "nest",
+    "title": "Dependency Injection",
+    "summary": "Заменяйте конкретные реализации через токены провайдеров.",
+    "exercise": {
+      "id": "nest-injection",
+      "title": "Dependency Injection",
+      "prompt": "Создайте провайдер \"DOUBLE\" с useFactory, возвращающим удвоенный аргумент value. Получите его через Nest application context и верните число. Закройте context.",
+      "language": "typescript",
+      "runtime": "node",
+      "starterCode": "async function solve(value: number): Promise<number> {\n  // Напишите решение здесь\n}\n",
+      "solution": "import \"reflect-metadata\";\nimport { Module, Injectable } from \"@nestjs/common\";\nimport { NestFactory } from \"@nestjs/core\";\nasync function solve(value: number): Promise<number> { @Module({providers:[{provide:\"DOUBLE\",useFactory:()=>value*2}]}) class AppModule {} const app=await NestFactory.createApplicationContext(AppModule,{logger:false}); try { return app.get<number>(\"DOUBLE\"); } finally { await app.close(); } }",
+      "tests": [
+        {
+          "input": [
+            5
+          ],
+          "expected": 10
+        },
+        {
+          "input": [
+            0
+          ],
+          "expected": 0
+        },
+        {
+          "input": [
+            -3
+          ],
+          "expected": -6
+        }
+      ],
+      "hint": "useFactory должна возвращать value * 2."
+    },
+    "questions": [
+      {
+        "id": "nest-injection-1",
+        "prompt": "Почему нельзя использовать TS interface как runtime DI-токен?",
+        "options": [
+          "Потому что он удаляется при компиляции",
+          "Потому что DI принимает только числа",
+          "Потому что interface изменяемый"
+        ],
+        "answer": 0,
+        "explanation": "Интерфейса нет в исполняемом JS."
+      },
+      {
+        "id": "nest-injection-2",
+        "prompt": "Для чего подходит useValue?",
+        "options": [
+          "Для установки готового значения провайдера",
+          "Для рендера HTML",
+          "Для выбора HTTP-статуса"
+        ],
+        "answer": 0,
+        "explanation": "useValue регистрирует уже созданное значение под токеном."
+      },
+      {
+        "id": "nest-injection-3",
+        "prompt": "Когда полезен useFactory?",
+        "options": [
+          "Когда зависимость нужно вычислить или создать с другими зависимостями",
+          "Только для строк",
+          "Только в браузере"
+        ],
+        "answer": 0,
+        "explanation": "Фабрика создаёт значение провайдера и может принимать внедрённые зависимости."
+      }
+    ]
+  },
+  {
+    "id": "nest-controllers",
+    "trackId": "nest",
+    "title": "Контроллеры и сервисы",
+    "summary": "Разделяйте HTTP-представление и сценарии приложения.",
+    "exercise": {
+      "id": "nest-controllers",
+      "title": "Контроллеры и сервисы",
+      "prompt": "Создайте чистую функцию публичного ответа: из {id,email,passwordHash} верните только {id,email}. Это контракт, который должен возвращать контроллер.",
+      "language": "typescript",
+      "runtime": "universal",
+      "starterCode": "function solve(user: { id: string; email: string; passwordHash: string }): { id: string; email: string } {\n  // Напишите решение здесь\n}\n",
+      "solution": "function solve(user: { id: string; email: string; passwordHash: string }): { id: string; email: string } { return {id:user.id,email:user.email}; }",
+      "tests": [
+        {
+          "input": [
+            {
+              "id": "1",
+              "email": "a@b.test",
+              "passwordHash": "hidden"
+            }
+          ],
+          "expected": {
+            "id": "1",
+            "email": "a@b.test"
+          }
+        },
+        {
+          "input": [
+            {
+              "id": "2",
+              "email": "js@ts.test",
+              "passwordHash": "private"
+            }
+          ],
+          "expected": {
+            "id": "2",
+            "email": "js@ts.test"
+          }
+        }
+      ],
+      "hint": "Явно создайте ответ с двумя публичными полями."
+    },
+    "questions": [
+      {
+        "id": "nest-controllers-1",
+        "prompt": "Где должна находиться бизнес-логика?",
+        "options": [
+          "В HTML",
+          "В сервисе",
+          "В настройках CORS"
+        ],
+        "answer": 1,
+        "explanation": "Сервис инкапсулирует сценарии и зависимости."
+      },
+      {
+        "id": "nest-controllers-2",
+        "prompt": "Какой декоратор читает тело запроса?",
+        "options": [
+          "@Get()",
+          "@Body()",
+          "@Module()"
+        ],
+        "answer": 1,
+        "explanation": "@Body извлекает тело; правила его проверки задаёт DTO и pipe."
+      },
+      {
+        "id": "nest-controllers-3",
+        "prompt": "Можно ли возвращать из контроллера запись БД с passwordHash?",
+        "options": [
+          "Да, TS удалит поле",
+          "Только для зарегистрированных",
+          "Нет, нужен явно выбранный публичный ответ"
+        ],
+        "answer": 2,
+        "explanation": "Статические типы не удаляют чувствительные поля при сериализации."
+      }
+    ]
+  },
+  {
+    "id": "nest-validation",
+    "trackId": "nest",
+    "title": "DTO и ValidationPipe",
+    "summary": "Проверяйте входные DTO во время исполнения.",
+    "exercise": {
+      "id": "nest-validation",
+      "title": "DTO и ValidationPipe",
+      "prompt": "Создайте DTO с name: string длиной от 2. Используйте plainToInstance и validate из class-transformer/class-validator. Верните true, если ошибок нет; false иначе.",
+      "language": "typescript",
+      "runtime": "node",
+      "starterCode": "async function solve(value: unknown): Promise<boolean> {\n  // Напишите решение здесь\n}\n",
+      "solution": "import { plainToInstance } from \"class-transformer\";\nimport { validate, IsString, MinLength } from \"class-validator\";\nclass Input { @IsString() @MinLength(2) name!: string; }\nasync function solve(value: unknown): Promise<boolean> { const dto=plainToInstance(Input,value); const errors=await validate(dto as object,{whitelist:true,forbidNonWhitelisted:true}); return errors.length === 0; }",
+      "tests": [
+        {
+          "input": [
+            {
+              "name": "JS"
+            }
+          ],
+          "expected": true
+        },
+        {
+          "input": [
+            {
+              "name": "x"
+            }
+          ],
+          "expected": false
+        },
+        {
+          "input": [
+            {
+              "name": 4
+            }
+          ],
+          "expected": false
+        },
+        {
+          "input": [
+            {
+              "name": "TS",
+              "role": "admin"
+            }
+          ],
+          "expected": false
+        }
+      ],
+      "hint": "Класс Input с @IsString и @MinLength(2); validate с whitelist и forbidNonWhitelisted."
+    },
+    "questions": [
+      {
+        "id": "nest-validation-1",
+        "prompt": "Как отклонить неизвестные поля DTO?",
+        "options": [
+          "Только interface",
+          "whitelist + forbidNonWhitelisted",
+          "as CreateDto"
+        ],
+        "answer": 1,
+        "explanation": "Эти опции отклоняют поля без правил валидации."
+      },
+      {
+        "id": "nest-validation-2",
+        "prompt": "Почему DTO должен быть классом при class-validator?",
+        "options": [
+          "Декораторы и метаданные должны существовать во время исполнения",
+          "Потому что interface занимает больше памяти",
+          "Потому что JSON всегда класс"
+        ],
+        "answer": 0,
+        "explanation": "Класс сохраняется в runtime, в отличие от TS interface."
+      },
+      {
+        "id": "nest-validation-3",
+        "prompt": "Заменяет ли валидация DTO авторизацию владельца ресурса?",
+        "options": [
+          "Да",
+          "Нет",
+          "Только для POST"
+        ],
+        "answer": 1,
+        "explanation": "Форма данных и право доступа — разные проверки."
+      }
+    ]
+  },
+  {
+    "id": "nest-guards",
+    "trackId": "nest",
+    "title": "Guards и авторизация",
+    "summary": "Проверяйте права до выполнения обработчика.",
+    "exercise": {
+      "id": "nest-guards",
+      "title": "Guards и авторизация",
+      "prompt": "Реализуйте чистое правило авторизации: role=\"admin\" имеет доступ ко всем ресурсам; иначе доступ есть только при userId === ownerId. Отсутствующий пользователь доступа не имеет.",
+      "language": "typescript",
+      "runtime": "universal",
+      "starterCode": "function solve(user: { id: string; role: string } | null, ownerId: string): boolean {\n  // Напишите решение здесь\n}\n",
+      "solution": "function solve(user: { id: string; role: string } | null, ownerId: string): boolean { return user !== null && (user.role === \"admin\" || user.id === ownerId); }",
+      "tests": [
+        {
+          "input": [
+            null,
+            "1"
+          ],
+          "expected": false
+        },
+        {
+          "input": [
+            {
+              "id": "1",
+              "role": "user"
+            },
+            "1"
+          ],
+          "expected": true
+        },
+        {
+          "input": [
+            {
+              "id": "2",
+              "role": "user"
+            },
+            "1"
+          ],
+          "expected": false
+        },
+        {
+          "input": [
+            {
+              "id": "2",
+              "role": "admin"
+            },
+            "1"
+          ],
+          "expected": true
+        }
+      ],
+      "hint": "Сначала исключите null, затем проверьте admin или совпадение id."
+    },
+    "questions": [
+      {
+        "id": "nest-guards-1",
+        "prompt": "Что означает статус 403?",
+        "options": [
+          "Ресурс создан",
+          "Действие запрещено",
+          "Тело запроса слишком большое"
+        ],
+        "answer": 1,
+        "explanation": "403 сообщает об отказе в доступе."
+      },
+      {
+        "id": "nest-guards-2",
+        "prompt": "Какой метод реализует CanActivate?",
+        "options": [
+          "render()",
+          "canActivate(context)",
+          "validateBody()"
+        ],
+        "answer": 1,
+        "explanation": "Guard принимает ExecutionContext и возвращает решение о доступе."
+      },
+      {
+        "id": "nest-guards-3",
+        "prompt": "Чем authentication отличается от authorization?",
+        "options": [
+          "Ничем",
+          "Первое определяет пользователя, второе проверяет права",
+          "Первое работает только в браузере"
+        ],
+        "answer": 1,
+        "explanation": "Идентификация пользователя ещё не даёт права на каждое действие и ресурс."
+      }
+    ]
+  }
+]

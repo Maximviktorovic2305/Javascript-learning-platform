@@ -1,0 +1,8 @@
+moderngl==5.13.0
+numpy==2.5.4
+Pillow==13.0.0
+imageio-ffmpeg==0.6.0
+opencv-python-headless==5.0.0.93
+fonttools==4.67.0
+mapbox-earcut==2.1.0
+shapely==2.2.0

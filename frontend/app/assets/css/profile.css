@@ -1,0 +1,140 @@
+.profile-intro small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 5px;
+}
+.profile-goal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+}
+.profile-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+.profile-section-heading > svg {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.profile-level-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 24px;
+  background: var(--surface);
+  margin: 24px 0 18px;
+}
+.profile-level-card h2 {
+  margin: 6px 0;
+  font-size: 26px;
+}
+.profile-level-card p {
+  margin: 0;
+  font-size: 12px;
+}
+.profile-level-card > svg {
+  color: var(--interaction);
+}
+.profile-level-card .progress-bar {
+  flex-basis: 100%;
+}
+.profile-statistics small {
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 450;
+}
+.profile-tracks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 24px;
+}
+.profile-track {
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 18px;
+}
+.profile-track:hover {
+  border-color: var(--interaction);
+}
+.profile-track-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.profile-track-heading h3 {
+  font-size: 16px;
+  margin: 0;
+}
+.profile-track-heading strong {
+  color: var(--interaction);
+  font: 13px var(--mono);
+}
+.profile-track-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+.profile-track > p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  margin: 16px 0 0;
+}
+.profile-activity {
+  display: grid;
+  grid-template-columns: repeat(28, minmax(0, 1fr));
+  gap: 5px;
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 12px;
+}
+.profile-activity li {
+  aspect-ratio: 1;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+}
+.profile-activity li.active {
+  background: color-mix(in srgb, var(--interaction) 35%, var(--surface));
+  border-color: var(--interaction);
+}
+.profile-activity li.intense {
+  background: var(--interaction);
+}
+.profile-activity li span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.settings-card .profile-activity-note {
+  font-size: 11px;
+}
+@media (max-width: 700px) {
+  .profile-tracks {
+    grid-template-columns: 1fr;
+  }
+  .profile-activity {
+    grid-template-columns: repeat(14, minmax(0, 1fr));
+  }
+}

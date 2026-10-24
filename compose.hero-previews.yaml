@@ -1,0 +1,43 @@
+# Add to compose.yaml only when comparing the hero animations.
+# All previews use the same built frontend image and the existing backend.
+x-hero-preview: &hero-preview
+  image: script-lab-frontend:latest
+  networks: [application]
+
+services:
+  hero-blue-clean:
+    <<: *hero-preview
+    environment:
+      NUXT_API_BASE: http://backend:8020
+      NUXT_PUBLIC_HERO_VARIANT: blue-clean-javascript
+    ports: ['127.0.0.1:3027:3020']
+  hero-cardboard-javascript:
+    <<: *hero-preview
+    environment:
+      NUXT_API_BASE: http://backend:8020
+      NUXT_PUBLIC_HERO_VARIANT: blue-refined-javascript
+    ports: ['127.0.0.1:3026:3020']
+  hero-blue-javascript:
+    <<: *hero-preview
+    environment:
+      NUXT_API_BASE: http://backend:8020
+      NUXT_PUBLIC_HERO_VARIANT: blue-full-hands-javascript
+    ports: ['127.0.0.1:3025:3020']
+  hero-wave:
+    <<: *hero-preview
+    environment:
+      NUXT_API_BASE: http://backend:8020
+      NUXT_PUBLIC_HERO_VARIANT: wave
+    ports: ['127.0.0.1:3021:3020']
+  hero-team:
+    <<: *hero-preview
+    environment:
+      NUXT_API_BASE: http://backend:8020
+      NUXT_PUBLIC_HERO_VARIANT: team
+    ports: ['127.0.0.1:3022:3020']
+  hero-pixels:
+    <<: *hero-preview
+    environment:
+      NUXT_API_BASE: http://backend:8020
+      NUXT_PUBLIC_HERO_VARIANT: pixels
+    ports: ['127.0.0.1:3023:3020']

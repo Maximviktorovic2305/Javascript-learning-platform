@@ -1,0 +1,37 @@
+.background-music {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.background-music audio {
+  display: none;
+}
+.music-toggle.is-playing {
+  color: var(--interaction);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+.music-error {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: -24px;
+  width: min(245px, 70vw);
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 11px;
+  line-height: 1.5;
+  box-shadow: 0 8px 30px #0003;
+}
+.music-credit {
+  margin-block: -16px 28px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.8;
+}
+.music-credit a:hover {
+  color: var(--ink);
+}

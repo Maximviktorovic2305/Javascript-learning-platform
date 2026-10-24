@@ -1,0 +1,109 @@
+.theory-reader {
+  min-width: 0;
+}
+.theory-intro-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 22px 24px;
+  margin-bottom: 26px;
+}
+.theory-intro-card ul {
+  margin: 0 0 12px;
+  padding-left: 20px;
+}
+.theory-intro-card p {
+  margin: 0;
+  font-size: 12px;
+}
+.theory-toc {
+  border-left: 2px solid var(--interaction);
+  padding-left: 22px;
+  margin-bottom: 42px;
+}
+.theory-toc h2 {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+.theory-toc ol {
+  padding-left: 20px;
+  margin: 0;
+}
+.theory-toc li {
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.theory-toc a:hover,
+.theory-sources a:hover {
+  color: var(--interaction);
+}
+.theory-section {
+  scroll-margin-top: calc(var(--header-height) + 24px);
+  max-width: 78ch;
+}
+.theory-section > p {
+  margin-bottom: 18px;
+}
+.theory-section > ul {
+  padding-left: 22px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.95;
+}
+.theory-section li {
+  margin-bottom: 9px;
+}
+.theory-example {
+  margin: 22px 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.theory-example figcaption {
+  padding: 8px 18px;
+  font: 10px var(--mono);
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+.theory-example .theory-code {
+  border: 0;
+  border-radius: 0;
+  margin: 0;
+  overflow-x: auto;
+  white-space: pre;
+  overflow-wrap: normal;
+  font-size: 12px;
+}
+.theory-sources {
+  border-top: 1px solid var(--line);
+  padding-top: 26px;
+  margin: 36px 0;
+}
+.theory-sources h2 {
+  font-size: 20px;
+}
+.theory-sources p {
+  font-size: 12px;
+}
+.theory-sources ul {
+  padding-left: 20px;
+  font-size: 13px;
+  line-height: 2;
+}
+.lesson-sidebar nav {
+  max-height: min(65vh, 650px);
+  overflow-y: auto;
+}
+@media (max-width: 640px) {
+  .theory-intro-card {
+    padding: 18px;
+  }
+  .theory-example .theory-code {
+    padding: 16px;
+  }
+  .theory-toc {
+    padding-left: 16px;
+  }
+}

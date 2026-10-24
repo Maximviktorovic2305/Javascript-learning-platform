@@ -1,0 +1,89 @@
+.study-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  padding: 3px 7px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 650;
+  line-height: 1.5;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.study-status > i {
+  width: 7px;
+  height: 7px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+.study-status[data-status='in-progress'] {
+  color: var(--blue);
+  border-color: color-mix(in srgb, var(--blue) 35%, var(--line));
+  background: color-mix(in srgb, var(--blue) 8%, var(--surface));
+}
+.study-status[data-status='completed'] {
+  color: var(--interaction);
+  border-color: color-mix(in srgb, var(--interaction) 35%, var(--line));
+  background: var(--interaction-surface);
+}
+.lesson-progress-summary,
+.status-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+.lesson-progress-summary {
+  margin: 10px 0 4px;
+}
+.status-legend {
+  margin: 0 0 18px;
+}
+.lesson-step-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: var(--muted);
+}
+.lesson-step-summary[data-status='completed'] {
+  color: var(--interaction);
+}
+.lesson-step-summary[data-status='in-progress'] {
+  color: var(--blue);
+}
+.lesson-sidebar nav a {
+  position: relative;
+}
+.lesson-sidebar nav a > .topic-complete {
+  color: var(--interaction);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+.tabs button {
+  flex-wrap: wrap;
+}
+.tabs button .study-status {
+  margin-left: 2px;
+  font-size: 9px;
+}
+.lesson-heading .lesson-progress-summary {
+  margin-top: 18px;
+}
+.practice-row .study-status {
+  margin: 8px 0 0;
+}
+.progress-load-error {
+  font-size: 12px;
+  color: var(--error);
+}
+@media (max-width: 600px) {
+  .tabs button .study-status {
+    flex-basis: auto;
+  }
+  .lesson-progress-summary {
+    gap: 8px;
+  }
+}

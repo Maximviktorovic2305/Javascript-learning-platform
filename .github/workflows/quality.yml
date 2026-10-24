@@ -1,0 +1,49 @@
+name: Script Lab checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: script_test
+          POSTGRES_PASSWORD: ci-only-password
+          POSTGRES_DB: script_lab_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U script_test -d script_lab_test"
+          --health-interval 5s --health-timeout 5s --health-retries 20
+    env:
+      DATABASE_URL: postgresql://script_test:ci-only-password@127.0.0.1:5432/script_lab_test
+      ALLOWED_ORIGIN: http://127.0.0.1:3020
+      COOKIE_SECURE: 'false'
+      EXECUTION_RUNNER: disabled
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: |
+            frontend/package-lock.json
+            backend/package-lock.json
+      - run: npm run install:all
+      - run: node scripts/build-curriculum.mjs
+      - run: git diff --exit-code -- backend/src/catalog/data/lessons.json
+      - run: npm run typecheck
+      - run: npm --prefix backend run lint
+      - run: npm test
+      - run: npm --prefix backend run db:migrate
+      - run: npm --prefix backend run test:e2e -- --runInBand
+      - run: npm run build
+      - run: npm --prefix backend audit --omit=dev --audit-level=low
+      - run: npm --prefix frontend/.output/server install --package-lock-only --ignore-scripts --no-audit
+      - run: npm --prefix frontend/.output/server audit --omit=dev --audit-level=low
+      - run: docker build -t script-lab-sandbox:1 runner/sandbox
+      - run: npm --prefix runner/sandbox ci --ignore-scripts --no-audit
+      - run: npm --prefix runner/sandbox audit --omit=dev --audit-level=low
+      - run: node scripts/test-sandbox.mjs

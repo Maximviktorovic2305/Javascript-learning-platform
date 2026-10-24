@@ -1,0 +1,87 @@
+name: script-lab
+services:
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: script
+      POSTGRES_DB: script_lab
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run node scripts/configure-dev.mjs}
+    volumes: [postgres-data:/var/lib/postgresql]
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U script -d script_lab]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks: [data]
+  migrate:
+    build: ./backend
+    command: [npx, prisma, migrate, deploy]
+    environment: &api-environment
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 8020
+      TRUST_PROXY_HOPS: 1
+      DATABASE_URL: postgresql://script:${POSTGRES_PASSWORD}@postgres:5432/script_lab
+      ALLOWED_ORIGIN: ${ALLOWED_ORIGIN:-http://localhost:3020}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      EXECUTION_RUNNER: ${EXECUTION_RUNNER:-disabled}
+      RUNNER_URL: http://runner:8092
+      RUNNER_TOKEN: ${RUNNER_TOKEN:-}
+    depends_on:
+      postgres: {condition: service_healthy}
+    networks: [data]
+  backend:
+    build: ./backend
+    environment: *api-environment
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+    networks: [data, application, execution]
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://localhost:8020/api/health').then(r=>{if(!r.ok)process.exit(1)})"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+  frontend:
+    build: ./frontend
+    environment:
+      NUXT_API_BASE: http://backend:8020
+    ports: ["127.0.0.1:${FRONTEND_PORT:-3020}:3020"]
+    depends_on:
+      backend: {condition: service_healthy}
+    networks: [application]
+  sandbox-daemon:
+    image: docker:28-dind
+    profiles: [sandbox]
+    privileged: true
+    environment: {DOCKER_TLS_CERTDIR: ""}
+    command: [dockerd, --host=tcp://0.0.0.0:2375, --tls=false]
+    volumes: [sandbox-images:/var/lib/docker]
+    networks: [sandbox-control]
+    healthcheck:
+      test: [CMD, docker, -H, tcp://localhost:2375, info]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  runner:
+    build: ./runner
+    profiles: [sandbox]
+    environment:
+      DOCKER_HOST: tcp://sandbox-daemon:2375
+      RUNNER_TOKEN: ${RUNNER_TOKEN:-}
+    depends_on:
+      sandbox-daemon: {condition: service_healthy}
+    networks: [execution, sandbox-control]
+    restart: on-failure:3
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:8092/execute').then(r=>{if(r.status!==401)process.exit(1)})"]
+      interval: 5s
+      timeout: 3s
+      start_period: 90s
+      retries: 60
+networks:
+  data: {internal: true}
+  application: {}
+  execution: {internal: true}
+  sandbox-control: {}
+volumes:
+  postgres-data: {}
+  sandbox-images: {}

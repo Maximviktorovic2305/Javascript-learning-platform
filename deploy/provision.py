@@ -39,7 +39,7 @@ if not (etc/'api.env').exists():
 source=release/'runner/sandbox'
 for p in source.rglob('*'):
     if p.is_symlink():assert p.resolve().is_relative_to(source.resolve()),'Sandbox dependency symlink escapes source'
-if not (opt/'sandbox').exists():shutil.copytree(source,opt/'sandbox',symlinks=True,ignore=shutil.ignore_patterns('Dockerfile','package-lock.json','package.json'))
+if not (opt/'sandbox').exists():shutil.copytree(source,opt/'sandbox',symlinks=True)
 shutil.copy2(source/'execute.cjs',opt/'sandbox/execute.cjs')
 for p in (opt/'sandbox').rglob('*'):
     if not p.is_symlink():p.chmod((p.stat().st_mode&0o777)|0o444|(0o111 if p.is_dir() else 0))

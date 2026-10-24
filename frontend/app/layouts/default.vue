@@ -25,5 +25,6 @@
       >
     </p>
     <AuthorSupport />
+    <AnalyticsConsent />
   </div>
 </template>

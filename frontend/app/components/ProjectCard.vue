@@ -66,7 +66,7 @@ async function submit() {
       {{ expanded ? 'Свернуть' : 'Добавить свою работу'
       }}<AppIcon name="arrow" :size="17" />
     </button>
-    <form v-if="expanded" class="project-form" @submit.prevent="submit">
+    <form v-if="expanded" class="project-form ym-hide-content" @submit.prevent="submit">
       <label
         >Ссылка на репозиторий или демо<input
           v-model="url"

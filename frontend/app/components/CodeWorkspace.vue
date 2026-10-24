@@ -219,7 +219,7 @@ function keydown(event: KeyboardEvent) {
     </button>
     <p v-if="hint" class="hint-box">{{ exercise.hint }}</p>
   </div>
-  <div class="code-workspace">
+  <div class="code-workspace ym-hide-content">
     <div class="editor-top">
       <span class="window-dots"><i /><i /><i /></span
       ><span
@@ -244,7 +244,7 @@ function keydown(event: KeyboardEvent) {
       <textarea
         ref="editor"
         v-model="code"
-        class="code-input"
+        class="code-input ym-disable-keys"
         aria-label="Редактор решения"
         spellcheck="false"
         autocapitalize="off"

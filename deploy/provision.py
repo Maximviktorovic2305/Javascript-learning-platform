@@ -75,7 +75,7 @@ ProtectSystem=strict
 ProtectHome=read-only
 ProtectProc=invisible
 ProcSubset=pid
-InaccessiblePaths=/home/max/.ssh /home/max/.config /home/max/.pm2 /home/max/releases /home/max/my-songs-site /home/max/chat-gpt-app /home/max/portfolio /home/max/python-platform /etc/python-platform
+InaccessiblePaths=/home/max/.ssh /home/max/.config /home/max/.pm2 /home/max/releases /home/max/my-songs-site /home/max/chat-gpt-app /home/max/portfolio /home/max/python-platform /etc/python-platform /srv/native-sites /etc/native-sites /var/backups
 IPAddressDeny=any
 IPAddressAllow=localhost
 {protections}

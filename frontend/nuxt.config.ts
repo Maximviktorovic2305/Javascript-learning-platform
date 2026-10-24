@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   typescript: { strict: true },
   runtimeConfig: {
     apiBase: 'http://127.0.0.1:8020',
-    public: { heroVariant: 'blue-full-hands-javascript' },
+    public: { heroVariant: 'blue-full-hands-javascript', metrikaId: '' },
   },
   app: {
     head: {

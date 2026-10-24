@@ -1,6 +1,5 @@
 #!/usr/bin/python3 -I
 """Root-owned, bounded sandbox entry point; accepts no paths or shell commands."""
-import base64
 import json
 import os
 import re
@@ -29,6 +28,7 @@ def command(args):
     return [
         '/usr/bin/systemd-run', '--quiet', '--pipe', '--wait', '--collect',
         '--service-type=exec', '--unit=' + unit,
+        '--description=JSlab isolated exercise',
         '--property=MemoryMax=256M', '--property=MemorySwapMax=0',
         '--property=TasksMax=64', '--property=CPUQuota=75%',
         '--property=RuntimeMaxSec=17', '--property=TimeoutStopSec=2',
@@ -36,13 +36,18 @@ def command(args):
         '/usr/local/bin/nsjail', '--config', '/etc/jslab/jail.cfg', '--',
         '/opt/jslab/node/bin/node', '--max-old-space-size=160',
         '--v8-pool-size=1', '/opt/app/execute.cjs',
-        'b64:' + base64.b64encode(args[2].encode()).decode('ascii'),
     ]
 
 
 if __name__ == '__main__':
     try:
         argv = command(sys.argv[1:])
+        if sys.argv[1] == 'start':
+            fd = os.memfd_create('jslab-job', 0)
+            os.write(fd, sys.argv[3].encode())
+            os.lseek(fd, 0, os.SEEK_SET)
+            os.dup2(fd, 0)
+            os.close(fd)
     except (ValueError, TypeError, KeyError):
         sys.exit('Invalid sandbox request')
     os.execve(argv[0], argv, {'PATH': '/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8'})

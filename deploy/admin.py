@@ -16,9 +16,12 @@ from urllib.request import Request, urlopen
 APP = Path('/home/max/jslab')
 SERVICES = ['jslab-runner', 'jslab-api', 'jslab-web']
 
-def environment():
+def environment(kind='api'):
     values = {'PATH': '/opt/jslab/node/bin:/usr/bin:/bin', 'LANG': 'C.UTF-8'}
-    for line in Path('/etc/jslab/api.env').read_text().splitlines():
+    if kind not in {'api','migrate'}:raise ValueError('Invalid configuration kind')
+    config=Path('/etc/jslab')/(kind+'.env')
+    if not config.exists() and kind=='migrate':config=config.with_name('api.env')
+    for line in config.read_text().splitlines():
         if line and not line.startswith('#'):
             key, value = line.split('=', 1)
             values[key] = shlex.split(value)[0]
@@ -93,5 +96,5 @@ if __name__=='__main__':
     elif len(args)==2 and args[0]=='activate':activate(args[1])
     elif len(args)==2 and args[0]=='migrate':
         release=path(args[1],'releases')
-        subprocess.run(['/opt/jslab/node/bin/node',str(release/'backend/node_modules/prisma/build/index.js'),'migrate','deploy'],cwd=release/'backend',env=environment(),user='jslab-api',group='jslab-api',extra_groups=[],check=True)
+        subprocess.run(['/opt/jslab/node/bin/node',str(release/'backend/node_modules/prisma/build/index.js'),'migrate','deploy'],cwd=release/'backend',env=environment('migrate'),user='jslab-api',group='jslab-api',extra_groups=[],check=True)
     else:raise ValueError('Unknown operation')

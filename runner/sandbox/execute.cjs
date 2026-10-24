@@ -5,6 +5,7 @@ const path=require('node:path');
 const ts=require('typescript');
 const main=async()=>{
   let rawPayload=process.argv[2];
+  if(rawPayload?.startsWith('b64:'))rawPayload=Buffer.from(rawPayload.slice(4),'base64').toString('utf8');
   if(rawPayload===undefined){const chunks=[];for await(const chunk of process.stdin)chunks.push(chunk);rawPayload=Buffer.concat(chunks).toString('utf8')}
   const job=JSON.parse(rawPayload);
   fs.mkdirSync('/tmp/work',{recursive:true});

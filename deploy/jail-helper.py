@@ -1,5 +1,6 @@
 #!/usr/bin/python3 -I
 """Root-owned, bounded sandbox entry point; accepts no paths or shell commands."""
+import base64
 import json
 import os
 import re
@@ -34,7 +35,8 @@ def command(args):
         '--property=KillMode=control-group',
         '/usr/local/bin/nsjail', '--config', '/etc/jslab/jail.cfg', '--',
         '/opt/jslab/node/bin/node', '--max-old-space-size=160',
-        '--v8-pool-size=1', '/opt/app/execute.cjs', args[2],
+        '--v8-pool-size=1', '/opt/app/execute.cjs',
+        'b64:' + base64.b64encode(args[2].encode()).decode('ascii'),
     ]
 
 

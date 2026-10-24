@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 const {execute}=await import(process.env.SANDBOX_ENGINE==='nsjail'?'../runner/nsjail.mjs':'../runner/docker.mjs');
 const lessons=JSON.parse(readFileSync(new URL('../backend/src/catalog/data/lessons.json',import.meta.url),'utf8'));
 let passed=0;
+const literal=await execute({code:'function solve(){return "${HOME} $USER $$"}',language:'javascript',inputs:[[]]});
+assert.deepEqual(literal.outputs,['${HOME} $USER $$'],'Sandbox must preserve literal dollar sequences');
 for(const lesson of lessons){
   const result=await execute({code:lesson.exercise.solution,language:lesson.exercise.language,inputs:lesson.exercise.tests.map(test=>test.input)});
   assert.equal(result.ok,true,`${lesson.id}: ${result.error}`);

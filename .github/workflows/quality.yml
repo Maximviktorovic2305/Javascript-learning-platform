@@ -37,6 +37,7 @@ jobs:
       - run: npm run typecheck
       - run: npm --prefix backend run lint
       - run: npm test
+      - run: bash -n deploy/build.sh deploy/release.sh
       - run: python3 -m unittest discover -s deploy/test
       - run: npm --prefix backend run db:migrate
       - run: npm --prefix backend run test:e2e -- --runInBand
@@ -48,3 +49,39 @@ jobs:
       - run: npm --prefix runner/sandbox ci --ignore-scripts --no-audit
       - run: npm --prefix runner/sandbox audit --omit=dev --audit-level=low
       - run: node scripts/test-sandbox.mjs
+  deploy:
+    needs: check
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment:
+      name: Production
+      url: https://js-lab.site
+    concurrency:
+      group: jslab-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - name: Build, back up, migrate and publish the verified commit
+        shell: bash
+        env:
+          DEPLOY_SHA: ${{ github.sha }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+        run: |
+          set -Eeuo pipefail
+          [[ "$DEPLOY_SHA" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$SSH_HOST" =~ ^[a-zA-Z0-9.-]+$ ]]
+          [[ "$SSH_USERNAME" =~ ^[a-z_][a-z0-9_-]*$ ]]
+          umask 077
+          key="$RUNNER_TEMP/jslab-deploy-key"
+          hosts="$RUNNER_TEMP/jslab-known-hosts"
+          trap 'rm -f -- "$key" "$hosts"' EXIT
+          printf '%s\n' "$SSH_PRIVATE_KEY" > "$key"
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > "$hosts"
+          ssh -i "$key" -o BatchMode=yes -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$hosts" \
+            -o ConnectTimeout=20 -o ServerAliveInterval=30 -o ServerAliveCountMax=6 \
+            "$SSH_USERNAME@$SSH_HOST" "bash -s -- '$DEPLOY_SHA'" < deploy/release.sh

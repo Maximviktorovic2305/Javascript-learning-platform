@@ -2,6 +2,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { outline } from './outline.mjs';
 import { additions, revisions } from './assessments.mjs';
+import { appliedQuestions } from './applied.mjs';
 import { validateProgression, withScaffoldImports } from './progression.mjs';
 const directory=new URL('./',import.meta.url);
 const baseline=JSON.parse(readFileSync(new URL('base-lessons.json',directory),'utf8'));
@@ -47,23 +48,7 @@ const lessons=entries.map((entry,index)=>{
   if(sections.length<6||words<450||examples<3)throw new Error(`Incomplete ${entry.id}: ${sections.length} sections, ${words} words, ${examples} examples`);
   const exercise={...metadata.exercise,id:entry.id,title:entry.title,language:['typescript','nest'].includes(entry.trackId)?'typescript':'javascript'};
   exercise.starterCode=withScaffoldImports(exercise);
-  // Applied questions use only already-public examples, never hidden cases.
-  const contractQuestions=[exercise.tests[0],exercise.tests[1]??exercise.tests[0]].map((test,exampleIndex)=>{
-    const call=`${/\basync\s+function\s+solve\b/.test(exercise.starterCode)?'await ':''}solve(${test.input.map(v=>JSON.stringify(v)).join(', ')})`;
-    const context=exercise.prompt;
-    const code=`const result = ${call};`;
-    if(exampleIndex===1&&exercise.tests.length===1){
-      const kind=Array.isArray(test.expected)?'массив':test.expected===null?'null':typeof test.expected==='object'?'объект':typeof test.expected==='number'?'число':typeof test.expected==='string'?'строка':'boolean';
-      const wrong=['массив','объект','строка','число','null','boolean'].filter(value=>value!==kind).slice(0,2);
-      return {prompt:'Какую форму имеет значение result после показанного вызова?',context,code,options:[kind,...wrong],answer:0,section:sections.length,explanation:`После ${call} переменная result содержит ${JSON.stringify(test.expected)}. Это ${kind}. ${exercise.hint}`};
-    }
-    const correct=JSON.stringify(test.expected);
-    const alternatives=typeof test.expected==='number'?[test.expected+1,test.expected-1]:typeof test.expected==='boolean'?[!test.expected,'TypeError']:Array.isArray(test.expected)?[[],test.expected.slice().reverse(),null]:typeof test.expected==='object'?[null,{},'TypeError']:['',null,'TypeError'];
-    const wrong=[...new Set(alternatives.map(value=>JSON.stringify(value)))].filter(value=>value!==correct).slice(0,2);
-    if(wrong.length!==2)wrong.push('undefined');
-    return {prompt:'Какое значение получит result, если solve выполнит приведённое условие?',context,code,options:[correct,...wrong],answer:0,section:sections.length,explanation:`После ${call} переменная result содержит ${correct}. ${exercise.hint}`};
-  });
-  const questions=[...metadata.questions,...contractQuestions];
+  const questions=[...metadata.questions,...appliedQuestions(entry.id,sections.length)];
   if(questions.length!==5)throw new Error(`Expected 3 conceptual and 2 applied questions: ${entry.id}`);
   const readingMinutes=Math.ceil(words/140)+examples;
   const previous=entries.slice(0,index).filter(x=>x.trackId===entry.trackId).at(-1);

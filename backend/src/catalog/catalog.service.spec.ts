@@ -73,21 +73,17 @@ describe('JS/TS curriculum', () => {
         ).toEqual([]);
       }
   });
-  it('shows the complete condition and concrete invocation for every applied question', () => {
+  it('shows standalone code for applied questions without relying on a practice implementation', () => {
     for (const lesson of catalog.allLessons()) {
       const applied = lesson.questions.slice(3);
       expect(applied).toHaveLength(2);
-      applied.forEach((question, index) => {
-        const test =
-          lesson.exercise.tests[
-            Math.min(index, lesson.exercise.tests.length - 1)
-          ];
-        expect(question.context).toBe(lesson.exercise.prompt);
-        expect(question.code).toContain(
-          `solve(${test.input.map((value) => JSON.stringify(value)).join(', ')})`,
-        );
+      applied.forEach((question) => {
+        expect(question.code?.trim().length).toBeGreaterThan(0);
+        expect(question.code).not.toMatch(/\bsolve\s*\(/);
+        expect(new Set(question.options).size).toBe(question.options.length);
+        expect(question.explanation.trim().length).toBeGreaterThan(20);
         expect(question.prompt).not.toMatch(
-          /опубликованном примере|контракт задачи/,
+          /опубликованном примере|контракт задачи|приведённое условие/,
         );
       });
     }

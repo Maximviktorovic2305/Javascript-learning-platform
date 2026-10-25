@@ -307,8 +307,16 @@ describe('Script Lab HTTP and PostgreSQL', () => {
     const second = await request(app.getHttpServer())
       .post('/api/auth/register')
       .set(headers)
-      .send({ email, name: 'Другой', password, ...consent })
+      .send({
+        email,
+        name: 'Другой',
+        password,
+        ...consent,
+        timezone: 'Asia/Tokyo',
+      })
       .expect(201);
+    expect(second.body.timezone).toBe('Asia/Tokyo');
+    expect(second.body.timezoneAuto).toBe(true);
     const secondCookie = second.headers['set-cookie'][0].split(';')[0];
     const progress = await request(app.getHttpServer())
       .get('/api/profile/progress')
@@ -327,8 +335,81 @@ describe('Script Lab HTTP and PostgreSQL', () => {
       .patch('/api/profile')
       .set(headers)
       .set('cookie', cookie)
-      .send({ name: 'Учусь JS', dailyGoal: 100, timezone: 'Europe/Moscow' })
+      .send({
+        name: 'Учусь JS',
+        dailyGoal: 137,
+        timezone: 'Europe/Moscow',
+        timezoneAuto: false,
+      })
       .expect(200);
+    const manual = await request(app.getHttpServer())
+      .patch('/api/profile/timezone')
+      .set(headers)
+      .set('cookie', cookie)
+      .send({ timezone: 'Asia/Tokyo' })
+      .expect(200);
+    expect(manual.body.timezone).toBe('Europe/Moscow');
+    expect(manual.body.dailyGoal).toBe(137);
+    await request(app.getHttpServer())
+      .patch('/api/profile')
+      .set(headers)
+      .set('cookie', cookie)
+      .send({
+        name: 'Учусь JS',
+        dailyGoal: 137,
+        timezone: 'Europe/Moscow',
+        timezoneAuto: null,
+      })
+      .expect(400);
+    for (const dailyGoal of [0, -1, 1.5, 2147483648]) {
+      const invalid = await request(app.getHttpServer())
+        .patch('/api/profile')
+        .set(headers)
+        .set('cookie', cookie)
+        .send({ name: 'Учусь JS', dailyGoal, timezone: 'Europe/Moscow' })
+        .expect(400);
+      expect(invalid.body.message.join(' ')).toMatch(/[А-Яа-я]/);
+    }
+    await request(app.getHttpServer())
+      .patch('/api/profile')
+      .set(headers)
+      .set('cookie', cookie)
+      .send({
+        name: 'Учусь JS',
+        dailyGoal: 137,
+        timezone: 'Europe/Moscow',
+        timezoneAuto: true,
+      })
+      .expect(200);
+    const automatic = await request(app.getHttpServer())
+      .patch('/api/profile/timezone')
+      .set(headers)
+      .set('cookie', cookie)
+      .send({ timezone: 'Asia/Tokyo' })
+      .expect(200);
+    expect(automatic.body).toMatchObject({
+      timezone: 'Asia/Tokyo',
+      timezoneAuto: true,
+      name: 'Учусь JS',
+      dailyGoal: 137,
+    });
+    expect(automatic.body).not.toHaveProperty('passwordHash');
+    await request(app.getHttpServer())
+      .patch('/api/profile/timezone')
+      .set(headers)
+      .send({ timezone: 'UTC' })
+      .expect(401);
+    await request(app.getHttpServer())
+      .patch('/api/profile/timezone')
+      .set('cookie', cookie)
+      .send({ timezone: 'UTC' })
+      .expect(403);
+    await request(app.getHttpServer())
+      .patch('/api/profile/timezone')
+      .set(headers)
+      .set('cookie', cookie)
+      .send({ timezone: 'Invalid/Timezone' })
+      .expect(400);
     await request(app.getHttpServer())
       .post('/api/projects/js-tracker/submit')
       .set(headers)

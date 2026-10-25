@@ -1,4 +1,5 @@
 import { formatCode } from '../utils/formatCode'
+import type { EditorSettings } from '../utils/editorSettings'
 
 self.onmessage = async (
   event: MessageEvent<{
@@ -6,11 +7,12 @@ self.onmessage = async (
     source: string
     language: 'javascript' | 'typescript'
     cursorOffset: number
+    settings: EditorSettings
   }>,
 ) => {
-  const { id, source, language, cursorOffset } = event.data
+  const { id, source, language, cursorOffset, settings } = event.data
   try {
-    const result = await formatCode(source, language, cursorOffset)
+    const result = await formatCode(source, language, cursorOffset, settings)
     self.postMessage({ id, ...result })
   } catch {
     self.postMessage({

@@ -5,6 +5,8 @@ import {
   MaxLength,
   Matches,
   Equals,
+  IsOptional,
+  IsTimeZone,
 } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { LEGAL_VERSION } from './legal.constants';
@@ -23,6 +25,9 @@ export class LoginDto {
   password!: string;
 }
 export class RegisterDto extends LoginDto {
+  @IsOptional()
+  @IsTimeZone({ message: 'Выберите существующий часовой пояс.' })
+  timezone?: string;
   @Equals(true, { message: 'Примите условия использования.' })
   termsAccepted!: boolean;
   @Equals(true, { message: 'Дайте согласие на обработку персональных данных.' })

@@ -12,7 +12,7 @@ import { SessionGuard } from '../auth/session.guard';
 import type { AuthenticatedRequest } from '../auth/auth.types';
 import { AuthService } from '../auth/auth.service';
 import { ProfileService } from './profile.service';
-import { PasswordDto, ProfileDto } from './profile.dto';
+import { PasswordDto, ProfileDto, TimezoneDto } from './profile.dto';
 @Controller('profile')
 @UseGuards(SessionGuard)
 export class ProfileController {
@@ -25,6 +25,10 @@ export class ProfileController {
   }
   @Patch() update(@Req() req: AuthenticatedRequest, @Body() dto: ProfileDto) {
     return this.profile.update(req.user.id, dto);
+  }
+  @Patch('timezone')
+  syncTimezone(@Req() req: AuthenticatedRequest, @Body() dto: TimezoneDto) {
+    return this.profile.syncTimezone(req.user.id, dto.timezone);
   }
   @Post('password')
   @Throttle({ default: { limit: 5, ttl: 60000 } })

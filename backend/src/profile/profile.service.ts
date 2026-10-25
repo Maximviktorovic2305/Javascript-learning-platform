@@ -37,4 +37,15 @@ export class ProfileService {
       select: publicUserSelect,
     });
   }
+  async syncTimezone(userId: string, timezone: string) {
+    // Do not overwrite a manual choice saved in another tab during synchronization.
+    await this.db.user.updateMany({
+      where: { id: userId, timezoneAuto: true },
+      data: { timezone },
+    });
+    return this.db.user.findUniqueOrThrow({
+      where: { id: userId },
+      select: publicUserSelect,
+    });
+  }
 }

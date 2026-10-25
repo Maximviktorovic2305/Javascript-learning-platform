@@ -1,11 +1,25 @@
 import type { User } from "#shared/types/api";
+import { systemTimezone } from "~/utils/timezones";
 export function useSession() {
   const { user, ready, revision } = useSessionState();
   const api = useApi();
+  async function syncTimezone(account: User) {
+    if (!import.meta.client || !account.timezoneAuto) return account;
+    const timezone = systemTimezone();
+    if (account.timezone === timezone) return account;
+    try {
+      return await api<User>("/profile/timezone", {
+        method: "PATCH",
+        body: { timezone },
+      });
+    } catch {
+      return account;
+    }
+  }
   async function restore() {
     const current = revision.value;
     try {
-      const account = await api<User>("/auth/me");
+      const account = await syncTimezone(await api<User>("/auth/me"));
       if (current === revision.value) user.value = account;
     } catch {
       if (current === revision.value) user.value = null;
@@ -22,13 +36,19 @@ export function useSession() {
       termsAccepted?: boolean;
       dataConsent?: boolean;
       legalVersion?: string;
+      timezone?: string;
     },
   ) {
     const current = ++revision.value;
-    const account = await api<User>(`/auth/${mode}`, {
-      method: "POST",
-      body: values,
-    });
+    const account = await syncTimezone(
+      await api<User>(`/auth/${mode}`, {
+        method: "POST",
+        body: {
+          ...values,
+          ...(mode === "register" ? { timezone: systemTimezone() } : {}),
+        },
+      }),
+    );
     if (current === revision.value) {
       clearNuxtData((key) => key.startsWith("private:"));
       user.value = account;

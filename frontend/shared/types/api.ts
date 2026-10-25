@@ -60,6 +60,7 @@ export interface User {
   name: string
   email: string
   timezone: string
+  timezoneAuto: boolean
   dailyGoal: number
   createdAt: string
 }

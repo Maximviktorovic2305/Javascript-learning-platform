@@ -1,4 +1,14 @@
-import { IsIn, IsInt, IsString, MaxLength, MinLength } from 'class-validator';
+import {
+  IsBoolean,
+  IsInt,
+  ValidateIf,
+  IsString,
+  IsTimeZone,
+  Max,
+  Min,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 import { Transform } from 'class-transformer';
 export class ProfileDto {
   @Transform(({ value }: { value: unknown }) =>
@@ -13,9 +23,19 @@ export class ProfileDto {
     message: 'Часовой пояс должен содержать не более 80 символов.',
   })
   timezone!: string;
+  @ValidateIf((_object: ProfileDto, value: unknown) => value !== undefined)
+  @IsBoolean({ message: 'Выберите способ определения часового пояса.' })
+  timezoneAuto?: boolean;
   @IsInt({ message: 'Выберите дневную цель.' })
-  @IsIn([30, 50, 100], { message: 'Выберите цель: 30, 50 или 100 XP.' })
+  @Min(1, {
+    message: 'Дневная цель должна быть положительным целым числом XP.',
+  })
+  @Max(2147483647, { message: 'Укажите меньшее значение дневной цели.' })
   dailyGoal!: number;
+}
+export class TimezoneDto {
+  @IsTimeZone({ message: 'Выберите существующий часовой пояс.' })
+  timezone!: string;
 }
 export class PasswordDto {
   @IsString({ message: 'Введите текущий пароль.' })

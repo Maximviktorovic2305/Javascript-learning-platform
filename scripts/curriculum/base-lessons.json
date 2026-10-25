@@ -307,6 +307,7 @@
       {
         "id": "javascript-arrays-3",
         "prompt": "Как безопасно суммировать пустой массив?",
+        "code": "const values = [];",
         "options": [
           "values.reduce((a,b)=>a+b, 0)",
           "values.reduce((a,b)=>a+b)",
@@ -377,6 +378,7 @@
       {
         "id": "javascript-objects-2",
         "prompt": "Создаёт ли {...user} независимую копию вложенного user.settings?",
+        "code": "const user = { name: \"Ира\", settings: { theme: \"light\" } };\nconst copy = { ...user };",
         "options": [
           "Да, глубокую",
           "Нет, копия поверхностная",
@@ -703,7 +705,8 @@
       },
       {
         "id": "typescript-types-2",
-        "prompt": "Проверит ли x as User JSON-объект во время исполнения?",
+        "prompt": "Проверит ли утверждение x as User, что name действительно является строкой, во время исполнения?",
+        "code": "type User = { name: string };\nconst x = JSON.parse('{\"name\":42}');\nconst user = x as User;",
         "options": [
           "Да",
           "Нет",

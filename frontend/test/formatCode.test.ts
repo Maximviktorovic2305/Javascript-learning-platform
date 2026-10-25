@@ -1,7 +1,45 @@
 import { describe, expect, it } from 'vitest'
 import { formatCode } from '../app/utils/formatCode'
+import {
+  DEFAULT_EDITOR_SETTINGS,
+  editorSettings,
+} from '../app/utils/editorSettings'
 
 describe('Prettier formats student code without executing it', () => {
+  it('applies the visible indentation, quotes and semicolon preferences', async () => {
+    const source = 'function solve(){return "JS"}'
+    const spaces = await formatCode(source, 'javascript', 0, {
+      ...DEFAULT_EDITOR_SETTINGS,
+      tabWidth: 4,
+      singleQuote: false,
+      semi: false,
+    })
+    expect(spaces.formatted).toBe('function solve() {\n    return "JS"\n}\n')
+    const tabs = await formatCode(source, 'javascript', 0, {
+      ...DEFAULT_EDITOR_SETTINGS,
+      useTabs: true,
+      tabWidth: 8,
+    })
+    expect(tabs.formatted).toBe("function solve() {\n\treturn 'JS';\n}\n")
+    const wideSource =
+      "const result = build('123456789012345', '123456789012345', '123456789012345', '123456789012345');"
+    const narrow = await formatCode(wideSource, 'javascript', 0, {
+      printWidth: 80,
+    })
+    const wide = await formatCode(wideSource, 'javascript', 0, {
+      printWidth: 120,
+    })
+    expect(narrow.formatted).toContain('build(\n')
+    expect(wide.formatted).not.toContain('build(\n')
+    expect(
+      editorSettings({
+        tabWidth: 999,
+        fontSize: -1,
+        useTabs: 'true',
+        printWidth: 0,
+      }),
+    ).toEqual(DEFAULT_EDITOR_SETTINGS)
+  })
   it('formats JavaScript and preserves comments, strings and cursor tracking', async () => {
     const source = 'function solve(name){/* note */return "Привет, "+name+"!"}'
     const result = await formatCode(

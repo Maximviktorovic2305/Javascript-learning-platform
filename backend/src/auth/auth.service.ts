@@ -41,6 +41,8 @@ export class AuthService {
         data: {
           email: dto.email,
           name: dto.name,
+          timezone: dto.timezone ?? 'UTC',
+          timezoneAuto: true,
           passwordHash,
           termsAcceptedAt: new Date(),
           dataConsentAt: new Date(),

@@ -4,7 +4,9 @@ import {
   nameError,
   timezoneError,
   passwordError as validatePassword,
+  dailyGoalError,
 } from '~/utils/formValidation'
+import { systemTimezone, timezoneOptions } from '~/utils/timezones'
 definePageMeta({ layout: 'workspace', middleware: 'auth' })
 usePageSeo({ title: 'Профиль', robots: 'noindex' })
 const { user, clear } = useSession()
@@ -31,19 +33,30 @@ const joined = computed(() =>
       }).format(new Date(user.value.createdAt))
     : '',
 )
-const goalOptions = [
-  { value: 30, label: '30 XP — спокойный темп', icon: 'book' as const },
-  { value: 50, label: '50 XP — уверенный шаг', icon: 'target' as const },
-  { value: 100, label: '100 XP — полный вперёд', icon: 'zap' as const },
-]
+const goalPresets = [30, 50, 100]
 const name = ref(user.value?.name ?? '')
-const timezone = ref(user.value?.timezone ?? 'Asia/Vladivostok')
-const dailyGoal = ref(user.value?.dailyGoal ?? 50)
+const detectedTimezone = ref(user.value?.timezone ?? 'UTC')
+onMounted(() => {
+  detectedTimezone.value = systemTimezone()
+})
+const timezoneChoice = ref(
+  user.value?.timezoneAuto ? 'system' : (user.value?.timezone ?? 'system'),
+)
+const timezone = computed(() =>
+  timezoneChoice.value === 'system'
+    ? detectedTimezone.value
+    : timezoneChoice.value,
+)
+const timezones = computed(() =>
+  timezoneOptions(user.value?.timezone ?? 'UTC', detectedTimezone.value),
+)
+const dailyGoal = ref<number | string>(user.value?.dailyGoal ?? 50)
 const currentPassword = ref(''),
   nextPassword = ref('')
 const validation = computed(() => ({
   name: nameError(name.value),
   timezone: timezoneError(timezone.value),
+  dailyGoal: dailyGoalError(dailyGoal.value),
 }))
 const passwordValidation = computed(() => ({
   current: validatePassword(currentPassword.value),
@@ -67,7 +80,8 @@ async function save() {
       body: {
         name: name.value,
         timezone: timezone.value,
-        dailyGoal: dailyGoal.value,
+        timezoneAuto: timezoneChoice.value === 'system',
+        dailyGoal: Number(dailyGoal.value),
       },
     })
     if (user.value?.id !== owner) return
@@ -155,32 +169,67 @@ async function password() {
           >{{ validation.name }}</span
         ></label
       ><label
-        >Часовой пояс<input
-          v-model="timezone"
+        >Часовой пояс<select
+          v-model="timezoneChoice"
+          aria-label="Часовой пояс"
           :aria-invalid="!!validation.timezone"
           aria-describedby="timezone-error"
           required
-          maxlength="80"
-          list="timezones" /><span
+        >
+          <option value="system">Автоматически — {{ detectedTimezone }}</option>
+          <option
+            v-for="zone in timezones"
+            :key="zone.value"
+            :value="zone.value"
+          >
+            {{ zone.label }}
+          </option></select
+        ><span
           v-if="validation.timezone"
           id="timezone-error"
           class="error-text"
           >{{ validation.timezone }}</span
-        ><datalist id="timezones">
-          <option value="Europe/Moscow" />
-          <option value="Asia/Vladivostok" />
-          <option value="Asia/Yekaterinburg" />
-          <option value="Asia/Novosibirsk" />
-          <option value="UTC" /></datalist
-      ></label>
+        ><small
+          >Автоматический режим использует часовой пояс устройства. Можно
+          выбрать другой.</small
+        ></label
+      >
       <div class="profile-goal-field">
-        <span>Дневная цель</span>
-        <AppSelect
-          :model-value="dailyGoal"
-          :options="goalOptions"
-          label="Дневная цель"
-          @update:model-value="dailyGoal = Number($event)"
-        />
+        <label
+          >Дневная цель, XP<input
+            v-model.number="dailyGoal"
+            type="number"
+            min="1"
+            max="2147483647"
+            step="1"
+            inputmode="numeric"
+            required
+            aria-label="Дневная цель, XP"
+            :aria-invalid="!!validation.dailyGoal"
+            aria-describedby="daily-goal-error"
+        /></label>
+        <span
+          v-if="validation.dailyGoal"
+          id="daily-goal-error"
+          class="error-text"
+          >{{ validation.dailyGoal }}</span
+        >
+        <div class="goal-presets" aria-label="Быстрый выбор дневной цели">
+          <button
+            v-for="goal in goalPresets"
+            :key="goal"
+            type="button"
+            class="button button-small button-outline"
+            :aria-pressed="dailyGoal === goal"
+            @click="dailyGoal = goal"
+          >
+            {{ goal }} XP
+          </button>
+        </div>
+        <small
+          >Введите любое положительное целое число XP или выберите готовый
+          вариант.</small
+        >
       </div>
     </div>
     <p v-if="message" class="success-text" role="status">{{ message }}</p>

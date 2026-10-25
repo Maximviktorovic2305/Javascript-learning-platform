@@ -16,6 +16,7 @@ model User {
   passwordHash String
   credentialVersion Int @default(0)
   timezone String @default("Asia/Vladivostok")
+  timezoneAuto Boolean @default(true)
   dailyGoal Int @default(50)
   createdAt DateTime @default(now())
   termsAcceptedAt DateTime?

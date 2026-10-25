@@ -10,6 +10,11 @@ import {
   indentUnit,
 } from '@codemirror/language'
 import { tags } from '@lezer/highlight'
+import {
+  DEFAULT_EDITOR_SETTINGS,
+  EDITOR_SETTINGS_KEY,
+  editorSettings,
+} from '~/utils/editorSettings'
 
 const props = defineProps<{
   modelValue: string
@@ -20,6 +25,11 @@ const host = useTemplateRef<HTMLDivElement>('host')
 const formatting = ref(false)
 const message = ref('')
 const language = new Compartment()
+const configuration = new Compartment()
+const settings = ref(editorSettings(DEFAULT_EDITOR_SETTINGS))
+const settingsOpen = ref(false)
+const panelId = useId()
+const settingsRevision = ref(0)
 let view: EditorView | undefined
 let worker: Worker | undefined
 let requestId = 0
@@ -66,6 +76,7 @@ function format(silent = false): Promise<boolean> {
   const editor = view
   const source = editor.state.doc.toString()
   const cursorOffset = editor.state.selection.main.head
+  const revision = settingsRevision.value
   if (!source.trim()) return Promise.resolve(true)
   message.value = ''
   formatting.value = true
@@ -104,7 +115,8 @@ function format(silent = false): Promise<boolean> {
         if (
           typeof formatted !== 'string' ||
           formatted.length > 20000 ||
-          editor.state.doc.toString() !== source
+          editor.state.doc.toString() !== source ||
+          settingsRevision.value !== revision
         ) {
           endFormatting(false)
           return
@@ -136,7 +148,13 @@ function format(silent = false): Promise<boolean> {
         worker = undefined
         endFormatting(false)
       }
-      worker.postMessage({ id, source, language: props.language, cursorOffset })
+      worker.postMessage({
+        id,
+        source,
+        language: props.language,
+        cursorOffset,
+        settings: { ...settings.value },
+      })
     } catch {
       if (reportErrors)
         message.value = 'Форматирование недоступно. Код сохранён без изменений.'
@@ -152,6 +170,13 @@ function format(silent = false): Promise<boolean> {
 onMounted(() => {
   if (!host.value) return
   mounted = true
+  try {
+    settings.value = editorSettings(
+      JSON.parse(localStorage.getItem(EDITOR_SETTINGS_KEY) ?? 'null'),
+    )
+  } catch {
+    /* Defaults work without storage. */
+  }
   view = new EditorView({
     parent: host.value,
     state: EditorState.create({
@@ -178,7 +203,7 @@ onMounted(() => {
         language.of(
           javascript({ typescript: props.language === 'typescript' }),
         ),
-        indentUnit.of('  '),
+        configuration.of(editorConfiguration()),
         syntaxHighlighting(colors),
         EditorView.contentAttributes.of({
           'aria-label': 'Редактор решения',
@@ -201,14 +226,16 @@ onMounted(() => {
           blur: (event) => {
             if (
               event.relatedTarget instanceof Element &&
-              event.relatedTarget.closest('.editor-format-bar')
+              event.relatedTarget.closest(
+                '.editor-format-bar, .editor-settings',
+              )
             )
               return
-            void format(true)
+            if (settings.value.autoFormat) void format(true)
           },
           paste: () => {
             setTimeout(() => {
-              if (mounted) void format(true)
+              if (mounted && settings.value.autoFormat) void format(true)
             }, 0)
             return false
           },
@@ -218,7 +245,6 @@ onMounted(() => {
             '&': {
               backgroundColor: '#151a13',
               color: '#e3eadc',
-              fontSize: '13px',
             },
             '.cm-scroller': {
               fontFamily: 'var(--mono)',
@@ -257,6 +283,37 @@ onMounted(() => {
   })
 })
 
+function editorConfiguration() {
+  return [
+    indentUnit.of(
+      settings.value.useTabs ? '\t' : ' '.repeat(settings.value.tabWidth),
+    ),
+    EditorState.tabSize.of(settings.value.tabWidth),
+    settings.value.lineWrapping ? EditorView.lineWrapping : [],
+    EditorView.theme({ '&': { fontSize: `${settings.value.fontSize}px` } }),
+  ]
+}
+watch(
+  settings,
+  (value) => {
+    settingsRevision.value++
+    view?.dispatch({
+      effects: configuration.reconfigure(editorConfiguration()),
+    })
+    if (mounted)
+      try {
+        localStorage.setItem(EDITOR_SETTINGS_KEY, JSON.stringify(value))
+      } catch {
+        message.value =
+          'Настройки применены, но не сохранены: хранилище недоступно.'
+      }
+  },
+  { deep: true },
+)
+function resetSettings() {
+  settings.value = editorSettings(DEFAULT_EDITOR_SETTINGS)
+}
+
 watch(
   () => props.modelValue,
   (value) => {
@@ -287,7 +344,30 @@ defineExpose({ format })
 <template>
   <div class="solution-editor">
     <div class="editor-format-bar">
-      <span>Автоформатирование после вставки и выхода из редактора</span>
+      <strong class="editor-prettier-label">Prettier</strong>
+      <label class="editor-indent-setting"
+        >Отступ
+        <select v-model.number="settings.tabWidth" aria-label="Размер отступа">
+          <option :value="2">
+            {{ settings.useTabs ? 'Tab: 2 позиции' : '2 пробела' }}
+          </option>
+          <option :value="4">
+            {{ settings.useTabs ? 'Tab: 4 позиции' : '4 пробела' }}
+          </option>
+          <option :value="8">
+            {{ settings.useTabs ? 'Tab: 8 позиций' : '8 пробелов' }}
+          </option>
+        </select>
+      </label>
+      <button
+        type="button"
+        class="button button-small button-outline"
+        :aria-expanded="settingsOpen"
+        :aria-controls="panelId"
+        @click="settingsOpen = !settingsOpen"
+      >
+        Настройки редактора
+      </button>
       <button
         type="button"
         class="button button-small button-outline"
@@ -304,6 +384,74 @@ defineExpose({ format })
         {{ formatting ? 'Форматируем…' : 'Форматировать' }}
       </button>
     </div>
+    <section
+      v-if="settingsOpen"
+      :id="panelId"
+      class="editor-settings"
+      aria-label="Настройки Prettier и редактора"
+    >
+      <div class="editor-settings-grid">
+        <label
+          >Тип отступа<select
+            v-model="settings.useTabs"
+            aria-label="Тип отступа"
+          >
+            <option :value="false">Пробелы</option>
+            <option :value="true">Табуляция</option>
+          </select></label
+        >
+        <label
+          >Длина строки<select
+            v-model.number="settings.printWidth"
+            aria-label="Длина строки Prettier"
+          >
+            <option :value="80">80 символов</option>
+            <option :value="100">100 символов</option>
+            <option :value="120">120 символов</option>
+          </select></label
+        >
+        <label
+          >Размер шрифта<select
+            v-model.number="settings.fontSize"
+            aria-label="Размер шрифта редактора"
+          >
+            <option :value="12">12 px</option>
+            <option :value="14">14 px</option>
+            <option :value="16">16 px</option>
+            <option :value="18">18 px</option>
+          </select></label
+        >
+        <label
+          >Кавычки<select
+            v-model="settings.singleQuote"
+            aria-label="Кавычки Prettier"
+          >
+            <option :value="true">Одинарные</option>
+            <option :value="false">Двойные</option>
+          </select></label
+        >
+      </div>
+      <label class="editor-setting-check"
+        ><input v-model="settings.semi" type="checkbox" />Точки с запятой</label
+      >
+      <label class="editor-setting-check"
+        ><input
+          v-model="settings.autoFormat"
+          type="checkbox"
+        />Автоформатирование при вставке и выходе из редактора</label
+      >
+      <label class="editor-setting-check"
+        ><input v-model="settings.lineWrapping" type="checkbox" />Переносить
+        длинные строки на экране</label
+      >
+      <button type="button" class="text-link" @click="resetSettings">
+        Сбросить настройки редактора
+      </button>
+      <p>
+        Настройки сохраняются на этом устройстве. Prettier применяется также
+        перед запуском; форматирование можно отменить через Ctrl + Z.
+      </p>
+    </section>
     <div ref="host" class="solution-editor-host" />
     <p v-if="message" class="editor-format-message" role="status">
       {{ message }}

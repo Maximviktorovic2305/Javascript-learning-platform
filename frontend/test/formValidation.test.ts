@@ -5,9 +5,16 @@ import {
   passwordError,
   timezoneError,
   projectUrlError,
+  dailyGoalError,
 } from '../app/utils/formValidation'
 
 describe('Russian form validation', () => {
+  it('accepts custom whole XP goals and rejects empty or out-of-range values', () => {
+    for (const value of [1, 137, '999', 2147483647])
+      expect(dailyGoalError(value)).toBe('')
+    for (const value of ['', 0, -1, 1.5, 'oops', Infinity, 2147483648])
+      expect(dailyGoalError(value)).toMatch(/[А-Яа-я]/)
+  })
   it('rejects empty, whitespace-only and malformed registration fields', () => {
     for (const name of ['', '   ', 'A', 'a'.repeat(61)])
       expect(nameError(name)).not.toBe('')

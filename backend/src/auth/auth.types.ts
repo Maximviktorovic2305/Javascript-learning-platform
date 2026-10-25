@@ -3,6 +3,7 @@ export const publicUserSelect = {
   email: true,
   name: true,
   timezone: true,
+  timezoneAuto: true,
   dailyGoal: true,
   createdAt: true,
 } as const;
@@ -11,6 +12,7 @@ export interface AuthenticatedUser {
   email: string;
   name: string;
   timezone: string;
+  timezoneAuto: boolean;
   dailyGoal: number;
   createdAt: Date;
 }

@@ -205,32 +205,30 @@
         "sectionId": "section-5"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Функция solve(message) получает готовую строку message. Верните эту же строку без изменений через return. Например, solve(\"Привет\") возвращает \"Привет\". Не используйте console.log вместо возврата. Условия и преобразования здесь не нужны.",
-        "code": "const result = solve(\"Привет\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "function greeting() {\n  return \"Привет!\";\n}\nconst result = greeting();",
         "options": [
-          "\"Привет\"",
-          "\"\"",
+          "\"Привет!\"",
+          "\"greeting\"",
           "null"
         ],
         "answer": 0,
+        "explanation": "Вызов greeting() получает строку из return.",
         "section": 6,
-        "explanation": "После solve(\"Привет\") переменная result содержит \"Привет\". Внутри готовой функции напишите return message; — параметр уже содержит входную строку.",
         "id": "javascript-start-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Функция solve(message) получает готовую строку message. Верните эту же строку без изменений через return. Например, solve(\"Привет\") возвращает \"Привет\". Не используйте console.log вместо возврата. Условия и преобразования здесь не нужны.",
-        "code": "const result = solve(\"JavaScript\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "function message() {\n  console.log(\"Начало\");\n  return \"Готово\";\n}\nconst result = message();",
         "options": [
-          "\"\"",
-          "null",
-          "\"JavaScript\""
+          "\"Начало\"",
+          "\"НачалоГотово\"",
+          "\"Готово\""
         ],
         "answer": 2,
+        "explanation": "console.log выводит «Начало» в консоль, а return передаёт «Готово» в result.",
         "section": 6,
-        "explanation": "После solve(\"JavaScript\") переменная result содержит \"JavaScript\". Внутри готовой функции напишите return message; — параметр уже содержит входную строку.",
         "id": "javascript-start-5",
         "sectionId": "section-6"
       }
@@ -449,32 +447,30 @@
         "sectionId": "section-1"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Верните строку «Привет, ИМЯ!», подставив переданное имя. Не выводите результат вместо return.",
-        "code": "const result = solve(\"Мир\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "let score = 4;\nscore = score + 3;\nconst result = score;",
         "options": [
-          "\"\"",
-          "null",
-          "\"Привет, Мир!\""
+          "4",
+          "43",
+          "7"
         ],
         "answer": 2,
+        "explanation": "let допускает присваивание: 4 + 3 равно 7.",
         "section": 6,
-        "explanation": "После solve(\"Мир\") переменная result содержит \"Привет, Мир!\". Используйте return и шаблонную строку.",
         "id": "javascript-values-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Верните строку «Привет, ИМЯ!», подставив переданное имя. Не выводите результат вместо return.",
-        "code": "const result = solve(\"Анна\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const price = 12;\nconst quantity = 3;\nconst result = price * quantity;",
         "options": [
-          "null",
-          "\"Привет, Анна!\"",
-          "\"\""
+          "123",
+          "36",
+          "15"
         ],
         "answer": 1,
+        "explanation": "Оператор * перемножает два числа: 12 × 3 = 36.",
         "section": 6,
-        "explanation": "После solve(\"Анна\") переменная result содержит \"Привет, Анна!\". Используйте return и шаблонную строку.",
         "id": "javascript-values-5",
         "sectionId": "section-6"
       }
@@ -700,32 +696,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(firstPrice, secondPrice) получает две неотрицательные цены в рублях, не более двух знаков после запятой. Переведите каждую цену в целые копейки с Math.round(price * 100), сложите копейки и верните сумму в рублях. Для 0.1 и 0.2 результат — 0.3. Массивы и циклы не нужны.",
-        "code": "const result = solve(0.1, 0.2);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const result = 2 + 3 * 4;",
         "options": [
-          "-0.7",
-          "0.3",
-          "1.3"
+          "24",
+          "14",
+          "20"
         ],
         "answer": 1,
+        "explanation": "Умножение выполняется раньше сложения: 2 + 12.",
         "section": 6,
-        "explanation": "После solve(0.1, 0.2) переменная result содержит 0.3. Используйте две переменные для целых копеек; на 100 делите только общую сумму.",
         "id": "javascript-numbers-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(firstPrice, secondPrice) получает две неотрицательные цены в рублях, не более двух знаков после запятой. Переведите каждую цену в целые копейки с Math.round(price * 100), сложите копейки и верните сумму в рублях. Для 0.1 и 0.2 результат — 0.3. Массивы и циклы не нужны.",
-        "code": "const result = solve(0, 0);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const result = Math.round(19.995 * 100);",
         "options": [
-          "0",
-          "1",
-          "-1"
+          "2000",
+          "1999",
+          "20"
         ],
         "answer": 0,
+        "explanation": "После умножения и округления получаем целое число сотых: 2000.",
         "section": 6,
-        "explanation": "После solve(0, 0) переменная result содержит 0. Используйте две переменные для целых копеек; на 100 делите только общую сумму.",
         "id": "javascript-numbers-5",
         "sectionId": "section-6"
       }
@@ -949,32 +943,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(text) возвращает число Unicode code points в строке. Составной символ из буквы и отдельного знака ударения считается двумя code points. Нужны code points, а не визуальные графемы.",
-        "code": "const result = solve(\"JS\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const name = \"  Анна  \";\nconst result = name.trim().toUpperCase();",
         "options": [
-          "2",
-          "3",
-          "1"
+          "\"АННА\"",
+          "\"  АННА  \"",
+          "\"Анна\""
         ],
         "answer": 0,
+        "explanation": "trim убирает внешние пробелы, затем toUpperCase переводит буквы в верхний регистр.",
         "section": 6,
-        "explanation": "После solve(\"JS\") переменная result содержит 2. Строковый итератор, используемый Array.from, перебирает code points.",
         "id": "javascript-strings-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(text) возвращает число Unicode code points в строке. Составной символ из буквы и отдельного знака ударения считается двумя code points. Нужны code points, а не визуальные графемы.",
-        "code": "const result = solve(\"\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const text = \"JavaScript\";\nconst result = text.slice(0, 4);",
         "options": [
-          "1",
-          "-1",
-          "0"
+          "\"JavaS\"",
+          "\"Script\"",
+          "\"Java\""
         ],
         "answer": 2,
+        "explanation": "slice включает индекс 0 и исключает индекс 4.",
         "section": 6,
-        "explanation": "После solve(\"\") переменная result содержит 0. Строковый итератор, используемый Array.from, перебирает code points.",
         "id": "javascript-strings-5",
         "sectionId": "section-6"
       }
@@ -1190,32 +1182,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Верните «взрослый» для возраста от 18 включительно, иначе «ребёнок».",
-        "code": "const result = solve(18);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const age = 16;\nlet access = \"закрыт\";\nif (age >= 18) {\n  access = \"открыт\";\n}\nconst result = access;",
         "options": [
-          "\"\"",
-          "null",
-          "\"взрослый\""
+          "\"открыт\"",
+          "true",
+          "\"закрыт\""
         ],
         "answer": 2,
+        "explanation": "16 >= 18 ложно, поэтому присваивание внутри if не выполняется.",
         "section": 6,
-        "explanation": "После solve(18) переменная result содержит \"взрослый\". Граница 18 относится к первой ветке.",
         "id": "javascript-conditions-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Верните «взрослый» для возраста от 18 включительно, иначе «ребёнок».",
-        "code": "const result = solve(17);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const count = 0;\nconst result = count || 10;",
         "options": [
-          "null",
-          "\"ребёнок\"",
-          "\"\""
+          "true",
+          "10",
+          "0"
         ],
         "answer": 1,
+        "explanation": "Ноль — falsy, поэтому || возвращает правый операнд 10.",
         "section": 6,
-        "explanation": "После solve(17) переменная result содержит \"ребёнок\". Граница 18 относится к первой ветке.",
         "id": "javascript-conditions-5",
         "sectionId": "section-6"
       }
@@ -1433,32 +1423,30 @@
         "sectionId": "section-2"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(n) принимает целое число от 0 до 10000. Циклом сложите числа от 1 до n включительно и верните сумму. Для n=0 верните 0.",
-        "code": "const result = solve(0);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "let sum = 0;\nfor (let n = 1; n <= 3; n++) {\n  sum += n;\n}\nconst result = sum;",
         "options": [
-          "-1",
-          "0",
-          "1"
+          "7",
+          "6",
+          "3"
         ],
         "answer": 1,
+        "explanation": "Цикл прибавит 1, 2 и 3: сумма равна 6.",
         "section": 6,
-        "explanation": "После solve(0) переменная result содержит 0. Задайте начальное значение аккумулятора 0 и включите n в диапазон.",
         "id": "javascript-loops-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(n) принимает целое число от 0 до 10000. Циклом сложите числа от 1 до n включительно и верните сумму. Для n=0 верните 0.",
-        "code": "const result = solve(1);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "let text = \"\";\nfor (const letter of \"JS\") {\n  text += letter + \"!\";\n}\nconst result = text;",
         "options": [
-          "1",
-          "2",
-          "0"
+          "\"J!S!\"",
+          "\"JS!\"",
+          "\"JS\""
         ],
         "answer": 0,
+        "explanation": "К каждой из двух букв добавляется восклицательный знак.",
         "section": 6,
-        "explanation": "После solve(1) переменная result содержит 1. Задайте начальное значение аккумулятора 0 и включите n в диапазон.",
         "id": "javascript-loops-5",
         "sectionId": "section-6"
       }
@@ -1687,32 +1675,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Верните сумму квадратов двух переданных чисел a и b.",
-        "code": "const result = solve(3, 4);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "function square(value) {\n  return value * value;\n}\nconst result = square(5);",
         "options": [
           "25",
-          "26",
-          "24"
+          "10",
+          "5"
         ],
         "answer": 0,
+        "explanation": "Параметр value равен 5, возвращается 5 × 5.",
         "section": 6,
-        "explanation": "После solve(3, 4) переменная result содержит 25. Возведение в квадрат записывается как x ** 2.",
         "id": "javascript-functions-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Верните сумму квадратов двух переданных чисел a и b.",
-        "code": "const result = solve(0, 0);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "function add(a, b = 2) {\n  return a + b;\n}\nconst result = add(3);",
         "options": [
-          "1",
-          "-1",
-          "0"
+          "3",
+          "2",
+          "5"
         ],
         "answer": 2,
+        "explanation": "Второй аргумент не передан, поэтому используется значение по умолчанию 2.",
         "section": 6,
-        "explanation": "После solve(0, 0) переменная result содержит 0. Возведение в квадрат записывается как x ** 2.",
         "id": "javascript-functions-5",
         "sectionId": "section-6"
       }
@@ -1938,6 +1924,7 @@
       {
         "id": "javascript-arrays-3",
         "prompt": "Как безопасно суммировать пустой массив?",
+        "code": "const values = [];",
         "options": [
           "values.reduce((a,b)=>a+b, 0)",
           "values.reduce((a,b)=>a+b)",
@@ -1948,32 +1935,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Верните сумму только положительных чисел массива. Для пустого массива верните 0. Исходный массив не изменяйте.",
-        "code": "const result = solve([1,-2,3,0]);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const values = [1, 2, 3, 4];\nconst result = values.filter(n => n > 2).map(n => n * 10);",
         "options": [
-          "5",
-          "3",
-          "4"
+          "[10,20,30,40]",
+          "[3,4]",
+          "[30,40]"
         ],
         "answer": 2,
+        "explanation": "filter оставляет 3 и 4; map умножает каждый оставшийся элемент на 10.",
         "section": 6,
-        "explanation": "После solve([1,-2,3,0]) переменная result содержит 4. Отфильтруйте положительные числа и сложите их с начальным 0.",
         "id": "javascript-arrays-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Верните сумму только положительных чисел массива. Для пустого массива верните 0. Исходный массив не изменяйте.",
-        "code": "const result = solve([]);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const values = [2, 3, 4];\nconst result = values.reduce((sum, n) => sum + n, 1);",
         "options": [
-          "-1",
-          "0",
-          "1"
+          "24",
+          "10",
+          "9"
         ],
         "answer": 1,
+        "explanation": "Начальное значение суммы — 1, затем добавляются 2, 3 и 4.",
         "section": 6,
-        "explanation": "После solve([]) переменная result содержит 0. Отфильтруйте положительные числа и сложите их с начальным 0.",
         "id": "javascript-arrays-5",
         "sectionId": "section-6"
       }
@@ -2175,6 +2160,7 @@
       {
         "id": "javascript-objects-2",
         "prompt": "Создаёт ли {...user} независимую копию вложенного user.settings?",
+        "code": "const user = { name: \"Ира\", settings: { theme: \"light\" } };\nconst copy = { ...user };",
         "options": [
           "Да, глубокую",
           "Нет, копия поверхностная",
@@ -2197,32 +2183,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Верните name объекта user; если user равен null или name отсутствует/null, верните «Гость». Пустое имя сохраняйте.",
-        "code": "const result = solve({\"name\":\"Ира\"});",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const user = { name: \"Лена\", settings: { theme: \"light\" } };\nconst copy = { ...user };\ncopy.settings.theme = \"dark\";\nconst result = user.settings.theme;",
         "options": [
           "null",
-          "\"Ира\"",
-          "\"\""
+          "\"dark\"",
+          "\"light\""
         ],
         "answer": 1,
+        "explanation": "Spread копирует верхний уровень; вложенный settings остаётся общей ссылкой.",
         "section": 6,
-        "explanation": "После solve({\"name\":\"Ира\"}) переменная result содержит \"Ира\". Совместите ?. и ??.",
         "id": "javascript-objects-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Верните name объекта user; если user равен null или name отсутствует/null, верните «Гость». Пустое имя сохраняйте.",
-        "code": "const result = solve(null);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const user = { name: \"Марк\" };\nconst { name, role = \"student\" } = user;\nconst result = role;",
         "options": [
-          "\"Гость\"",
-          "\"\"",
+          "\"student\"",
+          "\"Марк\"",
           "null"
         ],
         "answer": 0,
+        "explanation": "Свойства role нет, поэтому деструктуризация берёт значение по умолчанию.",
         "section": 6,
-        "explanation": "После solve(null) переменная result содержит \"Гость\". Совместите ?. и ??.",
         "id": "javascript-objects-5",
         "sectionId": "section-6"
       }
@@ -2447,32 +2431,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Верните массив уникальных строк в порядке первого появления.",
-        "code": "const result = solve([\"js\",\"ts\",\"js\"]);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const values = new Set([\"JS\", \"TS\", \"JS\"]);\nconst result = values.size;",
         "options": [
-          "[\"js\",\"ts\"]",
-          "[]",
-          "[\"ts\",\"js\"]"
+          "2",
+          "3",
+          "1"
         ],
         "answer": 0,
+        "explanation": "Set содержит два различных значения: JS и TS.",
         "section": 6,
-        "explanation": "После solve([\"js\",\"ts\",\"js\"]) переменная result содержит [\"js\",\"ts\"]. Создайте Set, затем разверните его в массив.",
         "id": "javascript-collections-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Верните массив уникальных строк в порядке первого появления.",
-        "code": "const result = solve([]);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const scores = new Map();\nscores.set(\"Анна\", 2);\nscores.set(\"Анна\", 5);\nconst result = scores.get(\"Анна\");",
         "options": [
-          "null",
-          "undefined",
-          "[]"
+          "2",
+          "7",
+          "5"
         ],
         "answer": 2,
+        "explanation": "Повторный set с тем же ключом заменяет значение.",
         "section": 6,
-        "explanation": "После solve([]) переменная result содержит []. Создайте Set, затем разверните его в массив.",
         "id": "javascript-collections-5",
         "sectionId": "section-6"
       }
@@ -2714,32 +2696,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(start, steps) создаёт счётчик с замыканием. Каждый вызов внутренней функции сначала прибавляет step к закрытому значению, затем возвращает его. Верните массив результатов для всех steps; пустой steps даёт [].",
-        "code": "const result = solve(0, [1,2,-1]);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "function counter() {\n  let n = 0;\n  return () => ++n;\n}\nconst next = counter();\nnext();\nconst result = next();",
         "options": [
-          "[]",
-          "[2,3,1]",
-          "[1,3,2]"
+          "1",
+          "0",
+          "2"
         ],
         "answer": 2,
+        "explanation": "Оба вызова next используют одну и ту же сохранённую переменную n.",
         "section": 6,
-        "explanation": "После solve(0, [1,2,-1]) переменная result содержит [1,3,2]. Окружение должно создаваться заново при каждом вызове solve.",
         "id": "javascript-closures-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(start, steps) создаёт счётчик с замыканием. Каждый вызов внутренней функции сначала прибавляет step к закрытому значению, затем возвращает его. Верните массив результатов для всех steps; пустой steps даёт [].",
-        "code": "const result = solve(10, []);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const user = {\n  name: \"Оля\",\n  greet() { return this.name; }\n};\nconst result = user.greet();",
         "options": [
-          "undefined",
-          "[]",
-          "null"
+          "null",
+          "\"Оля\"",
+          "\"user\""
         ],
         "answer": 1,
+        "explanation": "При вызове user.greet() значением this является user.",
         "section": 6,
-        "explanation": "После solve(10, []) переменная result содержит []. Окружение должно создаваться заново при каждом вызове solve.",
         "id": "javascript-closures-5",
         "sectionId": "section-6"
       }
@@ -2970,32 +2950,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте класс Account с начальным balance и методом deposit(amount), прибавляющим только положительные суммы. solve(start, amounts) создаёт новый Account, вызывает deposit для каждой суммы и возвращает итоговый balance.",
-        "code": "const result = solve(10, [5,-3,0]);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "class Counter {\n  constructor(n) { this.n = n; }\n  increment() { this.n += 1; }\n}\nconst counter = new Counter(4);\ncounter.increment();\nconst result = counter.n;",
         "options": [
-          "14",
-          "15",
-          "16"
+          "1",
+          "5",
+          "4"
         ],
         "answer": 1,
+        "explanation": "Конструктор сохраняет 4, метод increment увеличивает значение до 5.",
         "section": 6,
-        "explanation": "После solve(10, [5,-3,0]) переменная result содержит 15. Данные экземпляра храните в this.balance; создавайте экземпляр внутри solve.",
         "id": "javascript-classes-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте класс Account с начальным balance и методом deposit(amount), прибавляющим только положительные суммы. solve(start, amounts) создаёт новый Account, вызывает deposit для каждой суммы и возвращает итоговый balance.",
-        "code": "const result = solve(0, []);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "class Animal { speak() { return \"звук\"; } }\nclass Cat extends Animal { speak() { return \"мяу\"; } }\nconst result = new Cat().speak();",
         "options": [
-          "0",
-          "1",
-          "-1"
+          "\"мяу\"",
+          "\"звук\"",
+          "\"Cat\""
         ],
         "answer": 0,
+        "explanation": "Метод speak переопределён в Cat, поэтому вызывается версия подкласса.",
         "section": 6,
-        "explanation": "После solve(0, []) переменная result содержит 0. Данные экземпляра храните в this.balance; создавайте экземпляр внутри solve.",
         "id": "javascript-classes-5",
         "sectionId": "section-6"
       }
@@ -3211,32 +3189,30 @@
         "sectionId": "section-2"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Разберите JSON-строку и верните значение. При ошибке разбора верните null.",
-        "code": "const result = solve(\"{\\\"a\\\":1}\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "let result;\ntry {\n  result = JSON.parse(\"broken\");\n} catch {\n  result = \"ошибка\";\n}",
         "options": [
-          "{\"a\":1}",
+          "\"ошибка\"",
           "null",
           "{}"
         ],
         "answer": 0,
+        "explanation": "JSON.parse выбрасывает SyntaxError, и catch присваивает строку.",
         "section": 6,
-        "explanation": "После solve(\"{\\\"a\\\":1}\") переменная result содержит {\"a\":1}. Выполните JSON.parse внутри try и верните null из catch.",
         "id": "javascript-errors-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Разберите JSON-строку и верните значение. При ошибке разбора верните null.",
-        "code": "const result = solve(\"broken\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "function read() {\n  try { return 1; }\n  finally { console.log(\"готово\"); }\n}\nconst result = read();",
         "options": [
-          "{}",
-          "\"TypeError\"",
-          "null"
+          "\"готово\"",
+          "null",
+          "1"
         ],
         "answer": 2,
+        "explanation": "finally выводит сообщение, но без собственного return не меняет результат 1.",
         "section": 6,
-        "explanation": "После solve(\"broken\") переменная result содержит null. Выполните JSON.parse внутри try и верните null из catch.",
         "id": "javascript-errors-5",
         "sectionId": "section-6"
       }
@@ -3459,32 +3435,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Асинхронно удвойте каждый элемент массива с Promise.all и верните массив результатов в исходном порядке.",
-        "code": "const result = await solve([1,2,3]);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "async function double(n) { return n * 2; }\nconst result = await double(4);",
         "options": [
-          "[]",
-          "[6,4,2]",
-          "[2,4,6]"
+          "4",
+          "\"Promise\"",
+          "8"
         ],
         "answer": 2,
+        "explanation": "await получает значение, которым выполнится Promise: 4 × 2.",
         "section": 6,
-        "explanation": "После await solve([1,2,3]) переменная result содержит [2,4,6]. Передайте в Promise.all результат map с async-функцией.",
         "id": "javascript-async-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Асинхронно удвойте каждый элемент массива с Promise.all и верните массив результатов в исходном порядке.",
-        "code": "const result = await solve([]);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const first = Promise.resolve(\"A\");\nconst second = Promise.resolve(\"B\");\nconst result = await Promise.all([second, first]);",
         "options": [
-          "undefined",
-          "[]",
-          "null"
+          "\"BA\"",
+          "[\"B\",\"A\"]",
+          "[\"A\",\"B\"]"
         ],
         "answer": 1,
+        "explanation": "Promise.all сохраняет порядок переданного массива: second, затем first.",
         "section": 6,
-        "explanation": "После await solve([]) переменная result содержит []. Передайте в Promise.all результат map с async-функцией.",
         "id": "javascript-async-5",
         "sectionId": "section-6"
       }
@@ -3701,32 +3675,30 @@
         "sectionId": "section-2"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "В Node.js динамически импортируйте встроенный модуль node:path. solve(path) — async-функция, возвращающая posix.basename(path). Рассматривайте вход как POSIX-путь, независимо от ОС.",
-        "code": "const result = await solve(\"/courses/js/intro.js\");",
+        "prompt": "Какое значение выведет main.js? Оба файла находятся в одной папке и запускаются как ES-модули.",
+        "code": "// math.js\nexport const base = 10;\nexport function add(n) { return base + n; }\n\n// main.js\nimport { add } from \"./math.js\";\nconsole.log(add(3));",
         "options": [
-          "null",
-          "\"intro.js\"",
-          "\"\""
+          "ReferenceError",
+          "13",
+          "3"
         ],
         "answer": 1,
+        "explanation": "Именованный импорт add сохраняет доступ к base из модуля math.js.",
         "section": 6,
-        "explanation": "После await solve(\"/courses/js/intro.js\") переменная result содержит \"intro.js\". await import(\"node:path\") возвращает пространство имён модуля; используйте posix для воспроизводимых путей.",
         "id": "javascript-modules-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "В Node.js динамически импортируйте встроенный модуль node:path. solve(path) — async-функция, возвращающая posix.basename(path). Рассматривайте вход как POSIX-путь, независимо от ОС.",
-        "code": "const result = await solve(\"main.mjs\");",
+        "prompt": "Какой импорт позволяет получить строку «Привет» из показанного файла message.js в браузерном ESM?",
+        "code": "// message.js\nexport default \"Привет\";",
         "options": [
-          "\"main.mjs\"",
-          "\"\"",
-          "null"
+          "import message from \"./message.js\";",
+          "import { message } from \"./message.js\";",
+          "const message = require(\"message\");"
         ],
         "answer": 0,
+        "explanation": "Значение экспортировано как default; локальное имя message выбирает импортирующий модуль.",
         "section": 6,
-        "explanation": "После await solve(\"main.mjs\") переменная result содержит \"main.mjs\". await import(\"node:path\") возвращает пространство имён модуля; используйте posix для воспроизводимых путей.",
         "id": "javascript-modules-5",
         "sectionId": "section-6"
       }
@@ -3963,32 +3935,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(label) возвращает порядок записей: синхронная запись label, микрозадача Promise \"promise\", микрозадача queueMicrotask \"microtask\", задача таймера \"timer\". Зарегистрируйте их именно в таком порядке и дождитесь таймера.",
-        "code": "const result = await solve(\"start\");",
+        "prompt": "В каком порядке появятся три сообщения в консоли? Код выполняется как одна задача.",
+        "code": "console.log(\"A\");\nPromise.resolve().then(() => console.log(\"B\"));\nconsole.log(\"C\");",
         "options": [
-          "[\"start\",\"promise\",\"microtask\",\"timer\"]",
-          "[]",
-          "[\"timer\",\"microtask\",\"promise\",\"start\"]"
+          "A, C, B",
+          "A, B, C",
+          "B, A, C"
         ],
         "answer": 0,
+        "explanation": "Сначала выполняется синхронный код A и C, затем микрозадача B.",
         "section": 6,
-        "explanation": "После await solve(\"start\") переменная result содержит [\"start\",\"promise\",\"microtask\",\"timer\"]. Promise.then и queueMicrotask ставят микрозадачи; таймер выполняется позже.",
         "id": "javascript-event-loop-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(label) возвращает порядок записей: синхронная запись label, микрозадача Promise \"promise\", микрозадача queueMicrotask \"microtask\", задача таймера \"timer\". Зарегистрируйте их именно в таком порядке и дождитесь таймера.",
-        "code": "const result = await solve(\"JS\");",
+        "prompt": "В каком порядке появятся сообщения? Код выполняется в браузере, других задач нет.",
+        "code": "setTimeout(() => console.log(\"таймер\"), 0);\nPromise.resolve().then(() => console.log(\"промис\"));\nconsole.log(\"сразу\");",
         "options": [
-          "[]",
-          "[\"timer\",\"microtask\",\"promise\",\"JS\"]",
-          "[\"JS\",\"promise\",\"microtask\",\"timer\"]"
+          "сразу, таймер, промис",
+          "таймер, промис, сразу",
+          "сразу, промис, таймер"
         ],
         "answer": 2,
+        "explanation": "После синхронного сообщения обрабатываются микрозадачи и лишь затем задача таймера.",
         "section": 6,
-        "explanation": "После await solve(\"JS\") переменная result содержит [\"JS\",\"promise\",\"microtask\",\"timer\"]. Promise.then и queueMicrotask ставят микрозадачи; таймер выполняется позже.",
         "id": "javascript-event-loop-5",
         "sectionId": "section-6"
       }
@@ -4235,32 +4205,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Используйте parseHTML из linkedom, чтобы создать документ с ul. solve(titles) добавляет li для каждой строки через createElement и textContent. Верните массив textContent всех li. Входные строки, даже похожие на HTML, должны остаться обычным текстом.",
-        "code": "const result = solve([\"JS\",\"TS\"]);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const element = document.createElement(\"p\");\nelement.textContent = \"<b>Привет</b>\";\nconst result = element.querySelector(\"b\");",
         "options": [
-          "[]",
-          "[\"TS\",\"JS\"]",
-          "[\"JS\",\"TS\"]"
+          "\"Привет\"",
+          "\"<b>Привет</b>\"",
+          "null"
         ],
         "answer": 2,
+        "explanation": "textContent вставляет обычный текст; дочерний элемент b не создаётся.",
         "section": 6,
-        "explanation": "После solve([\"JS\",\"TS\"]) переменная result содержит [\"JS\",\"TS\"]. Не используйте innerHTML для пользовательских строк. Linkedom предоставляет DOM в серверной песочнице.",
         "id": "javascript-dom-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Используйте parseHTML из linkedom, чтобы создать документ с ul. solve(titles) добавляет li для каждой строки через createElement и textContent. Верните массив textContent всех li. Входные строки, даже похожие на HTML, должны остаться обычным текстом.",
-        "code": "const result = solve([]);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const parent = document.createElement(\"div\");\nconst child = document.createElement(\"span\");\nparent.append(child);\nparent.append(child);\nconst result = parent.children.length;",
         "options": [
-          "undefined",
-          "[]",
-          "null"
+          "0",
+          "1",
+          "2"
         ],
         "answer": 1,
+        "explanation": "Повторный append перемещает существующий узел, не создавая копию.",
         "section": 6,
-        "explanation": "После solve([]) переменная result содержит []. Не используйте innerHTML для пользовательских строк. Linkedom предоставляет DOM в серверной песочнице.",
         "id": "javascript-dom-5",
         "sectionId": "section-6"
       }
@@ -4483,32 +4451,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте EventTarget. Один обработчик события \"click\" увеличивает счётчик. solve(events) отправляет события с именами из массива и возвращает количество click. После отправки удалите обработчик.",
-        "code": "const result = solve([\"click\",\"input\",\"click\"]);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const button = document.createElement(\"button\");\nlet clicks = 0;\nbutton.addEventListener(\"click\", () => clicks++);\nbutton.click();\nbutton.click();\nconst result = clicks;",
         "options": [
           "1",
           "2",
-          "3"
+          "0"
         ],
         "answer": 1,
+        "explanation": "Каждый из двух click синхронно вызывает зарегистрированный обработчик.",
         "section": 6,
-        "explanation": "После solve([\"click\",\"input\",\"click\"]) переменная result содержит 2. Для удаления передайте ту же ссылку на функцию, которую передавали в addEventListener.",
         "id": "javascript-events-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте EventTarget. Один обработчик события \"click\" увеличивает счётчик. solve(events) отправляет события с именами из массива и возвращает количество click. После отправки удалите обработчик.",
-        "code": "const result = solve([]);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const event = new Event(\"submit\", { cancelable: true });\nevent.preventDefault();\nconst result = event.defaultPrevented;",
         "options": [
-          "0",
-          "1",
-          "-1"
+          "true",
+          "false",
+          "null"
         ],
         "answer": 0,
+        "explanation": "У отменяемого события preventDefault устанавливает defaultPrevented в true.",
         "section": 6,
-        "explanation": "После solve([]) переменная result содержит 0. Для удаления передайте ту же ссылку на функцию, которую передавали в addEventListener.",
         "id": "javascript-events-5",
         "sectionId": "section-6"
       }
@@ -4735,32 +4701,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(status, data) создаёт Response с JSON-телом. Если response.ok — верните результат response.json(); иначе верните {error: status}. Входные статусы в этой задаче: 200, 201, 400, 404, 500. Настоящий сетевой запрос не нужен.",
-        "code": "const result = await solve(200, {\"name\":\"JS\"});",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const response = new Response(\"Не найдено\", { status: 404 });\nconst result = response.ok;",
         "options": [
-          "{\"name\":\"JS\"}",
-          "null",
-          "{}"
+          "false",
+          "true",
+          "404"
         ],
         "answer": 0,
+        "explanation": "ok истинен только для статусов от 200 до 299; здесь статус 404.",
         "section": 6,
-        "explanation": "После await solve(200, {\"name\":\"JS\"}) переменная result содержит {\"name\":\"JS\"}. Response.ok проверяет диапазон успешных HTTP-статусов; json() также асинхронен.",
         "id": "javascript-fetch-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(status, data) создаёт Response с JSON-телом. Если response.ok — верните результат response.json(); иначе верните {error: status}. Входные статусы в этой задаче: 200, 201, 400, 404, 500. Настоящий сетевой запрос не нужен.",
-        "code": "const result = await solve(404, {\"message\":\"missing\"});",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const controller = new AbortController();\ncontroller.abort();\nconst result = controller.signal.aborted;",
         "options": [
+          "false",
           "null",
-          "{}",
-          "{\"error\":404}"
+          "true"
         ],
         "answer": 2,
+        "explanation": "После abort соответствующий signal имеет aborted: true.",
         "section": 6,
-        "explanation": "После await solve(404, {\"message\":\"missing\"}) переменная result содержит {\"error\":404}. Response.ok проверяет диапазон успешных HTTP-статусов; json() также асинхронен.",
         "id": "javascript-fetch-5",
         "sectionId": "section-6"
       }
@@ -4982,32 +4946,30 @@
         "sectionId": "section-5"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(raw) принимает строку JSON или null. Верните массив всех строковых элементов из корректного JSON-массива; при null, ошибке JSON или не-массиве верните []. Исходная строка не изменяется.",
-        "code": "const result = solve(\"[\\\"JS\\\",3,\\\"TS\\\"]\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "localStorage.setItem(\"quiz-demo\", JSON.stringify({ score: 7 }));\nconst saved = localStorage.getItem(\"quiz-demo\");\nconst result = JSON.parse(saved).score;\nlocalStorage.removeItem(\"quiz-demo\");",
         "options": [
-          "[]",
-          "[\"TS\",\"JS\"]",
-          "[\"JS\",\"TS\"]"
+          "\"7\"",
+          "null",
+          "7"
         ],
         "answer": 2,
+        "explanation": "Хранилище возвращает JSON-строку, JSON.parse восстанавливает объект с числом 7.",
         "section": 6,
-        "explanation": "После solve(\"[\\\"JS\\\",3,\\\"TS\\\"]\") переменная result содержит [\"JS\",\"TS\"]. Чтение JSON и проверка структуры — разные действия; обработайте оба.",
         "id": "javascript-storage-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(raw) принимает строку JSON или null. Верните массив всех строковых элементов из корректного JSON-массива; при null, ошибке JSON или не-массиве верните []. Исходная строка не изменяется.",
-        "code": "const result = solve(null);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "localStorage.setItem(\"quiz-number\", 42);\nconst result = typeof localStorage.getItem(\"quiz-number\");\nlocalStorage.removeItem(\"quiz-number\");",
         "options": [
-          "undefined",
-          "[]",
-          "null"
+          "\"object\"",
+          "\"string\"",
+          "\"number\""
         ],
         "answer": 1,
+        "explanation": "localStorage сохраняет и возвращает строки, даже если setItem получил число.",
         "section": 6,
-        "explanation": "После solve(null) переменная result содержит []. Чтение JSON и проверка структуры — разные действия; обработайте оба.",
         "id": "javascript-storage-5",
         "sectionId": "section-6"
       }
@@ -5231,32 +5193,30 @@
         "sectionId": "section-5"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(text) проверяет только форму ISO-даты YYYY-MM-DD регулярным выражением: ровно четыре цифры, дефис, две цифры, дефис, две цифры. Реальность календарного дня не проверяйте. Верните boolean.",
-        "code": "const result = solve(\"2026-10-24\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const date = new Date(\"2025-01-02T00:00:00Z\");\nconst result = date.toISOString();",
         "options": [
-          "\"TypeError\"",
-          "true",
-          "false"
+          "\"2025-01-02\"",
+          "\"2025-01-02T00:00:00.000Z\"",
+          "\"2025-02-01T00:00:00.000Z\""
         ],
         "answer": 1,
+        "explanation": "ISO-формат использует UTC и включает время с миллисекундами.",
         "section": 6,
-        "explanation": "После solve(\"2026-10-24\") переменная result содержит true. Якоря ^ и $ проверяют всю строку; проверка формата не равна календарной валидации.",
         "id": "javascript-dates-regexp-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(text) проверяет только форму ISO-даты YYYY-MM-DD регулярным выражением: ровно четыре цифры, дефис, две цифры, дефис, две цифры. Реальность календарного дня не проверяйте. Верните boolean.",
-        "code": "const result = solve(\"2026-1-24\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const pattern = /^JS\\d{2}$/;\nconst result = pattern.test(\"JS42\");",
         "options": [
-          "false",
           "true",
-          "\"TypeError\""
+          "false",
+          "\"JS42\""
         ],
         "answer": 0,
+        "explanation": "Вся строка соответствует шаблону: JS и ровно две цифры.",
         "section": 6,
-        "explanation": "После solve(\"2026-1-24\") переменная result содержит false. Якоря ^ и $ проверяют всю строку; проверка формата не равна календарной валидации.",
         "id": "javascript-dates-regexp-5",
         "sectionId": "section-6"
       }
@@ -5500,32 +5460,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(actual, expected) возвращает список индексов, на которых массивы чисел различаются. Проверяйте до длины более длинного массива: отсутствующий элемент тоже различие. Входные массивы не меняйте.",
-        "code": "const result = solve([1,2], [1,2]);",
+        "prompt": "Завершится ли проверка успешно? Файл выполняется в Node.js.",
+        "code": "const assert = require(\"node:assert/strict\");\nfunction add(a, b) { return a + b; }\nassert.equal(add(2, 3), 5);",
         "options": [
-          "[]",
-          "null",
-          "undefined"
+          "Да, ожидаемое и фактическое значения равны 5",
+          "Нет, add вернёт 23",
+          "Нет, assert.equal сравнивает только строки"
         ],
         "answer": 0,
+        "explanation": "2 и 3 — числа; add возвращает 5, что совпадает с ожиданием.",
         "section": 6,
-        "explanation": "После solve([1,2], [1,2]) переменная result содержит []. Сравните длины и значения; равенство по ссылке не сравнивает содержимое массивов.",
         "id": "javascript-testing-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(actual, expected) возвращает список индексов, на которых массивы чисел различаются. Проверяйте до длины более длинного массива: отсутствующий элемент тоже различие. Входные массивы не меняйте.",
-        "code": "const result = solve([1,3], [1,2]);",
+        "prompt": "Какой вызов проверит глубокое равенство и не выбросит ошибку в Node.js?",
+        "code": "const assert = require(\"node:assert/strict\");\nconst actual = { tags: [\"JS\"] };\nconst expected = { tags: [\"JS\"] };",
         "options": [
-          "[]",
-          "null",
-          "[1]"
+          "assert.equal(actual, expected);",
+          "assert.equal(actual.tags, expected.tags);",
+          "assert.deepEqual(actual, expected);"
         ],
         "answer": 2,
+        "explanation": "Два разных объекта и массива равны по содержимому, но не по ссылке. deepEqual сравнивает содержимое.",
         "section": 6,
-        "explanation": "После solve([1,3], [1,2]) переменная result содержит [1]. Сравните длины и значения; равенство по ссылке не сравнивает содержимое массивов.",
         "id": "javascript-testing-5",
         "sectionId": "section-6"
       }
@@ -5715,7 +5673,8 @@
       },
       {
         "id": "typescript-types-2",
-        "prompt": "Проверит ли x as User JSON-объект во время исполнения?",
+        "prompt": "Проверит ли утверждение x as User, что name действительно является строкой, во время исполнения?",
+        "code": "type User = { name: string };\nconst x = JSON.parse('{\"name\":42}');\nconst user = x as User;",
         "options": [
           "Только со strict",
           "Да",
@@ -5738,32 +5697,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Объявите типизированную функцию, которая возвращает произведение price и quantity.",
-        "code": "const result = solve(20, 3);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const price: number = 12;\nconst count: number = 3;\nconst result: number = price * count;",
         "options": [
-          "61",
-          "59",
-          "60"
+          "15",
+          "\"36\"",
+          "36"
         ],
         "answer": 2,
+        "explanation": "Аннотации не меняют вычисление: два числа перемножаются.",
         "section": 6,
-        "explanation": "После solve(20, 3) переменная result содержит 60. У параметров и результата используйте number.",
         "id": "typescript-types-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Объявите типизированную функцию, которая возвращает произведение price и quantity.",
-        "code": "const result = solve(0, 10);",
+        "prompt": "Какой тип TypeScript выведет для переменной label?",
+        "code": "let label = \"JS\";",
         "options": [
-          "-1",
-          "0",
-          "1"
+          "boolean",
+          "string",
+          "number"
         ],
         "answer": 1,
+        "explanation": "У изменяемой переменной let со строковым начальным значением выводится string.",
         "section": 6,
-        "explanation": "После solve(0, 10) переменная result содержит 0. У параметров и результата используйте number.",
         "id": "typescript-types-5",
         "sectionId": "section-6"
       }
@@ -5974,32 +5931,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Для строки верните её длину, для числа — само число.",
-        "code": "const result = solve(\"hello\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "function size(value: string | number) {\n  if (typeof value === \"string\") return value.length;\n  return value;\n}\nconst result = size(\"JS\");",
         "options": [
-          "4",
-          "5",
-          "6"
+          "0",
+          "2",
+          "\"JS\""
         ],
         "answer": 1,
+        "explanation": "typeof сужает value до string, длина строки JS равна 2.",
         "section": 6,
-        "explanation": "После solve(\"hello\") переменная result содержит 5. Используйте typeof и две ветки.",
         "id": "typescript-unions-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Для строки верните её длину, для числа — само число.",
-        "code": "const result = solve(7);",
+        "prompt": "Какое выражение допустимо в показанной ветви после проверки typeof?",
+        "code": "function show(value: string | number) {\n  if (typeof value === \"number\") {\n    // Выберите выражение для этой ветви.\n  }\n}",
         "options": [
-          "7",
-          "8",
-          "6"
+          "value.toFixed(2)",
+          "value.toUpperCase()",
+          "value.length"
         ],
         "answer": 0,
+        "explanation": "Внутри ветви value имеет тип number, поэтому доступен числовой метод toFixed.",
         "section": 6,
-        "explanation": "После solve(7) переменная result содержит 7. Используйте typeof и две ветки.",
         "id": "typescript-unions-5",
         "sectionId": "section-6"
       }
@@ -6217,32 +6172,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Объект содержит price: number и discount?: number. Верните price - discount, считая отсутствующую скидку нулевой.",
-        "code": "const result = solve({\"price\":100,\"discount\":20});",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "interface User { name: string; age?: number }\nconst user: User = { name: \"Ира\" };\nconst result = user.age ?? 18;",
         "options": [
-          "80",
-          "81",
-          "79"
+          "18",
+          "0",
+          "null"
         ],
         "answer": 0,
+        "explanation": "Необязательное age отсутствует; ?? подставляет 18 вместо undefined.",
         "section": 6,
-        "explanation": "После solve({\"price\":100,\"discount\":20}) переменная result содержит 80. Сгруппируйте discount ?? 0 скобками.",
         "id": "typescript-interfaces-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Объект содержит price: number и discount?: number. Верните price - discount, считая отсутствующую скидку нулевой.",
-        "code": "const result = solve({\"price\":50});",
+        "prompt": "Какой объект соответствует показанному интерфейсу без изменения типов?",
+        "code": "interface Book { title: string; pages: number }",
         "options": [
-          "51",
-          "49",
-          "50"
+          "{ title: \"JS\", pages: \"100\" }",
+          "{ title: \"JS\" }",
+          "{ title: \"JS\", pages: 100 }"
         ],
         "answer": 2,
+        "explanation": "Оба свойства обязательны: title — строка, pages — число.",
         "section": 6,
-        "explanation": "После solve({\"price\":50}) переменная result содержит 50. Сгруппируйте discount ?? 0 скобками.",
         "id": "typescript-interfaces-5",
         "sectionId": "section-6"
       }
@@ -6483,32 +6436,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(names, prefix) возвращает строки вида \"ПРЕФИКС: ИМЯ\". Объявите внутри callback с типом (name: string) => string и используйте map. Пустой массив даёт [].",
-        "code": "const result = solve([\"Аня\",\"Олег\"], \"Автор\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "function greet(name: string, prefix = \"Привет\"): string {\n  return `${prefix}, ${name}`;\n}\nconst result = greet(\"Анна\");",
         "options": [
-          "[]",
-          "[\"Автор: Олег\",\"Автор: Аня\"]",
-          "[\"Автор: Аня\",\"Автор: Олег\"]"
+          "\"undefined, Анна\"",
+          "\"Анна\"",
+          "\"Привет, Анна\""
         ],
         "answer": 2,
+        "explanation": "Пропущенный prefix получает строку по умолчанию «Привет».",
         "section": 6,
-        "explanation": "После solve([\"Аня\",\"Олег\"], \"Автор\") переменная result содержит [\"Автор: Аня\",\"Автор: Олег\"]. Тип callback описывает и аргумент, и возвращаемое значение.",
         "id": "typescript-functions-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(names, prefix) возвращает строки вида \"ПРЕФИКС: ИМЯ\". Объявите внутри callback с типом (name: string) => string и используйте map. Пустой массив даёт [].",
-        "code": "const result = solve([], \"JS\");",
+        "prompt": "Какой вызов соответствует типу функции sum?",
+        "code": "function sum(a: number, b: number): number {\n  return a + b;\n}",
         "options": [
-          "undefined",
-          "[]",
-          "null"
+          "sum(2)",
+          "sum(2, 3)",
+          "sum(\"2\", \"3\")"
         ],
         "answer": 1,
+        "explanation": "Нужны два обязательных числовых аргумента.",
         "section": 6,
-        "explanation": "После solve([], \"JS\") переменная result содержит []. Тип callback описывает и аргумент, и возвращаемое значение.",
         "id": "typescript-functions-5",
         "sectionId": "section-6"
       }
@@ -6767,32 +6718,30 @@
         "sectionId": "section-2"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(point, delta) принимает два кортежа [number, number] и возвращает новый кортеж с покоординатной суммой. Не меняйте входные кортежи.",
-        "code": "const result = solve([1,2], [3,4]);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const pair: [string, number] = [\"JS\", 4];\nconst result = pair[1] + 1;",
         "options": [
-          "[6,4]",
-          "[4,6]",
-          "[]"
+          "4",
+          "5",
+          "\"JS1\""
         ],
         "answer": 1,
+        "explanation": "На позиции 1 кортежа находится число 4.",
         "section": 6,
-        "explanation": "После solve([1,2], [3,4]) переменная result содержит [4,6]. Возвращайте новый массив с ровно двумя координатами.",
         "id": "typescript-tuples-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(point, delta) принимает два кортежа [number, number] и возвращает новый кортеж с покоординатной суммой. Не меняйте входные кортежи.",
-        "code": "const result = solve([0,0], [0,0]);",
+        "prompt": "Какое присваивание соответствует показанному типу Status?",
+        "code": "type Status = \"draft\" | \"published\";",
         "options": [
-          "[0,0]",
-          "[]",
-          "null"
+          "const status: Status = \"draft\";",
+          "const status: Status = \"deleted\";",
+          "const status: Status = 1;"
         ],
         "answer": 0,
+        "explanation": "Union допускает только две перечисленные строки.",
         "section": 6,
-        "explanation": "После solve([0,0], [0,0]) переменная result содержит [0,0]. Возвращайте новый массив с ровно двумя координатами.",
         "id": "typescript-tuples-5",
         "sectionId": "section-6"
       }
@@ -7018,32 +6967,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Верните последний элемент массива. Для пустого массива верните null. Сохраните generic T в сигнатуре.",
-        "code": "const result = solve([1,2,3]);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "function first<T>(values: T[]): T | undefined {\n  return values[0];\n}\nconst result = first([10, 20]);",
         "options": [
-          "3",
-          "4",
-          "2"
+          "10",
+          "20",
+          "[10,20]"
         ],
         "answer": 0,
+        "explanation": "T выводится как number; функция возвращает первый элемент 10.",
         "section": 6,
-        "explanation": "После solve([1,2,3]) переменная result содержит 3. Проверьте length до чтения последнего элемента.",
         "id": "typescript-generics-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Верните последний элемент массива. Для пустого массива верните null. Сохраните generic T в сигнатуре.",
-        "code": "const result = solve([\"a\",\"b\"]);",
+        "prompt": "Какой тип имеет переменная result?",
+        "code": "function identity<T>(value: T): T { return value; }\nconst result = identity<string>(\"JS\");",
         "options": [
-          "\"\"",
-          "null",
-          "\"b\""
+          "number",
+          "unknown",
+          "string"
         ],
         "answer": 2,
+        "explanation": "Явно переданный параметр типа string определяет тип аргумента и результата.",
         "section": 6,
-        "explanation": "После solve([\"a\",\"b\"]) переменная result содержит \"b\". Проверьте length до чтения последнего элемента.",
         "id": "typescript-generics-5",
         "sectionId": "section-6"
       }
@@ -7278,32 +7225,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Реализуйте generic-функцию get<T, K extends keyof T>(object, key), возвращающую T[K]. solve(user, key) использует get для объекта {name:string, age:number}; key равен \"name\" или \"age\".",
-        "code": "const result = solve({\"name\":\"Аня\",\"age\":20}, \"name\");",
+        "prompt": "Какое значение можно присвоить переменной key?",
+        "code": "type User = { name: string; age: number };\nlet key: keyof User;",
         "options": [
-          "\"\"",
-          "null",
-          "\"Аня\""
+          "\"email\"",
+          "42",
+          "\"name\""
         ],
         "answer": 2,
+        "explanation": "keyof User — объединение ключей \"name\" | \"age\".",
         "section": 6,
-        "explanation": "После solve({\"name\":\"Аня\",\"age\":20}, \"name\") переменная result содержит \"Аня\". K ограничен ключами T; возвращаемый тип индексируется тем же K.",
         "id": "typescript-keyof-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Реализуйте generic-функцию get<T, K extends keyof T>(object, key), возвращающую T[K]. solve(user, key) использует get для объекта {name:string, age:number}; key равен \"name\" или \"age\".",
-        "code": "const result = solve({\"name\":\"JS\",\"age\":0}, \"age\");",
+        "prompt": "Какой тип имеет Age?",
+        "code": "type User = { name: string; age: number };\ntype Age = User[\"age\"];",
         "options": [
-          "-1",
-          "0",
-          "1"
+          "\"age\"",
+          "number",
+          "string"
         ],
         "answer": 1,
+        "explanation": "Индексный доступ к типу получает тип свойства age.",
         "section": 6,
-        "explanation": "После solve({\"name\":\"JS\",\"age\":0}, \"age\") переменная result содержит 0. K ограничен ключами T; возвращаемый тип индексируется тем же K.",
         "id": "typescript-keyof-5",
         "sectionId": "section-6"
       }
@@ -7516,32 +7461,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Из объекта {id, name, password} верните новый объект только с id и name.",
-        "code": "const result = solve({\"id\":1,\"name\":\"Аня\",\"password\":\"secret\"});",
+        "prompt": "Какой объект допустим для типа Patch?",
+        "code": "interface User { name: string; age: number }\ntype Patch = Partial<User>;",
         "options": [
-          "{}",
-          "{\"id\":1,\"name\":\"Аня\"}",
-          "null"
+          "{ email: \"a@b.ru\" }",
+          "{ age: 20 }",
+          "{ age: \"20\" }"
         ],
         "answer": 1,
+        "explanation": "Partial делает существующие поля необязательными, но сохраняет их типы.",
         "section": 6,
-        "explanation": "После solve({\"id\":1,\"name\":\"Аня\",\"password\":\"secret\"}) переменная result содержит {\"id\":1,\"name\":\"Аня\"}. Перечислите публичные поля вручную, без spread исходного user.",
         "id": "typescript-utility-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Из объекта {id, name, password} верните новый объект только с id и name.",
-        "code": "const result = solve({\"id\":2,\"name\":\"JS\",\"password\":\"hidden\"});",
+        "prompt": "Какое присваивание допустимо для типа NameOnly?",
+        "code": "interface User { name: string; age: number }\ntype NameOnly = Pick<User, \"name\">;",
         "options": [
-          "{\"id\":2,\"name\":\"JS\"}",
-          "null",
-          "{}"
+          "const value: NameOnly = { name: \"Ира\" };",
+          "const value: NameOnly = { age: 20 };",
+          "const value: NameOnly = { name: 20 };"
         ],
         "answer": 0,
+        "explanation": "Pick оставляет только обязательное строковое поле name.",
         "section": 6,
-        "explanation": "После solve({\"id\":2,\"name\":\"JS\",\"password\":\"hidden\"}) переменная result содержит {\"id\":2,\"name\":\"JS\"}. Перечислите публичные поля вручную, без spread исходного user.",
         "id": "typescript-utility-5",
         "sectionId": "section-6"
       }
@@ -7776,32 +7719,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Объявите mapped type Flags<T> = {[K in keyof T]: boolean}. solve(settings) принимает Record<string, number> и возвращает Flags<typeof settings>: каждое значение true только для положительного числа.",
-        "code": "const result = solve({\"sound\":1,\"night\":0});",
+        "prompt": "Какой тип получится в Flags?",
+        "code": "type Flags = { [K in \"read\" | \"write\"]: boolean };",
         "options": [
-          "{\"sound\":true,\"night\":false}",
-          "null",
-          "{}"
+          "{ read: boolean; write: boolean }",
+          "{ read: string; write: string }",
+          "boolean[]"
         ],
         "answer": 0,
+        "explanation": "Mapped type создаёт оба свойства с указанным типом boolean.",
         "section": 6,
-        "explanation": "После solve({\"sound\":1,\"night\":0}) переменная result содержит {\"sound\":true,\"night\":false}. Mapped type создаёт тип; runtime-объект всё равно нужно построить обычным циклом.",
         "id": "typescript-mapped-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Объявите mapped type Flags<T> = {[K in keyof T]: boolean}. solve(settings) принимает Record<string, number> и возвращает Flags<typeof settings>: каждое значение true только для положительного числа.",
-        "code": "const result = solve({});",
+        "prompt": "Какой тип получится в Result?",
+        "code": "type IsString<T> = T extends string ? \"yes\" : \"no\";\ntype Result = IsString<number>;",
         "options": [
-          "null",
-          "\"TypeError\"",
-          "{}"
+          "\"yes\"",
+          "number",
+          "\"no\""
         ],
         "answer": 2,
+        "explanation": "number не расширяет string, поэтому выбирается ложная ветвь conditional type.",
         "section": 6,
-        "explanation": "После solve({}) переменная result содержит {}. Mapped type создаёт тип; runtime-объект всё равно нужно построить обычным циклом.",
         "id": "typescript-mapped-5",
         "sectionId": "section-6"
       }
@@ -8017,32 +7958,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Если неизвестное значение — объект с полем name типа string, верните name, иначе null.",
-        "code": "const result = solve({\"name\":\"TS\"});",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "function length(value: unknown): number {\n  if (typeof value === \"string\") return value.length;\n  return 0;\n}\nconst result = length(42);",
         "options": [
-          "\"\"",
-          "null",
-          "\"TS\""
+          "2",
+          "42",
+          "0"
         ],
         "answer": 2,
+        "explanation": "Число не проходит проверку на string, поэтому выполняется return 0.",
         "section": 6,
-        "explanation": "После solve({\"name\":\"TS\"}) переменная result содержит \"TS\". Проверьте object, не-null, наличие name и typeof name.",
         "id": "typescript-unknown-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Если неизвестное значение — объект с полем name типа string, верните name, иначе null.",
-        "code": "const result = solve(null);",
+        "prompt": "Почему обращение value.name в отмеченной строке не компилируется?",
+        "code": "function read(value: unknown) {\n  return value.name; // Ошибка TypeScript\n}",
         "options": [
-          "\"TypeError\"",
-          "null",
-          "{}"
+          "Нужно заменить return на console.log",
+          "Тип unknown нужно проверить перед доступом к свойствам",
+          "Свойства объектов всегда запрещены в TypeScript"
         ],
         "answer": 1,
+        "explanation": "unknown не обещает объект с name; требуется runtime-проверка и сужение типа.",
         "section": 6,
-        "explanation": "После solve(null) переменная result содержит null. Проверьте object, не-null, наличие name и typeof name.",
         "id": "typescript-unknown-5",
         "sectionId": "section-6"
       }
@@ -8268,32 +8207,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Объявите интерфейс Counter с add(amount: number): void и value: number. Класс MemoryCounter реализует этот интерфейс. solve(start, steps) создаёт экземпляр, прибавляет все steps и возвращает value.",
-        "code": "const result = solve(0, [1,2]);",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "class Counter {\n  constructor(public value: number) {}\n  add(n: number): void { this.value += n; }\n}\nconst counter = new Counter(3);\ncounter.add(2);\nconst result = counter.value;",
         "options": [
           "2",
-          "3",
-          "4"
+          "5",
+          "3"
         ],
         "answer": 1,
+        "explanation": "Parameter property создаёт value, метод прибавляет к нему 2.",
         "section": 6,
-        "explanation": "После solve(0, [1,2]) переменная result содержит 3. implements проверяет контракт класса, а new создаёт реальный объект.",
         "id": "typescript-classes-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Объявите интерфейс Counter с add(amount: number): void и value: number. Класс MemoryCounter реализует этот интерфейс. solve(start, steps) создаёт экземпляр, прибавляет все steps и возвращает value.",
-        "code": "const result = solve(10, []);",
+        "prompt": "Можно ли передать plain в greet без создания экземпляра класса?",
+        "code": "class Person { name = \"Анна\"; }\nfunction greet(person: Person) { return person.name; }\nconst plain = { name: \"Ира\" };",
         "options": [
-          "10",
-          "11",
-          "9"
+          "Да, plain структурно соответствует Person",
+          "Нет, допустим только new Person()",
+          "Нет, у plain должен быть метод greet"
         ],
         "answer": 0,
+        "explanation": "TypeScript сравнивает структуру публичных свойств; обязательное name присутствует.",
         "section": 6,
-        "explanation": "После solve(10, []) переменная result содержит 10. implements проверяет контракт класса, а new создаёт реальный объект.",
         "id": "typescript-classes-5",
         "sectionId": "section-6"
       }
@@ -8521,32 +8458,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Импортируйте posix из node:path обычным ESM import. solve(paths) принимает string[] и возвращает массив basename каждого POSIX-пути. Код проходит строгую компиляцию TypeScript внутри песочницы.",
-        "code": "const result = solve([\"/a/js.ts\",\"main.js\"]);",
+        "prompt": "Нужен ли импорт User в исполняемом JavaScript после компиляции?",
+        "code": "// user.ts\nexport interface User { name: string }\n\n// main.ts\nimport type { User } from \"./user.js\";\nconst user: User = { name: \"Ира\" };",
         "options": [
-          "[\"js.ts\",\"main.js\"]",
-          "[]",
-          "[\"main.js\",\"js.ts\"]"
+          "Нет, import type и интерфейс удаляются при компиляции",
+          "Да, interface загружается как JSON",
+          "Да, import type вызывает конструктор User"
         ],
         "answer": 0,
+        "explanation": "Это связи только для проверки типов; исполняемых значений User нет.",
         "section": 6,
-        "explanation": "После solve([\"/a/js.ts\",\"main.js\"]) переменная result содержит [\"js.ts\",\"main.js\"]. Импорт значения нужен в runtime; import type для posix использовать нельзя.",
         "id": "typescript-modules-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Импортируйте posix из node:path обычным ESM import. solve(paths) принимает string[] и возвращает массив basename каждого POSIX-пути. Код проходит строгую компиляцию TypeScript внутри песочницы.",
-        "code": "const result = solve([]);",
+        "prompt": "Что сообщает ошибка при таком присваивании с включённым strictNullChecks?",
+        "code": "const name: string = null;",
         "options": [
-          "null",
-          "undefined",
-          "[]"
+          "Строки запрещены при strictNullChecks",
+          "null автоматически преобразуется в \"null\"",
+          "null не входит в тип string"
         ],
         "answer": 2,
+        "explanation": "С включённым strictNullChecks null должен быть явно включён в union, если он допустим.",
         "section": 6,
-        "explanation": "После solve([]) переменная result содержит []. Импорт значения нужен в runtime; import type для posix использовать нельзя.",
         "id": "typescript-modules-5",
         "sectionId": "section-6"
       }
@@ -8776,32 +8711,30 @@
         "sectionId": "section-2"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(name) создаёт GET /health и возвращает JSON {ok:true, service:name}. Сделайте HTTP-запрос через supertest и верните {status, body}. Не запускайте постоянный app.listen.",
-        "code": "const result = await solve(\"JSlab\");",
+        "prompt": "Какое JSON-тело получит GET /health?",
+        "code": "const express = require(\"express\");\nconst app = express();\napp.get(\"/health\", (req, res) => res.json({ ok: true }));",
         "options": [
-          "null",
           "{}",
-          "{\"status\":200,\"body\":{\"ok\":true,\"service\":\"JSlab\"}}"
+          "null",
+          "{\"ok\":true}"
         ],
         "answer": 2,
+        "explanation": "Обработчик передаёт res.json объект с полем ok: true.",
         "section": 6,
-        "explanation": "После await solve(\"JSlab\") переменная result содержит {\"status\":200,\"body\":{\"ok\":true,\"service\":\"JSlab\"}}. Express app — обработчик запросов; supertest умеет работать с ним без постоянного слушателя.",
         "id": "express-http-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "solve(name) создаёт GET /health и возвращает JSON {ok:true, service:name}. Сделайте HTTP-запрос через supertest и верните {status, body}. Не запускайте постоянный app.listen.",
-        "code": "const result = await solve(\"api\");",
+        "prompt": "Какой статус получит GET /health?",
+        "code": "const express = require(\"express\");\nconst app = express();\napp.get(\"/health\", (req, res) => res.status(201).json({ ok: true }));",
         "options": [
-          "{}",
-          "{\"status\":200,\"body\":{\"ok\":true,\"service\":\"api\"}}",
-          "null"
+          "404",
+          "201",
+          "200"
         ],
         "answer": 1,
+        "explanation": "status(201) явно устанавливает код ответа перед json.",
         "section": 6,
-        "explanation": "После await solve(\"api\") переменная result содержит {\"status\":200,\"body\":{\"ok\":true,\"service\":\"api\"}}. Express app — обработчик запросов; supertest умеет работать с ним без постоянного слушателя.",
         "id": "express-http-5",
         "sectionId": "section-6"
       }
@@ -8999,32 +8932,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте Express app с GET /health, возвращающим {ok:true}. В solve выполните запрос через supertest и верните body. express и supertest доступны в серверной песочнице.",
-        "code": "const result = await solve();",
+        "prompt": "Какое JSON-тело получит GET /users/42?",
+        "code": "const express = require(\"express\");\nconst app = express();\napp.get(\"/users/:id\", (req, res) => res.json({ id: req.params.id }));",
         "options": [
           "{}",
-          "{\"ok\":true}",
-          "null"
+          "{\"id\":\"42\"}",
+          "{\"id\":42}"
         ],
         "answer": 1,
+        "explanation": "Параметр пути id читается из req.params как строка.",
         "section": 6,
-        "explanation": "После await solve() переменная result содержит {\"ok\":true}. Используйте require(\"express\"), require(\"supertest\"), app.get и await request(app).get(...).",
         "id": "express-routing-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какую форму имеет значение result после показанного вызова?",
-        "context": "Создайте Express app с GET /health, возвращающим {ok:true}. В solve выполните запрос через supertest и верните body. express и supertest доступны в серверной песочнице.",
-        "code": "const result = await solve();",
+        "prompt": "Какой обработчик ответит на POST /items?",
+        "code": "const express = require(\"express\");\nconst app = express();\napp.get(\"/items\", (req, res) => res.send(\"список\"));\napp.post(\"/items\", (req, res) => res.send(\"создано\"));",
         "options": [
-          "объект",
-          "массив",
-          "строка"
+          "POST-обработчик, тело «создано»",
+          "GET-обработчик, тело «список»",
+          "Оба обработчика по очереди"
         ],
         "answer": 0,
+        "explanation": "Маршрут выбирается и по пути, и по HTTP-методу.",
         "section": 6,
-        "explanation": "После await solve() переменная result содержит {\"ok\":true}. Это объект. Используйте require(\"express\"), require(\"supertest\"), app.get и await request(app).get(...).",
         "id": "express-routing-5",
         "sectionId": "section-6"
       }
@@ -9227,32 +9158,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте middleware, задающее res.locals.tag из аргумента tag. GET /tag должен вернуть {tag}. Выполните запрос через supertest и верните body.",
-        "code": "const result = await solve(\"js\");",
+        "prompt": "Какое тело получит GET /? Других middleware нет.",
+        "code": "const express = require(\"express\");\nconst app = express();\napp.use((req, res, next) => { req.trace = \"A\"; next(); });\napp.use((req, res, next) => { req.trace += \"B\"; next(); });\napp.get(\"/\", (req, res) => res.send(req.trace));",
         "options": [
-          "{\"tag\":\"js\"}",
-          "null",
-          "{}"
+          "AB",
+          "BA",
+          "A"
         ],
         "answer": 0,
+        "explanation": "Middleware выполняются в порядке регистрации; next передаёт управление дальше.",
         "section": 6,
-        "explanation": "После await solve(\"js\") переменная result содержит {\"tag\":\"js\"}. res.locals принадлежит конкретному ответу; вызовите next после присваивания.",
         "id": "express-middleware-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте middleware, задающее res.locals.tag из аргумента tag. GET /tag должен вернуть {tag}. Выполните запрос через supertest и верните body.",
-        "code": "const result = await solve(\"ts\");",
+        "prompt": "Какой статус получит GET /private?",
+        "code": "const express = require(\"express\");\nconst app = express();\napp.use((req, res) => res.status(401).json({ error: \"Войдите\" }));\napp.get(\"/private\", (req, res) => res.json({ secret: true }));",
         "options": [
-          "null",
-          "{}",
-          "{\"tag\":\"ts\"}"
+          "200",
+          "404",
+          "401"
         ],
         "answer": 2,
+        "explanation": "Первое middleware завершает ответ и не вызывает next; маршрут не выполнится.",
         "section": 6,
-        "explanation": "После await solve(\"ts\") переменная result содержит {\"tag\":\"ts\"}. res.locals принадлежит конкретному ответу; вызовите next после присваивания.",
         "id": "express-middleware-5",
         "sectionId": "section-6"
       }
@@ -9460,32 +9389,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Смонтируйте Router на /api. GET /api/items/:id возвращает {id} со строковым id. solve(id) делает запрос и возвращает body.",
-        "code": "const result = await solve(\"42\");",
+        "prompt": "По какому пути доступен обработчик списка?",
+        "code": "const express = require(\"express\");\nconst app = express();\nconst router = express.Router();\nrouter.get(\"/items\", (req, res) => res.json([]));\napp.use(\"/api\", router);",
         "options": [
-          "null",
-          "{}",
-          "{\"id\":\"42\"}"
+          "GET /items/api",
+          "GET /items",
+          "GET /api/items"
         ],
         "answer": 2,
+        "explanation": "Путь подключения /api складывается с путём маршрута /items.",
         "section": 6,
-        "explanation": "После await solve(\"42\") переменная result содержит {\"id\":\"42\"}. Путь внутри Router не должен повторять /api.",
         "id": "express-router-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Смонтируйте Router на /api. GET /api/items/:id возвращает {id} со строковым id. solve(id) делает запрос и возвращает body.",
-        "code": "const result = await solve(\"abc\");",
+        "prompt": "Какое JSON-тело получит GET /api/books/js?",
+        "code": "const express = require(\"express\");\nconst app = express();\nconst router = express.Router();\nrouter.get(\"/books/:slug\", (req, res) => res.json({ slug: req.params.slug }));\napp.use(\"/api\", router);",
         "options": [
           "{}",
-          "{\"id\":\"abc\"}",
-          "null"
+          "{\"slug\":\"js\"}",
+          "{\"slug\":\"books\"}"
         ],
         "answer": 1,
+        "explanation": "Параметр slug соответствует сегменту js.",
         "section": 6,
-        "explanation": "После await solve(\"abc\") переменная result содержит {\"id\":\"abc\"}. Путь внутри Router не должен повторять /api.",
         "id": "express-router-5",
         "sectionId": "section-6"
       }
@@ -9729,32 +9656,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте GET /items. page — строка query, допустимы только цифры, полученное целое от 1 до 100 включительно; отсутствие page означает 1. Верните 200 {page, limit:10, offset:(page-1)*10}, при другом вводе — 400 {error:\"page\"}. solve(page) отправляет параметр, а null означает его отсутствие; верните {status, body}.",
-        "code": "const result = await solve(null);",
+        "prompt": "Какое JSON-тело получит GET /items?page=3?",
+        "code": "const express = require(\"express\");\nconst app = express();\napp.get(\"/items\", (req, res) => {\n  const page = Number(req.query.page ?? 1);\n  res.json({ page });\n});",
         "options": [
-          "{}",
-          "{\"status\":200,\"body\":{\"page\":1,\"limit\":10,\"offset\":0}}",
-          "null"
+          "{\"page\":1}",
+          "{\"page\":3}",
+          "{\"page\":\"3\"}"
         ],
         "answer": 1,
+        "explanation": "Query приходит строкой, а Number явно преобразует \"3\" в число.",
         "section": 6,
-        "explanation": "После await solve(null) переменная result содержит {\"status\":200,\"body\":{\"page\":1,\"limit\":10,\"offset\":0}}. Не используйте parseInt как полную проверку строки: \"2x\" нельзя принимать за 2.",
         "id": "express-query-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте GET /items. page — строка query, допустимы только цифры, полученное целое от 1 до 100 включительно; отсутствие page означает 1. Верните 200 {page, limit:10, offset:(page-1)*10}, при другом вводе — 400 {error:\"page\"}. solve(page) отправляет параметр, а null означает его отсутствие; верните {status, body}.",
-        "code": "const result = await solve(\"2\");",
+        "prompt": "Какое JSON-тело получит GET /items без query-параметров?",
+        "code": "const express = require(\"express\");\nconst app = express();\napp.get(\"/items\", (req, res) => {\n  const limit = Number(req.query.limit ?? 10);\n  res.json({ limit });\n});",
         "options": [
-          "{\"status\":200,\"body\":{\"page\":2,\"limit\":10,\"offset\":10}}",
-          "null",
+          "{\"limit\":10}",
+          "{\"limit\":0}",
           "{}"
         ],
         "answer": 0,
+        "explanation": "Отсутствующий limit заменяется значением 10.",
         "section": 6,
-        "explanation": "После await solve(\"2\") переменная result содержит {\"status\":200,\"body\":{\"page\":2,\"limit\":10,\"offset\":10}}. Не используйте parseInt как полную проверку строки: \"2x\" нельзя принимать за 2.",
         "id": "express-query-5",
         "sectionId": "section-6"
       }
@@ -9966,32 +9891,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте POST /users: непустое строковое name после trim возвращает 201; другой ввод — 400. solve(body) отправляет JSON через supertest и возвращает только status.",
-        "code": "const result = await solve({\"name\":\"Аня\"});",
+        "prompt": "Какой статус получит POST /items с JSON {\"title\":\"\"} и Content-Type: application/json?",
+        "code": "const express = require(\"express\");\nconst app = express();\napp.use(express.json());\napp.post(\"/items\", (req, res) => {\n  if (typeof req.body.title !== \"string\" || !req.body.title.trim()) {\n    return res.status(400).json({ error: \"Укажите название\" });\n  }\n  res.status(201).json({ title: req.body.title.trim() });\n});",
         "options": [
+          "400",
           "201",
-          "202",
-          "200"
+          "500"
         ],
         "answer": 0,
+        "explanation": "Пустая строка не проходит проверку; обработчик возвращает 400.",
         "section": 6,
-        "explanation": "После await solve({\"name\":\"Аня\"}) переменная result содержит 201. Сначала проверьте typeof name, затем trim().",
         "id": "express-validation-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте POST /users: непустое строковое name после trim возвращает 201; другой ввод — 400. solve(body) отправляет JSON через supertest и возвращает только status.",
-        "code": "const result = await solve({});",
+        "prompt": "Какое JSON-тело получит POST /items с JSON {\"title\":\" JS \"} и Content-Type: application/json?",
+        "code": "const express = require(\"express\");\nconst app = express();\napp.use(express.json());\napp.post(\"/items\", (req, res) => {\n  const title = typeof req.body.title === \"string\" ? req.body.title.trim() : \"\";\n  if (!title) return res.status(400).json({ error: \"Укажите название\" });\n  res.status(201).json({ title });\n});",
         "options": [
-          "401",
-          "399",
-          "400"
+          "{\"title\":\" JS \"}",
+          "{\"error\":\"Укажите название\"}",
+          "{\"title\":\"JS\"}"
         ],
         "answer": 2,
+        "explanation": "trim удаляет внешние пробелы; непустое значение проходит проверку.",
         "section": 6,
-        "explanation": "После await solve({}) переменная result содержит 400. Сначала проверьте typeof name, затем trim().",
         "id": "express-validation-5",
         "sectionId": "section-6"
       }
@@ -10212,32 +10135,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте приложение с изолированным Map. POST /notes принимает непустую строку title после trim, создаёт {id:\"1\", title} и отвечает 201. GET /notes/1 возвращает созданную заметку. При неверном title POST отвечает 400, а заметка не создаётся. solve(title) делает POST, затем GET и возвращает [post.status, get.status].",
-        "code": "const result = await solve(\"JS\");",
+        "prompt": "Какой статус получит DELETE /items/1 при показанном начальном состоянии?",
+        "code": "const express = require(\"express\");\nconst app = express();\nconst items = new Map([[\"1\", { title: \"JS\" }]]);\napp.delete(\"/items/:id\", (req, res) => {\n  if (!items.delete(req.params.id)) return res.sendStatus(404);\n  res.sendStatus(204);\n});",
         "options": [
-          "[]",
-          "[200,201]",
-          "[201,200]"
+          "404",
+          "201",
+          "204"
         ],
         "answer": 2,
+        "explanation": "Ключ \"1\" есть в Map, delete возвращает true, отправляется 204.",
         "section": 6,
-        "explanation": "После await solve(\"JS\") переменная result содержит [201,200]. Каждый solve создаёт новое хранилище; ошибочный POST не должен менять состояние.",
         "id": "express-crud-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте приложение с изолированным Map. POST /notes принимает непустую строку title после trim, создаёт {id:\"1\", title} и отвечает 201. GET /notes/1 возвращает созданную заметку. При неверном title POST отвечает 400, а заметка не создаётся. solve(title) делает POST, затем GET и возвращает [post.status, get.status].",
-        "code": "const result = await solve(\"  TS  \");",
+        "prompt": "Какой статус получит GET /items/99?",
+        "code": "const express = require(\"express\");\nconst app = express();\nconst items = new Map();\napp.get(\"/items/:id\", (req, res) => {\n  const item = items.get(req.params.id);\n  if (!item) return res.status(404).json({ error: \"Не найдено\" });\n  res.json(item);\n});",
         "options": [
-          "[200,201]",
-          "[201,200]",
-          "[]"
+          "204",
+          "404",
+          "200"
         ],
         "answer": 1,
+        "explanation": "Map пуст, поэтому обработчик завершает ответ с 404.",
         "section": 6,
-        "explanation": "После await solve(\"  TS  \") переменная result содержит [201,200]. Каждый solve создаёт новое хранилище; ошибочный POST не должен менять состояние.",
         "id": "express-crud-5",
         "sectionId": "section-6"
       }
@@ -10433,32 +10354,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте GET /fail, выбрасывающий Error. Error middleware должен вернуть 500 и {error:\"Ошибка сервера\"}. solve возвращает {status, body} из supertest.",
-        "code": "const result = await solve();",
+        "prompt": "Какой статус получит GET /fail?",
+        "code": "const express = require(\"express\");\nconst app = express();\napp.get(\"/fail\", (req, res, next) => next(new Error(\"Сбой\")));\napp.use((err, req, res, next) => res.status(500).json({ error: \"Ошибка сервера\" }));",
         "options": [
-          "{}",
-          "{\"status\":500,\"body\":{\"error\":\"Ошибка сервера\"}}",
-          "null"
+          "404",
+          "500",
+          "200"
         ],
         "answer": 1,
+        "explanation": "next с ошибкой передаёт управление четырёхаргументному error middleware.",
         "section": 6,
-        "explanation": "После await solve() переменная result содержит {\"status\":500,\"body\":{\"error\":\"Ошибка сервера\"}}. Объявите все четыре аргумента error middleware, даже если часть не используется.",
         "id": "express-errors-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какую форму имеет значение result после показанного вызова?",
-        "context": "Создайте GET /fail, выбрасывающий Error. Error middleware должен вернуть 500 и {error:\"Ошибка сервера\"}. solve возвращает {status, body} из supertest.",
-        "code": "const result = await solve();",
+        "prompt": "Какую сигнатуру нужно использовать для Express error middleware?",
+        "code": "const express = require(\"express\");\nconst app = express();\n// Здесь нужно зарегистрировать обработчик ошибок через app.use.",
         "options": [
-          "объект",
-          "массив",
-          "строка"
+          "(err, req, res, next)",
+          "(req, res, next)",
+          "(req, error)"
         ],
         "answer": 0,
+        "explanation": "Express узнаёт error middleware по четырём аргументам в указанном порядке.",
         "section": 6,
-        "explanation": "После await solve() переменная result содержит {\"status\":500,\"body\":{\"error\":\"Ошибка сервера\"}}. Это объект. Объявите все четыре аргумента error middleware, даже если часть не используется.",
         "id": "express-errors-5",
         "sectionId": "section-6"
       }
@@ -10692,32 +10611,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте async GET /value. Для value<0 он выбрасывает Error; для остальных значений возвращает {value}. Error middleware отвечает 500 {error:\"internal\"}. solve(value) делает запрос и возвращает {status, body}.",
-        "code": "const result = await solve(2);",
+        "prompt": "Какой статус получит GET /fail в Express 5?",
+        "code": "const express = require(\"express\");\nconst app = express();\napp.get(\"/fail\", async (req, res) => { throw new Error(\"Сбой\"); });\napp.use((err, req, res, next) => res.status(503).json({ error: \"Недоступно\" }));",
         "options": [
-          "{\"status\":200,\"body\":{\"value\":2}}",
-          "null",
-          "{}"
+          "503",
+          "200",
+          "404"
         ],
         "answer": 0,
+        "explanation": "Express 5 передаёт отклонение Promise из async-обработчика в error middleware.",
         "section": 6,
-        "explanation": "После await solve(2) переменная result содержит {\"status\":200,\"body\":{\"value\":2}}. В Express 5 отклонённый Promise обработчика попадает в error middleware.",
         "id": "express-async-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте async GET /value. Для value<0 он выбрасывает Error; для остальных значений возвращает {value}. Error middleware отвечает 500 {error:\"internal\"}. solve(value) делает запрос и возвращает {status, body}.",
-        "code": "const result = await solve(0);",
+        "prompt": "Какое JSON-тело получит GET /value в Express 5?",
+        "code": "const express = require(\"express\");\nconst app = express();\napp.get(\"/value\", async (req, res) => {\n  const value = await Promise.resolve(7);\n  res.json({ value });\n});",
         "options": [
-          "null",
-          "{}",
-          "{\"status\":200,\"body\":{\"value\":0}}"
+          "{\"value\":{}}",
+          "{\"value\":\"Promise\"}",
+          "{\"value\":7}"
         ],
         "answer": 2,
+        "explanation": "await получает число 7 до формирования ответа.",
         "section": 6,
-        "explanation": "После await solve(0) переменная result содержит {\"status\":200,\"body\":{\"value\":0}}. В Express 5 отклонённый Promise обработчика попадает в error middleware.",
         "id": "express-async-5",
         "sectionId": "section-6"
       }
@@ -10951,32 +10868,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте фабрику приложения с внедрённым сервисом {find(id)}. GET /users/:id вызывает сервис и возвращает найденный публичный {id,name}; при отсутствии — 404. solve(users,id) создаёт сервис над переданным массивом, делает запрос и возвращает {status,body}; для 404 body должен быть {error:\"missing\"}.",
-        "code": "const result = await solve([{\"id\":\"1\",\"name\":\"Аня\",\"secret\":\"x\"}], \"1\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const repository = { find: id => ({ id, title: \"JS\" }) };\nfunction createService(repo) {\n  return { title: id => repo.find(id).title };\n}\nconst service = createService(repository);\nconst result = service.title(\"1\");",
         "options": [
+          "\"1\"",
           "null",
-          "{}",
-          "{\"status\":200,\"body\":{\"id\":\"1\",\"name\":\"Аня\"}}"
+          "\"JS\""
         ],
         "answer": 2,
+        "explanation": "Сервис получает репозиторий через параметр и возвращает title найденной записи.",
         "section": 6,
-        "explanation": "После await solve([{\"id\":\"1\",\"name\":\"Аня\",\"secret\":\"x\"}], \"1\") переменная result содержит {\"status\":200,\"body\":{\"id\":\"1\",\"name\":\"Аня\"}}. Контроллер выбирает публичные поля; сервис отвечает за поиск и не зависит от res.",
         "id": "express-architecture-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте фабрику приложения с внедрённым сервисом {find(id)}. GET /users/:id вызывает сервис и возвращает найденный публичный {id,name}; при отсутствии — 404. solve(users,id) создаёт сервис над переданным массивом, делает запрос и возвращает {status,body}; для 404 body должен быть {error:\"missing\"}.",
-        "code": "const result = await solve([], \"1\");",
+        "prompt": "Какой объект безопасно передать res.json как публичное представление этого пользователя?",
+        "code": "const user = { id: \"1\", name: \"Ира\", passwordHash: \"private-hash\" };",
         "options": [
-          "{}",
-          "{\"status\":404,\"body\":{\"error\":\"missing\"}}",
-          "null"
+          "{ ...user }",
+          "{ id: user.id, name: user.name }",
+          "user"
         ],
         "answer": 1,
+        "explanation": "Явный выбор публичных полей исключает passwordHash; spread скопировал бы его.",
         "section": 6,
-        "explanation": "После await solve([], \"1\") переменная result содержит {\"status\":404,\"body\":{\"error\":\"missing\"}}. Контроллер выбирает публичные поля; сервис отвечает за поиск и не зависит от res.",
         "id": "express-architecture-5",
         "sectionId": "section-6"
       }
@@ -11193,32 +11108,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Заголовок x-user в этом учебном тесте представляет уже проверенный сервером идентификатор. GET /notes/:owner: при отсутствии x-user верните 401; при несовпадении с owner — 403; при совпадении — 200 {ok:true}. solve(userId,ownerId) выполняет запрос и возвращает status. В реальном приложении клиентский заголовок сам по себе не является аутентификацией.",
-        "code": "const result = await solve(null, \"1\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const userId = \"u1\";\nconst note = { id: \"n1\", ownerId: \"u2\" };\nconst result = note.ownerId === userId;",
         "options": [
-          "400",
-          "401",
-          "402"
+          "\"u1\"",
+          "false",
+          "true"
         ],
         "answer": 1,
+        "explanation": "Идентификаторы владельца u2 и текущего пользователя u1 различаются.",
         "section": 6,
-        "explanation": "После await solve(null, \"1\") переменная result содержит 401. Сначала проверьте наличие подтверждённого пользователя, затем право на конкретный ресурс.",
         "id": "express-security-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Заголовок x-user в этом учебном тесте представляет уже проверенный сервером идентификатор. GET /notes/:owner: при отсутствии x-user верните 401; при несовпадении с owner — 403; при совпадении — 200 {ok:true}. solve(userId,ownerId) выполняет запрос и возвращает status. В реальном приложении клиентский заголовок сам по себе не является аутентификацией.",
-        "code": "const result = await solve(\"1\", \"1\");",
+        "prompt": "Что ограничивает httpOnly в этой настройке cookie? res — объект ответа Express, token — созданный сервером токен сессии.",
+        "code": "res.cookie(\"session\", token, {\n  httpOnly: true, secure: true, sameSite: \"lax\"\n});",
         "options": [
-          "200",
-          "201",
-          "199"
+          "Чтение cookie JavaScript-кодом страницы",
+          "Отправку cookie браузером на сервер",
+          "Все запросы POST без дополнительной защиты"
         ],
         "answer": 0,
+        "explanation": "HttpOnly скрывает cookie от document.cookie, но браузер продолжает отправлять её серверу.",
         "section": 6,
-        "explanation": "После await solve(\"1\", \"1\") переменная result содержит 200. Сначала проверьте наличие подтверждённого пользователя, затем право на конкретный ресурс.",
         "id": "express-security-5",
         "sectionId": "section-6"
       }
@@ -11445,32 +11358,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте GET /double/:n. Разрешены только строки из одной или нескольких цифр; верните {value:Number(n)*2}. Остальные пути с параметром дают 400. solve(values) отправляет запрос для каждого переданного строкового параметра и возвращает массив статусов.",
-        "code": "const result = await solve([\"2\",\"x\",\"0\"]);",
+        "prompt": "Пройдёт ли этот интеграционный тест в Node.js?",
+        "code": "const express = require(\"express\");\nconst request = require(\"supertest\");\nconst app = express();\napp.get(\"/health\", (req, res) => res.json({ ok: true }));\nawait request(app).get(\"/health\").expect(200).expect({ ok: true });",
         "options": [
-          "[200,400,200]",
-          "[]",
-          "null"
+          "Да, статус и тело соответствуют ожиданиям",
+          "Нет, маршрут возвращает 404",
+          "Нет, ok должен быть строкой"
         ],
         "answer": 0,
+        "explanation": "GET /health возвращает 200 и JSON с boolean true.",
         "section": 6,
-        "explanation": "После await solve([\"2\",\"x\",\"0\"]) переменная result содержит [200,400,200]. Проверка должна проходить через HTTP-маршрут, а не вызывать внутренний обработчик вручную.",
         "id": "express-testing-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте GET /double/:n. Разрешены только строки из одной или нескольких цифр; верните {value:Number(n)*2}. Остальные пути с параметром дают 400. solve(values) отправляет запрос для каждого переданного строкового параметра и возвращает массив статусов.",
-        "code": "const result = await solve([]);",
+        "prompt": "Какое ожидаемое тело нужно указать вместо комментария для успешной проверки?",
+        "code": "const express = require(\"express\");\nconst request = require(\"supertest\");\nconst app = express();\napp.get(\"/count\", (req, res) => res.json({ count: 2 }));\nawait request(app).get(\"/count\").expect(200).expect(/* тело ответа */);",
         "options": [
-          "null",
-          "undefined",
-          "[]"
+          "{ count: \"2\" }",
+          "{}",
+          "{ count: 2 }"
         ],
         "answer": 2,
+        "explanation": "JSON содержит числовое поле count: 2; проверка тела различает строку и число.",
         "section": 6,
-        "explanation": "После await solve([]) переменная result содержит []. Проверка должна проходить через HTTP-маршрут, а не вызывать внутренний обработчик вручную.",
         "id": "express-testing-5",
         "sectionId": "section-6"
       }
@@ -11677,32 +11588,30 @@
         "sectionId": "section-5"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте GET /health, возвращающий {ok:true}. solve() создаёт Nest-приложение, вызывает init, делает HTTP-запрос и возвращает {status, body}. Слушать постоянный порт не требуется.",
-        "code": "const result = await solve();",
+        "prompt": "Какой класс является корневым модулем в показанном запуске Nest?",
+        "code": "import { Module } from \"@nestjs/common\";\nimport { NestFactory } from \"@nestjs/core\";\n@Module({})\nclass AppModule {}\nconst app = await NestFactory.create(AppModule);\nawait app.listen(3000);",
         "options": [
-          "null",
-          "{}",
-          "{\"status\":200,\"body\":{\"ok\":true}}"
+          "NestFactory",
+          "Module",
+          "AppModule"
         ],
         "answer": 2,
+        "explanation": "Первый аргумент create — корневой модуль AppModule.",
         "section": 6,
-        "explanation": "После await solve() переменная result содержит {\"status\":200,\"body\":{\"ok\":true}}. В тесте используйте app.init и supertest(app.getHttpServer()), а затем app.close.",
         "id": "nest-bootstrap-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какую форму имеет значение result после показанного вызова?",
-        "context": "Создайте GET /health, возвращающий {ok:true}. solve() создаёт Nest-приложение, вызывает init, делает HTTP-запрос и возвращает {status, body}. Слушать постоянный порт не требуется.",
-        "code": "const result = await solve();",
+        "prompt": "На каком порту приложение принимает HTTP-запросы?",
+        "code": "import { Module } from \"@nestjs/common\";\nimport { NestFactory } from \"@nestjs/core\";\n@Module({})\nclass AppModule {}\nconst app = await NestFactory.create(AppModule);\nawait app.listen(4000);",
         "options": [
-          "строка",
-          "объект",
-          "массив"
+          "80",
+          "4000",
+          "3000"
         ],
         "answer": 1,
+        "explanation": "В listen явно передан порт 4000.",
         "section": 6,
-        "explanation": "После await solve() переменная result содержит {\"status\":200,\"body\":{\"ok\":true}}. Это объект. В тесте используйте app.init и supertest(app.getHttpServer()), а затем app.close.",
         "id": "nest-bootstrap-5",
         "sectionId": "section-6"
       }
@@ -11902,32 +11811,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте GreetingService с message(), возвращающим text через внедрённый useValue-провайдер токена \"GREETING\". Получите сервис из Nest application context, вызовите message и закройте context в finally.",
-        "code": "const result = await solve(\"Привет, Nest\");",
+        "prompt": "Какая запись открывает CatalogService для модулей, импортирующих CatalogModule?",
+        "code": "import { Injectable, Module } from \"@nestjs/common\";\n@Injectable()\nclass CatalogService {}\n@Module({ providers: [CatalogService], exports: [CatalogService] })\nclass CatalogModule {}",
         "options": [
-          "null",
-          "\"Привет, Nest\"",
-          "\"\""
+          "class CatalogModule {} без декоратора",
+          "exports: [CatalogService]",
+          "providers: [CatalogService] без exports"
         ],
         "answer": 1,
+        "explanation": "providers регистрирует зависимость локально, exports открывает её потребителям модуля.",
         "section": 6,
-        "explanation": "После await solve(\"Привет, Nest\") переменная result содержит \"Привет, Nest\". Зарегистрируйте сервис и GREETING, внедрите токен через Inject и вызовите метод сервиса.",
         "id": "nest-modules-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте GreetingService с message(), возвращающим text через внедрённый useValue-провайдер токена \"GREETING\". Получите сервис из Nest application context, вызовите message и закройте context в finally.",
-        "code": "const result = await solve(\"DI\");",
+        "prompt": "Какой провайдер доступен внутри AppModule благодаря импорту?",
+        "code": "import { Injectable, Module } from \"@nestjs/common\";\n@Injectable()\nclass Store {}\n@Module({ providers: [Store], exports: [Store] })\nclass StoreModule {}\n@Module({ imports: [StoreModule] })\nclass AppModule {}",
         "options": [
-          "\"DI\"",
-          "\"\"",
-          "null"
+          "Store",
+          "Любой необъявленный класс",
+          "Ни один, exports не учитывается"
         ],
         "answer": 0,
+        "explanation": "Импорт StoreModule даёт доступ к его экспортированному Store.",
         "section": 6,
-        "explanation": "После await solve(\"DI\") переменная result содержит \"DI\". Зарегистрируйте сервис и GREETING, внедрите токен через Inject и вызовите метод сервиса.",
         "id": "nest-modules-5",
         "sectionId": "section-6"
       }
@@ -12132,32 +12039,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Зарегистрируйте VALUE через useValue и DOUBLE через useFactory с inject: [\"VALUE\"]. Фабрика возвращает удвоенное значение зависимости. Получите DOUBLE из application context и закройте context.",
-        "code": "const result = await solve(5);",
+        "prompt": "Какое значение Nest внедрит в параметр label? Сервис зарегистрирован в показанном модуле.",
+        "code": "import { Inject, Injectable, Module } from \"@nestjs/common\";\n@Injectable()\nclass LabelService {\n  constructor(@Inject(\"LABEL\") public label: string) {}\n}\n@Module({ providers: [LabelService, { provide: \"LABEL\", useValue: \"JS\" }] })\nclass AppModule {}",
         "options": [
-          "10",
-          "11",
-          "9"
+          "\"JS\"",
+          "\"LABEL\"",
+          "undefined"
         ],
         "answer": 0,
+        "explanation": "Inject использует токен LABEL; useValue задаёт его значение JS.",
         "section": 6,
-        "explanation": "После await solve(5) переменная result содержит 10. Порядок inject соответствует аргументам useFactory.",
         "id": "nest-injection-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Зарегистрируйте VALUE через useValue и DOUBLE через useFactory с inject: [\"VALUE\"]. Фабрика возвращает удвоенное значение зависимости. Получите DOUBLE из application context и закройте context.",
-        "code": "const result = await solve(0);",
+        "prompt": "Какое значение создаст фабрика провайдера LIMIT?",
+        "code": "const provider = {\n  provide: \"LIMIT\",\n  useFactory: () => 5 * 2\n};",
         "options": [
-          "1",
-          "-1",
-          "0"
+          "5",
+          "\"LIMIT\"",
+          "10"
         ],
         "answer": 2,
+        "explanation": "useFactory вызывается контейнером и возвращает вычисленное значение 10.",
         "section": 6,
-        "explanation": "После await solve(0) переменная result содержит 0. Порядок inject соответствует аргументам useFactory.",
         "id": "nest-injection-5",
         "sectionId": "section-6"
       }
@@ -12370,32 +12275,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте настоящий Nest-контроллер GET /public. Он возвращает из переданного user только {id,email}, исключая passwordHash. solve(user) создаёт приложение, делает HTTP-запрос через supertest и возвращает body. Закройте приложение в finally.",
-        "code": "const result = await solve({\"id\":\"1\",\"email\":\"a@b.test\",\"passwordHash\":\"private\"});",
+        "prompt": "Какой маршрут обслуживает метод list? Контроллер зарегистрирован в приложении без глобального префикса.",
+        "code": "import { Controller, Get } from \"@nestjs/common\";\n@Controller(\"books\")\nclass BooksController {\n  @Get(\"recent\")\n  list() { return []; }\n}",
         "options": [
-          "null",
-          "{}",
-          "{\"id\":\"1\",\"email\":\"a@b.test\"}"
+          "POST /books/recent",
+          "GET /recent/books",
+          "GET /books/recent"
         ],
         "answer": 2,
+        "explanation": "Путь контроллера books складывается с путём метода recent; Get задаёт HTTP-метод.",
         "section": 6,
-        "explanation": "После await solve({\"id\":\"1\",\"email\":\"a@b.test\",\"passwordHash\":\"private\"}) переменная result содержит {\"id\":\"1\",\"email\":\"a@b.test\"}. Декораторы Controller и Get регистрируют маршрут; явно выберите поля публичного ответа.",
         "id": "nest-controllers-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте настоящий Nest-контроллер GET /public. Он возвращает из переданного user только {id,email}, исключая passwordHash. solve(user) создаёт приложение, делает HTTP-запрос через supertest и возвращает body. Закройте приложение в finally.",
-        "code": "const result = await solve({\"id\":\"2\",\"email\":\"js@ts.test\",\"passwordHash\":\"hidden\"});",
+        "prompt": "Какое JSON-тело вернёт GET /health? Контроллер зарегистрирован, глобального префикса нет.",
+        "code": "import { Controller, Get } from \"@nestjs/common\";\n@Controller()\nclass HealthController {\n  @Get(\"health\")\n  health() { return { ok: true }; }\n}",
         "options": [
-          "{}",
-          "{\"id\":\"2\",\"email\":\"js@ts.test\"}",
-          "null"
+          "\"ok\"",
+          "{\"ok\":true}",
+          "{}"
         ],
         "answer": 1,
+        "explanation": "Nest сериализует объект, возвращённый обработчиком, в JSON.",
         "section": 6,
-        "explanation": "После await solve({\"id\":\"2\",\"email\":\"js@ts.test\",\"passwordHash\":\"hidden\"}) переменная result содержит {\"id\":\"2\",\"email\":\"js@ts.test\"}. Декораторы Controller и Get регистрируют маршрут; явно выберите поля публичного ответа.",
         "id": "nest-controllers-5",
         "sectionId": "section-6"
       }
@@ -12641,32 +12544,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Проверьте объект настоящим ValidationPipe с transform, whitelist и forbidNonWhitelisted. DTO содержит только name: string длиной 1..40. solve(value) возвращает true при принятии, иначе false; null, массивы и примитивы недопустимы. Неизвестные поля запрещены.",
-        "code": "const result = await solve({\"name\":\"JS\"});",
+        "prompt": "Пройдёт ли значение title из тела {\"title\":42} валидацию этого DTO? ValidationPipe включён, преобразование чисел в строки отключено.",
+        "code": "import { IsString } from \"class-validator\";\nclass CreateBookDto {\n  @IsString()\n  title!: string;\n}",
         "options": [
-          "\"TypeError\"",
-          "true",
-          "false"
+          "Да, IsString проверяет имя поля",
+          "Нет, title должен быть строкой",
+          "Да, TypeScript преобразует 42 в строку"
         ],
         "answer": 1,
+        "explanation": "IsString проверяет фактическое значение во время запроса, а не аннотацию TypeScript.",
         "section": 6,
-        "explanation": "После await solve({\"name\":\"JS\"}) переменная result содержит true. Используйте DTO-класс с IsString и Length, метатип Input и обработайте отказ pipe.",
         "id": "nest-validation-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Проверьте объект настоящим ValidationPipe с transform, whitelist и forbidNonWhitelisted. DTO содержит только name: string длиной 1..40. solve(value) возвращает true при принятии, иначе false; null, массивы и примитивы недопустимы. Неизвестные поля запрещены.",
-        "code": "const result = await solve({\"name\":\"\"});",
+        "prompt": "Что произойдёт с телом {\"name\":\"Ира\",\"admin\":true} при такой конфигурации ValidationPipe? DTO содержит только показанное поле.",
+        "code": "import { ValidationPipe } from \"@nestjs/common\";\nimport { IsString } from \"class-validator\";\nclass UserDto { @IsString() name!: string; }\nconst pipe = new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true });",
         "options": [
-          "false",
-          "true",
-          "\"TypeError\""
+          "Запрос отклоняется из-за неизвестного admin",
+          "admin сохраняется в DTO",
+          "admin становится false"
         ],
         "answer": 0,
+        "explanation": "forbidNonWhitelisted вместе с whitelist отклоняет свойства без правил DTO.",
         "section": 6,
-        "explanation": "После await solve({\"name\":\"\"}) переменная result содержит false. Используйте DTO-класс с IsString и Length, метатип Input и обработайте отказ pipe.",
         "id": "nest-validation-5",
         "sectionId": "section-6"
       }
@@ -12875,32 +12776,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте GET /items/:id с ParseIntPipe для параметра id. Контроллер возвращает {id} как число. solve(id) отправляет строку пути и возвращает status: 200 для целого числа, 400 для нечислового или дробного значения.",
-        "code": "const result = await solve(\"42\");",
+        "prompt": "Какое значение получит id при GET /items/12? Контроллер зарегистрирован без глобального префикса.",
+        "code": "import { Controller, Get, Param, ParseIntPipe } from \"@nestjs/common\";\n@Controller(\"items\")\nclass ItemsController {\n  @Get(\":id\")\n  read(@Param(\"id\", ParseIntPipe) id: number) { return { id }; }\n}",
         "options": [
-          "200",
-          "201",
-          "199"
+          "Число 12",
+          "Строку \"12\"",
+          "undefined"
         ],
         "answer": 0,
+        "explanation": "ParseIntPipe преобразует корректную целочисленную строку в number до вызова метода.",
         "section": 6,
-        "explanation": "После await solve(\"42\") переменная result содержит 200. ParseIntPipe проверяет целое число; положительность — отдельное бизнес-правило.",
         "id": "nest-pipes-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте GET /items/:id с ParseIntPipe для параметра id. Контроллер возвращает {id} как число. solve(id) отправляет строку пути и возвращает status: 200 для целого числа, 400 для нечислового или дробного значения.",
-        "code": "const result = await solve(\"x\");",
+        "prompt": "Какой статус вернёт GET /items/abc при стандартной настройке ParseIntPipe?",
+        "code": "import { Controller, Get, Param, ParseIntPipe } from \"@nestjs/common\";\n@Controller(\"items\")\nclass ItemsController {\n  @Get(\":id\")\n  read(@Param(\"id\", ParseIntPipe) id: number) { return { id }; }\n}",
         "options": [
-          "401",
-          "399",
+          "200",
+          "404",
           "400"
         ],
         "answer": 2,
+        "explanation": "abc не является целочисленной строкой, pipe отклоняет аргумент до обработчика.",
         "section": 6,
-        "explanation": "После await solve(\"x\") переменная result содержит 400. ParseIntPipe проверяет целое число; положительность — отдельное бизнес-правило.",
         "id": "nest-pipes-5",
         "sectionId": "section-6"
       }
@@ -13119,32 +13018,30 @@
         "sectionId": "section-3"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте GET /notes/:owner с настоящим Nest guard. Переданный user — подтверждённый пользователь или null. Guard допускает admin либо пользователя, id которого совпадает с ownerId. solve(user, ownerId) отправляет запрос и возвращает HTTP-статус: 200 при допуске, 403 при отказе guard. Отдельная authentication-стадия в этой задаче не реализуется.",
-        "code": "const result = await solve(null, \"1\");",
+        "prompt": "Будет ли вызван обработчик, защищённый этим guard?",
+        "code": "import { CanActivate, ExecutionContext, Injectable } from \"@nestjs/common\";\n@Injectable()\nclass DenyGuard implements CanActivate {\n  canActivate(context: ExecutionContext) { return false; }\n}",
         "options": [
-          "404",
-          "402",
-          "403"
+          "Да, false означает пропустить проверку",
+          "Да, guard выполняется после ответа",
+          "Нет, guard запрещает доступ"
         ],
         "answer": 2,
+        "explanation": "Ложное решение guard останавливает цепочку перед вызовом защищённого метода.",
         "section": 6,
-        "explanation": "После await solve(null, \"1\") переменная result содержит 403. False из CanActivate приводит к 403; проверка должна происходить до контроллера.",
         "id": "nest-guards-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте GET /notes/:owner с настоящим Nest guard. Переданный user — подтверждённый пользователь или null. Guard допускает admin либо пользователя, id которого совпадает с ownerId. solve(user, ownerId) отправляет запрос и возвращает HTTP-статус: 200 при допуске, 403 при отказе guard. Отдельная authentication-стадия в этой задаче не реализуется.",
-        "code": "const result = await solve({\"id\":\"1\",\"role\":\"user\"}, \"1\");",
+        "prompt": "Кто получит доступ по правилу этого guard: пользователь с ролью admin или student? Guard подключён к маршруту, user уже установлен middleware.",
+        "code": "import { CanActivate, ExecutionContext, Injectable } from \"@nestjs/common\";\n@Injectable()\nclass AdminGuard implements CanActivate {\n  canActivate(context: ExecutionContext) {\n    const request = context.switchToHttp().getRequest();\n    return request.user?.role === \"admin\";\n  }\n}",
         "options": [
-          "199",
-          "200",
-          "201"
+          "Только пользователь с ролью student",
+          "Только пользователь с ролью admin",
+          "Оба пользователя"
         ],
         "answer": 1,
+        "explanation": "Проверяется точное равенство роли строке admin.",
         "section": 6,
-        "explanation": "После await solve({\"id\":\"1\",\"role\":\"user\"}, \"1\") переменная result содержит 200. False из CanActivate приводит к 403; проверка должна происходить до контроллера.",
         "id": "nest-guards-5",
         "sectionId": "section-6"
       }
@@ -13358,32 +13255,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "На GET /admin задайте @SetMetadata(\"role\", \"admin\"). Guard получает метаданные через Reflector.get и сравнивает с переданной role. solve(role) делает запрос и возвращает status: 200 для admin, иначе 403.",
-        "code": "const result = await solve(\"admin\");",
+        "prompt": "Какой ключ и значение метаданных записывает Roles(\"admin\")?",
+        "code": "import { SetMetadata } from \"@nestjs/common\";\nconst Roles = (...roles: string[]) => SetMetadata(\"roles\", roles);",
         "options": [
-          "199",
-          "200",
-          "201"
+          "Ключ \"roles\", значение \"student\"",
+          "Ключ \"roles\", значение [\"admin\"]",
+          "Ключ \"admin\", значение true"
         ],
         "answer": 1,
+        "explanation": "Функция собирает аргументы в массив и передаёт их SetMetadata под ключом roles.",
         "section": 6,
-        "explanation": "После await solve(\"admin\") переменная result содержит 200. Метаданные описывают правило, а исполняет его guard.",
         "id": "nest-decorators-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "На GET /admin задайте @SetMetadata(\"role\", \"admin\"). Guard получает метаданные через Reflector.get и сравнивает с переданной role. solve(role) делает запрос и возвращает status: 200 для admin, иначе 403.",
-        "code": "const result = await solve(\"user\");",
+        "prompt": "Будет ли один SetMetadata автоматически запрещать запрос неадминистратору без guard или другого кода проверки?",
+        "code": "import { Controller, Get, SetMetadata } from \"@nestjs/common\";\n@Controller(\"items\")\nclass ItemsController {\n  @Get()\n  @SetMetadata(\"roles\", [\"admin\"])\n  list() { return []; }\n}",
         "options": [
-          "403",
-          "404",
-          "402"
+          "Нет, метаданные нужно прочитать и применить в проверке доступа",
+          "Да, SetMetadata самостоятельно проверит роль",
+          "Да, SetMetadata проверит пароль"
         ],
         "answer": 0,
+        "explanation": "Декоратор записывает данные, но сам не выполняет авторизацию.",
         "section": 6,
-        "explanation": "После await solve(\"user\") переменная result содержит 403. Метаданные описывают правило, а исполняет его guard.",
         "id": "nest-decorators-5",
         "sectionId": "section-6"
       }
@@ -13601,32 +13496,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте interceptor, который оборачивает успешный ответ в {data: value} через RxJS map. GET /value возвращает переданный text. solve(text) делает HTTP-запрос и возвращает body.",
-        "code": "const result = await solve(\"JS\");",
+        "prompt": "Какое значение получит подписчик result$?",
+        "code": "import { of, map } from \"rxjs\";\nconst result$ = of({ id: 1 }).pipe(map(data => ({ data })));",
         "options": [
-          "{\"data\":\"JS\"}",
-          "null",
-          "{}"
+          "{ data: { id: 1 } }",
+          "{ id: 1 }",
+          "[{ id: 1 }]"
         ],
         "answer": 0,
+        "explanation": "map оборачивает каждый элемент потока в объект с полем data.",
         "section": 6,
-        "explanation": "После await solve(\"JS\") переменная result содержит {\"data\":\"JS\"}. Не подписывайтесь на next.handle вручную: верните преобразованный Observable.",
         "id": "nest-interceptors-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте interceptor, который оборачивает успешный ответ в {data: value} через RxJS map. GET /value возвращает переданный text. solve(text) делает HTTP-запрос и возвращает body.",
-        "code": "const result = await solve(\"\");",
+        "prompt": "Что должен вернуть interceptor вместо комментария, чтобы Nest управлял потоком ответа?",
+        "code": "import { CallHandler, ExecutionContext, NestInterceptor } from \"@nestjs/common\";\nimport { map } from \"rxjs\";\nclass WrapInterceptor implements NestInterceptor {\n  intercept(context: ExecutionContext, next: CallHandler) {\n    // Оберните результат обработчика в { data }.\n  }\n}",
         "options": [
-          "null",
-          "{}",
-          "{\"data\":\"\"}"
+          "return next.handle().subscribe();",
+          "return { data: next };",
+          "return next.handle().pipe(map(data => ({ data })));"
         ],
         "answer": 2,
+        "explanation": "Нужно вернуть преобразованный Observable, сохранив управляемую Nest цепочку.",
         "section": 6,
-        "explanation": "После await solve(\"\") переменная result содержит {\"data\":\"\"}. Не подписывайтесь на next.handle вручную: верните преобразованный Observable.",
         "id": "nest-interceptors-5",
         "sectionId": "section-6"
       }
@@ -13825,32 +13718,30 @@
         "sectionId": "section-2"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте GET /fail, выбрасывающий BadRequestException. Фильтр @Catch(HttpException) возвращает status исключения и JSON {error:\"request\"}. solve() делает запрос и возвращает {status,body}.",
-        "code": "const result = await solve();",
+        "prompt": "Какой HTTP-статус содержит созданное исключение?",
+        "code": "import { HttpException } from \"@nestjs/common\";\nconst error = new HttpException(\"Не найдено\", 404);\nconst status = error.getStatus();",
         "options": [
-          "null",
-          "{}",
-          "{\"status\":400,\"body\":{\"error\":\"request\"}}"
+          "200",
+          "500",
+          "404"
         ],
         "answer": 2,
+        "explanation": "Конструктор HttpException получил статус 404, getStatus возвращает его.",
         "section": 6,
-        "explanation": "После await solve() переменная result содержит {\"status\":400,\"body\":{\"error\":\"request\"}}. В фильтре обработайте исключение один раз и не возвращайте клиенту stack.",
         "id": "nest-filters-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какую форму имеет значение result после показанного вызова?",
-        "context": "Создайте GET /fail, выбрасывающий BadRequestException. Фильтр @Catch(HttpException) возвращает status исключения и JSON {error:\"request\"}. solve() делает запрос и возвращает {status,body}.",
-        "code": "const result = await solve();",
+        "prompt": "Какие исключения выбирает этот декоратор фильтра?",
+        "code": "import { Catch, HttpException, ExceptionFilter, ArgumentsHost } from \"@nestjs/common\";\n@Catch(HttpException)\nclass HttpFilter implements ExceptionFilter {\n  catch(error: HttpException, host: ArgumentsHost) {\n    host.switchToHttp().getResponse().status(error.getStatus()).json({ error: error.message });\n  }\n}",
         "options": [
-          "строка",
-          "объект",
-          "массив"
+          "Все события HTTP без исключений",
+          "HttpException и его подклассы",
+          "Только ошибки браузерного DOM"
         ],
         "answer": 1,
+        "explanation": "Аргумент Catch ограничивает типы исключений, которые обрабатывает фильтр.",
         "section": 6,
-        "explanation": "После await solve() переменная result содержит {\"status\":400,\"body\":{\"error\":\"request\"}}. Это объект. В фильтре обработайте исключение один раз и не возвращайте клиенту stack.",
         "id": "nest-filters-5",
         "sectionId": "section-6"
       }
@@ -14070,32 +13961,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте провайдер CONFIG через useFactory. Он преобразует переданную строку port в число; разрешены только цифры и диапазон 1..65535. solve(port) возвращает числовой port из DI либо null при некорректном входе. Не читайте настоящий process.env.",
-        "code": "const result = await solve(\"3020\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const env = { PORT: \"4000\" };\nconst result = Number(env.PORT ?? \"3000\");",
         "options": [
-          "3019",
-          "3020",
-          "3021"
+          "3000",
+          "4000",
+          "\"4000\""
         ],
         "answer": 1,
+        "explanation": "Внешнее значение — строка; Number явно преобразует её в число.",
         "section": 6,
-        "explanation": "После await solve(\"3020\") переменная result содержит 3020. Валидируйте всю строку и диапазон до запуска приложения.",
         "id": "nest-configuration-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте провайдер CONFIG через useFactory. Он преобразует переданную строку port в число; разрешены только цифры и диапазон 1..65535. solve(port) возвращает числовой port из DI либо null при некорректном входе. Не читайте настоящий process.env.",
-        "code": "const result = await solve(\"0\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "const env: { PORT?: string } = {};\nconst result = Number(env.PORT ?? \"3000\");",
         "options": [
-          "null",
-          "{}",
-          "\"TypeError\""
+          "3000",
+          "0",
+          "null"
         ],
         "answer": 0,
+        "explanation": "Порт отсутствует; ?? подставляет строку 3000, затем Number преобразует её.",
         "section": 6,
-        "explanation": "После await solve(\"0\") переменная result содержит null. Валидируйте всю строку и диапазон до запуска приложения.",
         "id": "nest-configuration-5",
         "sectionId": "section-6"
       }
@@ -14332,32 +14221,30 @@
         "sectionId": "section-1"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Зарегистрируйте репозиторий под токеном REPOSITORY: метод find(id) ищет запись в переданном массиве. Сервис BooksService получает репозиторий через @Inject и возвращает title или null. solve(books,id) получает сервис из Nest application context и вызывает поиск. Используется учебный in-memory адаптер; подключения к настоящей БД нет.",
-        "code": "const result = await solve([{\"id\":\"1\",\"title\":\"JS\"}], \"1\");",
+        "prompt": "Какое значение будет в result после выполнения всего показанного кода?",
+        "code": "class MemoryRepository {\n  private items = new Map<string, string>();\n  save(id: string, title: string) { this.items.set(id, title); }\n  find(id: string) { return this.items.get(id); }\n}\nconst repo = new MemoryRepository();\nrepo.save(\"1\", \"JS\");\nconst result = repo.find(\"1\");",
         "options": [
           "\"JS\"",
-          "\"\"",
+          "\"1\"",
           "null"
         ],
         "answer": 0,
+        "explanation": "Оба метода используют одну Map экземпляра; find возвращает сохранённое название.",
         "section": 6,
-        "explanation": "После await solve([{\"id\":\"1\",\"title\":\"JS\"}], \"1\") переменная result содержит \"JS\". Сервис зависит от контракта репозитория, а не от массива или конкретного клиента БД.",
         "id": "nest-persistence-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Зарегистрируйте репозиторий под токеном REPOSITORY: метод find(id) ищет запись в переданном массиве. Сервис BooksService получает репозиторий через @Inject и возвращает title или null. solve(books,id) получает сервис из Nest application context и вызывает поиск. Используется учебный in-memory адаптер; подключения к настоящей БД нет.",
-        "code": "const result = await solve([], \"missing\");",
+        "prompt": "Что должно произойти с первой записью, если вторая операция этой транзакции завершилась ошибкой? Используется БД с атомарными транзакциями.",
+        "code": "// db — клиент БД, tx — клиент текущей транзакции.\nawait db.$transaction(async tx => {\n  await tx.order.create({ data: { id: \"o1\" } });\n  await tx.payment.create({ data: { orderId: \"o1\" } });\n});",
         "options": [
-          "{}",
-          "\"TypeError\"",
-          "null"
+          "Первая запись обязательно сохраняется",
+          "Ошибка превращает первую запись в JSON",
+          "Первая запись откатывается вместе со всей транзакцией"
         ],
         "answer": 2,
+        "explanation": "Атомарность означает либо успешное применение всех изменений, либо откат набора.",
         "section": 6,
-        "explanation": "После await solve([], \"missing\") переменная result содержит null. Сервис зависит от контракта репозитория, а не от массива или конкретного клиента БД.",
         "id": "nest-persistence-5",
         "sectionId": "section-6"
       }
@@ -14577,32 +14464,30 @@
         "sectionId": "section-4"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Соберите TestingModule с провайдером TOKEN, изначально равным \"real\". Через overrideProvider(TOKEN).useValue(text) подмените его перед compile. solve(text) получает TOKEN из модуля и возвращает строку. Закройте модуль.",
-        "code": "const result = await solve(\"fake\");",
+        "prompt": "Какое значение будет у moduleRef.get(\"LABEL\")?",
+        "code": "import { Test } from \"@nestjs/testing\";\nconst moduleRef = await Test.createTestingModule({\n  providers: [{ provide: \"LABEL\", useValue: \"real\" }]\n}).overrideProvider(\"LABEL\").useValue(\"fake\").compile();",
         "options": [
-          "\"\"",
-          "null",
+          "\"real\"",
+          "undefined",
           "\"fake\""
         ],
         "answer": 2,
+        "explanation": "overrideProvider заменяет провайдер до компиляции тестового модуля.",
         "section": 6,
-        "explanation": "После await solve(\"fake\") переменная result содержит \"fake\". Override применяется до compile; не изменяйте production-класс ради теста.",
         "id": "nest-testing-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Соберите TestingModule с провайдером TOKEN, изначально равным \"real\". Через overrideProvider(TOKEN).useValue(text) подмените его перед compile. solve(text) получает TOKEN из модуля и возвращает строку. Закройте модуль.",
-        "code": "const result = await solve(\"JS\");",
+        "prompt": "Как завершить показанный тестовый модуль и освободить его ресурсы?",
+        "code": "import { Test } from \"@nestjs/testing\";\nconst moduleRef = await Test.createTestingModule({ providers: [] }).compile();",
         "options": [
-          "null",
-          "\"JS\"",
-          "\"\""
+          "console.log(moduleRef);",
+          "await moduleRef.close();",
+          "moduleRef = null;"
         ],
         "answer": 1,
+        "explanation": "close запускает завершение контекста и lifecycle его провайдеров.",
         "section": 6,
-        "explanation": "После await solve(\"JS\") переменная result содержит \"JS\". Override применяется до compile; не изменяйте production-класс ради теста.",
         "id": "nest-testing-5",
         "sectionId": "section-6"
       }
@@ -14799,32 +14684,30 @@
         "sectionId": "section-5"
       },
       {
-        "prompt": "Какое значение получит result, если solve выполнит приведённое условие?",
-        "context": "Создайте провайдер, реализующий OnModuleInit и OnModuleDestroy. Первый hook записывает \"init\", второй — \"destroy\" в локальный массив. solve() создаёт application context, закрывает его и возвращает журнал.",
-        "code": "const result = await solve();",
+        "prompt": "Когда Nest вызовет onModuleDestroy у этого провайдера? Он зарегистрирован в приложении.",
+        "code": "import { Injectable, OnModuleDestroy } from \"@nestjs/common\";\n@Injectable()\nclass Store implements OnModuleDestroy {\n  onModuleDestroy() { console.log(\"закрыто\"); }\n}",
         "options": [
-          "[\"destroy\",\"init\"]",
-          "[\"init\",\"destroy\"]",
-          "[]"
+          "После каждого вызова конструктора",
+          "При корректном завершении контекста, например await app.close()",
+          "После каждого GET-запроса"
         ],
         "answer": 1,
+        "explanation": "Lifecycle завершения запускается при закрытии приложения, а не при завершении отдельного запроса.",
         "section": 6,
-        "explanation": "После await solve() переменная result содержит [\"init\",\"destroy\"]. Журнал принадлежит одному вызову solve; app.close запускает уничтожение зарегистрированных ресурсов.",
         "id": "nest-lifecycle-4",
         "sectionId": "section-6"
       },
       {
-        "prompt": "Какую форму имеет значение result после показанного вызова?",
-        "context": "Создайте провайдер, реализующий OnModuleInit и OnModuleDestroy. Первый hook записывает \"init\", второй — \"destroy\" в локальный массив. solve() создаёт application context, закрывает его и возвращает журнал.",
-        "code": "const result = await solve();",
+        "prompt": "В каком порядке middleware, guard, pipe и handler выполнятся на входе запроса, если все проверки успешны?",
+        "code": "// В приложении подключены middleware, guard и pipe.\n// Interceptors и дополнительные обработчики отсутствуют.\n// Все стадии передают управление дальше.",
         "options": [
-          "массив",
-          "объект",
-          "строка"
+          "middleware → guard → pipe → handler",
+          "pipe → middleware → handler → guard",
+          "handler → guard → pipe → middleware"
         ],
         "answer": 0,
+        "explanation": "Middleware обрабатывает запрос первым; guard решает доступ; pipe готовит аргументы перед handler.",
         "section": 6,
-        "explanation": "После await solve() переменная result содержит [\"init\",\"destroy\"]. Это массив. Журнал принадлежит одному вызову solve; app.close запускает уничтожение зарегистрированных ресурсов.",
         "id": "nest-lifecycle-5",
         "sectionId": "section-6"
       }

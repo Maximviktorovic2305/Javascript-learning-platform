@@ -31,6 +31,15 @@ export function timezoneError(value: string): string {
     return 'Укажите существующий часовой пояс, например Asia/Vladivostok.'
   }
 }
+export function dailyGoalError(value: number | string): string {
+  const goal = Number(value)
+  return value === '' ||
+    !Number.isInteger(goal) ||
+    goal < 1 ||
+    goal > 2147483647
+    ? 'Укажите положительное целое число XP.'
+    : ''
+}
 
 export function projectUrlError(value: string): string {
   if (!value) return 'Введите ссылку на репозиторий или демо.'

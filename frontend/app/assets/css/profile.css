@@ -138,3 +138,20 @@
     grid-template-columns: repeat(14, minmax(0, 1fr));
   }
 }
+.goal-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-block: 8px;
+}
+.goal-presets button[aria-pressed="true"] {
+  background: var(--interaction-surface);
+  border-color: var(--interaction);
+  color: var(--interaction);
+}
+.profile-goal-field small,
+.form-grid label > small {
+  font-weight: 400;
+  color: var(--muted);
+  font-size: 11px;
+}

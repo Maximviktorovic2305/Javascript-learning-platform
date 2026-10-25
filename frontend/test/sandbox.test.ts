@@ -7,6 +7,7 @@ describe('preview isolation', () => {
       'function solve(){return "</script><script>parent.evil()</script> Привет"}',
       [[]],
       'job-1',
+      'test-preview-nonce-0123456789012345',
     )
     expect(document.match(/<script /g)).toHaveLength(1)
     expect(document.match(/<\/script>/g)).toHaveLength(1)
@@ -14,6 +15,15 @@ describe('preview isolation', () => {
     expect(document).toContain("connect-src 'none'")
     expect(document).toContain('new Worker(')
     expect(document).not.toContain('allow-same-origin')
+    expect(document).toContain(
+      "script-src 'nonce-test-preview-nonce-0123456789012345' blob:",
+    )
+    expect(document).toContain('nonce="test-preview-nonce-0123456789012345"')
+  })
+  it('rejects nonce markup injection', () => {
+    expect(() => sandboxDocument('', [], 'job-1', '"><script>')).toThrow(
+      'nonce',
+    )
   })
   it('rejects malformed and oversized cross-window messages', () => {
     expect(isPreviewResult(null)).toBe(false)

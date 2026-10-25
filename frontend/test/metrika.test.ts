@@ -4,7 +4,13 @@ import { analyticsUrl, createMetrikaClient } from '../app/utils/metrika'
 function fixture() {
   const scripts = new Map<
     string,
-    { id: string; src: string; remove: () => void; onerror?: () => void }
+    {
+      id: string
+      src: string
+      nonce?: string
+      remove: () => void
+      onerror?: () => void
+    }
   >()
   const win = {
     location: {
@@ -14,6 +20,7 @@ function fixture() {
   } as Window
   const doc = {
     referrer: 'https://example.test/?token=private#secret',
+    querySelector: () => ({ content: 'test-document-nonce-0123456789' }),
     getElementById: (id: string) => scripts.get(id),
     createElement: () => {
       const element = {
@@ -46,6 +53,9 @@ describe('consent-controlled Metrika adapter', () => {
     client.page('/learn/values?token=private#answer')
     client.page('/learn/values')
     expect(scripts.size).toBe(1)
+    expect(scripts.get('jslab-metrika-sdk')?.nonce).toBe(
+      'test-document-nonce-0123456789',
+    )
     expect(win.ym?.a?.filter((command) => command[1] === 'init')).toHaveLength(
       1,
     )

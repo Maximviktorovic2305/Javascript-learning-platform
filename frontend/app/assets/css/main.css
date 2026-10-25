@@ -13,9 +13,10 @@
   --surface-2: #1e221b;
   --ink: #f4f5ee;
   --muted: #a0a69a;
-  --subtle: #777e71;
+  --subtle: #89917f;
   --line: #30362b;
   --accent: #c7f55b;
+  --accent-text: #c7f55b;
   --accent-ink: #152005;
   --interaction: #c7f55b;
   --interaction-surface: #232d17;
@@ -37,11 +38,12 @@
   --surface-2: #eceedf;
   --ink: #191d15;
   --muted: #59644f;
-  --subtle: #6d7664;
+  --subtle: #626c59;
   --line: #d5dcca;
   --accent: #badf56;
+  --accent-text: #4b6a0e;
   --accent-ink: #21300b;
-  --interaction: #567713;
+  --interaction: #4b6a0e;
   --interaction-surface: #e8efd9;
   --scroll-track: #edf0e5;
   --scroll-thumb: #8a9a72;
@@ -333,7 +335,7 @@ small {
   color: var(--ink);
 }
 .text-link:hover {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .eyebrow {
   text-transform: uppercase;
@@ -355,7 +357,7 @@ small {
 }
 .accent-text,
 .success-text {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 :root[data-theme='light'] .accent-text,
 :root[data-theme='light'] .success-text {
@@ -425,7 +427,7 @@ small {
   font-weight: 450;
 }
 .brand-dot {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .desktop-nav {
   display: flex;
@@ -510,7 +512,7 @@ small {
   letter-spacing: -0.05em;
 }
 .tech-js {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .tech-ts {
   color: var(--blue);
@@ -571,7 +573,7 @@ small {
   border-color: var(--track-color);
 }
 .track-lime {
-  --track-color: var(--accent);
+  --track-color: var(--accent-text);
 }
 .track-blue {
   --track-color: var(--blue);
@@ -712,7 +714,7 @@ small {
   white-space: nowrap;
 }
 .code-comment {
-  color: #76846b;
+  color: #879675;
 }
 .code-purple {
   color: #b6a1e9;
@@ -815,7 +817,7 @@ small {
   max-width: 820px;
 }
 .route-note > svg {
-  color: var(--accent);
+  color: var(--accent-text);
   margin-top: 4px;
 }
 .route-note h3 {
@@ -940,7 +942,7 @@ small {
 }
 .lesson-index.done,
 .practice-icon.done {
-  color: var(--accent);
+  color: var(--accent-text);
   background: color-mix(in srgb, var(--accent) 8%, var(--surface));
 }
 .lesson-row > div {
@@ -1100,7 +1102,7 @@ small {
   margin: 0;
 }
 .xp-label {
-  color: var(--accent);
+  color: var(--accent-text);
   font: 11px var(--mono);
   white-space: nowrap;
 }
@@ -1182,7 +1184,7 @@ small {
   background: var(--surface-2);
 }
 .lesson-sidebar nav a.active span {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .lesson-xp {
   display: flex;
@@ -1190,7 +1192,7 @@ small {
   margin-top: 30px;
   padding: 17px 10px;
   border-top: 1px solid var(--line);
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .lesson-xp p {
   margin: 0;
@@ -1234,7 +1236,7 @@ small {
   background: var(--interaction-surface);
 }
 .tabs button.active span {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .theory-content section {
   margin-bottom: 34px;
@@ -1458,7 +1460,7 @@ small {
   display: none;
 }
 .success-box {
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 12px;
 }
 .error-box {
@@ -1482,7 +1484,7 @@ small {
   color: var(--error);
 }
 .test-pills > .passed {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .lesson-next-step {
   display: flex;
@@ -1546,7 +1548,7 @@ small {
   flex: 1;
 }
 .quiz-question label > svg {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .quiz-review {
   font-size: 12px;
@@ -1560,7 +1562,7 @@ small {
   border-radius: 12px;
   padding: 24px;
   background: var(--surface);
-  color: var(--accent);
+  color: var(--accent-text);
   flex-wrap: wrap;
 }
 .quiz-result h3 {
@@ -1686,7 +1688,7 @@ small {
   background: var(--surface-2);
 }
 .workspace-sidebar nav .router-link-active svg {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .sidebar-bottom {
   margin-top: auto;
@@ -1704,7 +1706,7 @@ small {
   border: 1px solid var(--line);
   border-radius: 9px;
   place-items: center;
-  color: var(--accent);
+  color: var(--accent-text);
   font-weight: 700;
   flex-shrink: 0;
 }
@@ -1758,7 +1760,7 @@ small {
   align-items: center;
   gap: 7px;
   white-space: nowrap;
-  color: var(--accent);
+  color: var(--accent-text);
   border: 1px solid var(--line);
   border-radius: 30px;
   padding: 7px 13px;
@@ -1780,7 +1782,7 @@ small {
   background: var(--surface);
 }
 .stats-grid article > svg {
-  color: var(--accent);
+  color: var(--accent-text);
   width: 18px;
   height: 18px;
   margin-bottom: 15px;
@@ -1860,7 +1862,7 @@ small {
   margin: 0;
 }
 .card-title > svg {
-  color: var(--accent);
+  color: var(--accent-text);
   width: 17px;
   height: 17px;
 }
@@ -1885,7 +1887,7 @@ small {
 }
 .daily-progress > span {
   font: 10px var(--mono);
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .progress-bar {
   height: 5px;
@@ -1988,7 +1990,7 @@ small {
   margin-top: 16px;
 }
 .achievement-row.unlocked > svg {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .achievement-row strong {
   display: block;
@@ -2062,7 +2064,7 @@ small {
   color: var(--subtle);
 }
 .achievements-grid article.unlocked {
-  color: var(--accent);
+  color: var(--accent-text);
   border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
 }
 .achievements-grid h3 {
@@ -2102,7 +2104,7 @@ small {
   font-size: 9px;
   letter-spacing: 0.14em;
   font-weight: 650;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .project-status {
   display: flex;
@@ -2144,7 +2146,7 @@ small {
   color: var(--muted);
 }
 .criteria-list svg {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .project-card > .button {
   font-size: 11px;

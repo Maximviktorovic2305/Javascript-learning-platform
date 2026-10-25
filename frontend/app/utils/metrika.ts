@@ -64,6 +64,9 @@ export function createMetrikaClient(win: Window, doc: Document) {
     })
     if (loaded || doc.getElementById(scriptId)) return
     const script = doc.createElement('script')
+    script.nonce =
+      doc.querySelector<HTMLMetaElement>('meta[name="csp-nonce"]')?.content ??
+      ''
     script.id = scriptId
     script.async = true
     script.src = `https://mc.yandex.ru/metrika/tag.js?id=${id}`

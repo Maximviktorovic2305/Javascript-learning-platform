@@ -10,8 +10,10 @@ const api = useApi()
 const url = ref(props.submission?.url ?? '')
 watch(
   () => props.submission?.url,
-  (value) => {
-    if (value) url.value = value
+  (value, previous) => {
+    // A background refresh must not replace a link the user has started editing.
+    if (value && (url.value === (previous ?? '') || !url.value))
+      url.value = value
   },
 )
 const expanded = ref(false),
@@ -25,6 +27,7 @@ async function submit() {
   }
   busy.value = true
   error.value = ''
+  message.value = ''
   try {
     await api(`/projects/${props.project.id}/submit`, {
       method: 'POST',
@@ -66,7 +69,11 @@ async function submit() {
       {{ expanded ? 'Свернуть' : 'Добавить свою работу'
       }}<AppIcon name="arrow" :size="17" />
     </button>
-    <form v-if="expanded" class="project-form ym-hide-content" @submit.prevent="submit">
+    <form
+      v-if="expanded"
+      class="project-form ym-hide-content"
+      @submit.prevent="submit"
+    >
       <label
         >Ссылка на репозиторий или демо<input
           v-model="url"

@@ -129,6 +129,8 @@ async function run() {
       source,
       props.exercise.examples.map((e) => e.input),
       requestId,
+      document.querySelector<HTMLMetaElement>('meta[name="csp-nonce"]')
+        ?.content || crypto.randomUUID().replaceAll('-', ''),
     )
     timeout = setTimeout(() => {
       stop()

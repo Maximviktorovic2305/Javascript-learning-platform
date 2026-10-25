@@ -25,14 +25,29 @@ const cityNames: Record<string, string> = {
   'America/New_York': 'Нью-Йорк',
   UTC: 'Всемирное время',
 }
+// One city for each Russian time zone, UTC and a few common world destinations.
+// Keep a user's saved or detected zone even when it is outside the short list.
+const commonZones = [
+  'UTC',
+  'Europe/Kaliningrad',
+  'Europe/Moscow',
+  'Europe/Samara',
+  'Asia/Yekaterinburg',
+  'Asia/Omsk',
+  'Asia/Krasnoyarsk',
+  'Asia/Irkutsk',
+  'Asia/Yakutsk',
+  'Asia/Vladivostok',
+  'Asia/Magadan',
+  'Asia/Kamchatka',
+  'Europe/London',
+  'Europe/Berlin',
+  'Asia/Dubai',
+  'Asia/Tokyo',
+  'America/New_York',
+]
 export function timezoneOptions(current: string, detected: string) {
-  const zones =
-    typeof Intl.supportedValuesOf === 'function'
-      ? Intl.supportedValuesOf('timeZone')
-      : Object.keys(cityNames)
-  return [
-    ...new Set(['UTC', current, detected, ...Object.keys(cityNames), ...zones]),
-  ]
+  return [...new Set([...commonZones, current, detected])]
     .filter(Boolean)
     .map((value) => {
       let offset = ''
@@ -49,8 +64,7 @@ export function timezoneOptions(current: string, detected: string) {
       }
       return {
         value,
-        label: `${cityNames[value] ?? value.replaceAll('_', ' ')} · ${offset} · ${value}`,
+        label: `${cityNames[value] ?? value.replaceAll('_', ' ')}${offset ? ` · ${offset.replace('GMT', 'UTC')}` : ''}`,
       }
     })
-    .sort((a, b) => a.label.localeCompare(b.label, 'ru'))
 }

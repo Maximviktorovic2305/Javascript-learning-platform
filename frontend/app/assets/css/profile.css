@@ -10,6 +10,16 @@
   gap: 8px;
   font-size: 12px;
 }
+.profile-timezone-field {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.profile-timezone-field .app-select-trigger {
+  min-height: 48px;
+}
 .profile-section-heading {
   display: flex;
   align-items: center;
@@ -144,13 +154,14 @@
   gap: 8px;
   margin-block: 8px;
 }
-.goal-presets button[aria-pressed="true"] {
+.goal-presets button[aria-pressed='true'] {
   background: var(--interaction-surface);
   border-color: var(--interaction);
   color: var(--interaction);
 }
 .profile-goal-field small,
-.form-grid label > small {
+.form-grid label > small,
+.profile-timezone-field > small {
   font-weight: 400;
   color: var(--muted);
   font-size: 11px;

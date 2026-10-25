@@ -19,7 +19,7 @@
 .app-select {
   position: relative;
   width: 100%;
-  min-width: 190px;
+  min-width: 0;
   font-size: 12px;
   color: var(--ink);
 }
@@ -38,6 +38,8 @@
 }
 .app-select-trigger > span {
   flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .app-select-trigger > svg {
   flex-shrink: 0;
@@ -52,6 +54,7 @@
 .app-select-trigger:hover:not(:disabled) {
   border-color: var(--muted);
 }
+.app-select-trigger:focus,
 .app-select-trigger:focus-visible,
 .app-select-trigger[aria-expanded='true'] {
   outline: 1px solid var(--interaction);
@@ -59,18 +62,19 @@
   border-color: var(--interaction);
 }
 .app-select-menu {
-  position: absolute;
-  z-index: 40;
-  top: calc(100% + 6px);
-  left: 0;
-  width: 100%;
+  position: fixed;
+  z-index: 200;
+  margin: 0;
   max-height: 260px;
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 5px;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: var(--surface);
   box-shadow: 0 12px 30px #0002;
+  color: var(--ink);
+  font: 400 12px/1.65 var(--font);
 }
 .app-select-option {
   display: flex;
@@ -83,16 +87,41 @@
 }
 .app-select-option > span {
   flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .app-select-option > svg {
   flex-shrink: 0;
 }
 .app-select-option.active {
-  background: var(--surface-2);
+  background: var(--interaction-surface);
+  box-shadow: inset 0 0 0 1px var(--line);
 }
 .app-select-option[aria-selected='true'] {
   color: var(--interaction);
   background: var(--interaction-surface);
+}
+.app-select-option.active[aria-selected='true'] {
+  box-shadow: inset 0 0 0 1px var(--interaction);
+}
+.app-select-trigger[aria-invalid='true'] {
+  border-color: var(--error);
+}
+.app-select-editor {
+  --bg: #151a13;
+  --surface: #1e2818;
+  --surface-2: #28341e;
+  --ink: #e3eadc;
+  --muted: #a0ad96;
+  --line: #657556;
+  --interaction: #c7f55b;
+  --interaction-surface: #303e22;
+  --scroll-track: #151a13;
+  --scroll-thumb: #657556;
+}
+.app-select-editor .app-select-trigger {
+  min-height: 32px;
+  padding: 4px 8px;
 }
 .app-select-option[aria-disabled='true'] {
   opacity: 0.45;

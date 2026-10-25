@@ -10,17 +10,47 @@ const props = defineProps<{
   options: Option[]
   label: string
   disabled?: boolean
+  invalid?: boolean
+  describedBy?: string
+  appearance?: 'editor'
 }>()
 const emit = defineEmits<{ 'update:modelValue': [value: string | number] }>()
 const uid = useId()
 const root = useTemplateRef<HTMLElement>('root')
 const trigger = useTemplateRef<HTMLButtonElement>('trigger')
+const menu = useTemplateRef<HTMLElement>('menu')
 const open = ref(false)
 const active = ref(-1)
+const menuStyle = ref<Record<string, string>>({})
 const selected = computed(() =>
   props.options.find((option) => option.value === props.modelValue),
 )
 const optionId = (index: number) => `${uid}-option-${index}`
+function position() {
+  if (!open.value || !trigger.value) return
+  const rect = trigger.value.getBoundingClientRect()
+  const below = window.innerHeight - rect.bottom - 12
+  const above = rect.top - 12
+  const up =
+    below < Math.min(260, menu.value?.scrollHeight ?? 260) && above > below
+  const width = Math.min(rect.width, window.innerWidth - 24)
+  menuStyle.value = {
+    width: `${width}px`,
+    left: `${Math.max(12, Math.min(rect.left, window.innerWidth - width - 12))}px`,
+    maxHeight: `${Math.max(40, Math.min(260, up ? above : below))}px`,
+    ...(up
+      ? { bottom: `${window.innerHeight - rect.top + 6}px` }
+      : { top: `${rect.bottom + 6}px` }),
+  }
+}
+function scrollActive() {
+  nextTick(() => {
+    if (open.value)
+      document
+        .getElementById(optionId(active.value))
+        ?.scrollIntoView({ block: 'nearest' })
+  })
+}
 function reveal() {
   if (props.disabled) return
   // Safari does not focus a button on pointer activation. Keep keyboard
@@ -32,6 +62,10 @@ function reveal() {
   )
   active.value =
     index >= 0 ? index : props.options.findIndex((option) => !option.disabled)
+  nextTick(() => {
+    position()
+    scrollActive()
+  })
 }
 function choose(index: number) {
   const option = props.options[index]
@@ -47,11 +81,7 @@ function move(direction: number) {
       props.options.length
     if (!props.options[index]?.disabled) {
       active.value = index
-      nextTick(() =>
-        document
-          .getElementById(optionId(index))
-          ?.scrollIntoView({ block: 'nearest' }),
-      )
+      scrollActive()
       break
     }
   }
@@ -60,6 +90,7 @@ let search = ''
 let lastKey = 0
 function keydown(event: KeyboardEvent) {
   if (event.key === 'Escape') {
+    event.preventDefault()
     open.value = false
     return
   }
@@ -107,11 +138,18 @@ function keydown(event: KeyboardEvent) {
         !option.disabled &&
         option.label.toLocaleLowerCase('ru').startsWith(search),
     )
-    if (index >= 0) active.value = index
+    if (index >= 0) {
+      active.value = index
+      scrollActive()
+    }
   }
 }
 function outside(event: PointerEvent) {
-  if (!root.value?.contains(event.target as Node)) open.value = false
+  if (
+    !root.value?.contains(event.target as Node) &&
+    !menu.value?.contains(event.target as Node)
+  )
+    open.value = false
 }
 function blur(event: FocusEvent) {
   if (!root.value?.contains(event.relatedTarget as Node | null))
@@ -123,17 +161,32 @@ watch(
     if (value) open.value = false
   },
 )
-onMounted(() => document.addEventListener('pointerdown', outside))
-onBeforeUnmount(() => document.removeEventListener('pointerdown', outside))
+onMounted(() => {
+  document.addEventListener('pointerdown', outside)
+  window.addEventListener('scroll', position, { capture: true, passive: true })
+  window.addEventListener('resize', position)
+})
+onBeforeUnmount(() => {
+  document.removeEventListener('pointerdown', outside)
+  window.removeEventListener('scroll', position, true)
+  window.removeEventListener('resize', position)
+})
 </script>
 <template>
-  <div ref="root" class="app-select" @focusout="blur">
+  <div
+    ref="root"
+    class="app-select"
+    :class="{ 'app-select-editor': appearance === 'editor' }"
+    @focusout="blur"
+  >
     <button
       ref="trigger"
       type="button"
       class="app-select-trigger"
       role="combobox"
       :disabled="disabled"
+      :aria-invalid="invalid || undefined"
+      :aria-describedby="describedBy"
       :aria-label="label"
       aria-haspopup="listbox"
       :aria-expanded="open"
@@ -153,35 +206,40 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', outside))
         :class="{ open }"
       />
     </button>
-    <div
-      v-if="open"
-      :id="`${uid}-listbox`"
-      class="app-select-menu"
-      role="listbox"
-      :aria-label="label"
-    >
+    <Teleport to="body">
       <div
-        v-for="(option, index) in options"
-        :id="optionId(index)"
-        :key="option.value"
-        role="option"
-        class="app-select-option"
-        :class="{ active: active === index }"
-        :aria-selected="option.value === modelValue"
-        :aria-disabled="option.disabled || undefined"
-        @pointermove="!option.disabled && (active = index)"
-        @pointerdown.prevent
-        @click="choose(index)"
+        v-if="open"
+        ref="menu"
+        :id="`${uid}-listbox`"
+        class="app-select-menu"
+        :class="{ 'app-select-editor': appearance === 'editor' }"
+        :style="menuStyle"
+        role="listbox"
+        :aria-label="label"
       >
-        <AppIcon v-if="option.icon" :name="option.icon" :size="16" />
-        <span>{{ option.label }}</span>
-        <AppIcon
-          v-if="option.value === modelValue"
-          name="check"
-          :size="15"
-          class="select-check"
-        />
+        <div
+          v-for="(option, index) in options"
+          :id="optionId(index)"
+          :key="option.value"
+          role="option"
+          class="app-select-option"
+          :class="{ active: active === index }"
+          :aria-selected="option.value === modelValue"
+          :aria-disabled="option.disabled || undefined"
+          @pointermove="!option.disabled && (active = index)"
+          @mousedown.prevent
+          @click="choose(index)"
+        >
+          <AppIcon v-if="option.icon" :name="option.icon" :size="16" />
+          <span>{{ option.label }}</span>
+          <AppIcon
+            v-if="option.value === modelValue"
+            name="check"
+            :size="15"
+            class="select-check"
+          />
+        </div>
       </div>
-    </div>
+    </Teleport>
   </div>
 </template>

@@ -30,6 +30,36 @@ const settings = ref(editorSettings(DEFAULT_EDITOR_SETTINGS))
 const settingsOpen = ref(false)
 const panelId = useId()
 const settingsRevision = ref(0)
+const indentOptions = computed(() =>
+  [2, 4, 8].map((value) => ({
+    value,
+    label: settings.value.useTabs
+      ? `Tab: ${value} позиции`
+      : `${value} ${value === 8 ? 'пробелов' : 'пробела'}`,
+  })),
+)
+const indentationOptions = [
+  { value: 'spaces', label: 'Пробелы' },
+  { value: 'tabs', label: 'Табуляция' },
+]
+const widthOptions = [80, 100, 120].map((value) => ({
+  value,
+  label: `${value} символов`,
+}))
+const fontOptions = [12, 14, 16, 18].map((value) => ({
+  value,
+  label: `${value} px`,
+}))
+const quoteOptions = [
+  { value: 'single', label: 'Одинарные' },
+  { value: 'double', label: 'Двойные' },
+]
+function setSetting(
+  key: keyof typeof DEFAULT_EDITOR_SETTINGS,
+  value: number | string | boolean,
+) {
+  settings.value = editorSettings({ ...settings.value, [key]: value })
+}
 let view: EditorView | undefined
 let worker: Worker | undefined
 let requestId = 0
@@ -345,20 +375,16 @@ defineExpose({ format })
   <div class="solution-editor">
     <div class="editor-format-bar">
       <strong class="editor-prettier-label">Prettier</strong>
-      <label class="editor-indent-setting"
-        >Отступ
-        <select v-model.number="settings.tabWidth" aria-label="Размер отступа">
-          <option :value="2">
-            {{ settings.useTabs ? 'Tab: 2 позиции' : '2 пробела' }}
-          </option>
-          <option :value="4">
-            {{ settings.useTabs ? 'Tab: 4 позиции' : '4 пробела' }}
-          </option>
-          <option :value="8">
-            {{ settings.useTabs ? 'Tab: 8 позиций' : '8 пробелов' }}
-          </option>
-        </select>
-      </label>
+      <div class="editor-indent-setting">
+        Отступ
+        <AppSelect
+          :model-value="settings.tabWidth"
+          :options="indentOptions"
+          label="Размер отступа"
+          appearance="editor"
+          @update:model-value="setSetting('tabWidth', Number($event))"
+        />
+      </div>
       <button
         type="button"
         class="button button-small button-outline"
@@ -391,45 +417,42 @@ defineExpose({ format })
       aria-label="Настройки Prettier и редактора"
     >
       <div class="editor-settings-grid">
-        <label
-          >Тип отступа<select
-            v-model="settings.useTabs"
-            aria-label="Тип отступа"
-          >
-            <option :value="false">Пробелы</option>
-            <option :value="true">Табуляция</option>
-          </select></label
-        >
-        <label
-          >Длина строки<select
-            v-model.number="settings.printWidth"
-            aria-label="Длина строки Prettier"
-          >
-            <option :value="80">80 символов</option>
-            <option :value="100">100 символов</option>
-            <option :value="120">120 символов</option>
-          </select></label
-        >
-        <label
-          >Размер шрифта<select
-            v-model.number="settings.fontSize"
-            aria-label="Размер шрифта редактора"
-          >
-            <option :value="12">12 px</option>
-            <option :value="14">14 px</option>
-            <option :value="16">16 px</option>
-            <option :value="18">18 px</option>
-          </select></label
-        >
-        <label
-          >Кавычки<select
-            v-model="settings.singleQuote"
-            aria-label="Кавычки Prettier"
-          >
-            <option :value="true">Одинарные</option>
-            <option :value="false">Двойные</option>
-          </select></label
-        >
+        <div class="editor-setting-field">
+          Тип отступа<AppSelect
+            :model-value="settings.useTabs ? 'tabs' : 'spaces'"
+            :options="indentationOptions"
+            label="Тип отступа"
+            appearance="editor"
+            @update:model-value="setSetting('useTabs', $event === 'tabs')"
+          />
+        </div>
+        <div class="editor-setting-field">
+          Длина строки<AppSelect
+            :model-value="settings.printWidth"
+            :options="widthOptions"
+            label="Длина строки Prettier"
+            appearance="editor"
+            @update:model-value="setSetting('printWidth', Number($event))"
+          />
+        </div>
+        <div class="editor-setting-field">
+          Размер шрифта<AppSelect
+            :model-value="settings.fontSize"
+            :options="fontOptions"
+            label="Размер шрифта редактора"
+            appearance="editor"
+            @update:model-value="setSetting('fontSize', Number($event))"
+          />
+        </div>
+        <div class="editor-setting-field">
+          Кавычки<AppSelect
+            :model-value="settings.singleQuote ? 'single' : 'double'"
+            :options="quoteOptions"
+            label="Кавычки Prettier"
+            appearance="editor"
+            @update:model-value="setSetting('singleQuote', $event === 'single')"
+          />
+        </div>
       </div>
       <label class="editor-setting-check"
         ><input v-model="settings.semi" type="checkbox" />Точки с запятой</label

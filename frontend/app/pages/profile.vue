@@ -47,9 +47,14 @@ const timezone = computed(() =>
     ? detectedTimezone.value
     : timezoneChoice.value,
 )
-const timezones = computed(() =>
-  timezoneOptions(user.value?.timezone ?? 'UTC', detectedTimezone.value),
-)
+const timezones = computed(() => [
+  {
+    value: 'system',
+    label: `Автоматически — ${detectedTimezone.value}`,
+    icon: 'clock' as const,
+  },
+  ...timezoneOptions(user.value?.timezone ?? 'UTC', detectedTimezone.value),
+])
 const dailyGoal = ref<number | string>(user.value?.dailyGoal ?? 50)
 const currentPassword = ref(''),
   nextPassword = ref('')
@@ -168,32 +173,31 @@ async function password() {
           class="error-text"
           >{{ validation.name }}</span
         ></label
-      ><label
-        >Часовой пояс<select
-          v-model="timezoneChoice"
-          aria-label="Часовой пояс"
-          :aria-invalid="!!validation.timezone"
-          aria-describedby="timezone-error"
-          required
-        >
-          <option value="system">Автоматически — {{ detectedTimezone }}</option>
-          <option
-            v-for="zone in timezones"
-            :key="zone.value"
-            :value="zone.value"
-          >
-            {{ zone.label }}
-          </option></select
-        ><span
+      >
+      <div class="profile-timezone-field">
+        <span>Часовой пояс</span>
+        <AppSelect
+          :model-value="timezoneChoice"
+          :options="timezones"
+          label="Часовой пояс"
+          :invalid="!!validation.timezone"
+          :described-by="
+            validation.timezone
+              ? 'timezone-error timezone-hint'
+              : 'timezone-hint'
+          "
+          @update:model-value="timezoneChoice = String($event)"
+        />
+        <span
           v-if="validation.timezone"
           id="timezone-error"
           class="error-text"
           >{{ validation.timezone }}</span
-        ><small
+        ><small id="timezone-hint"
           >Автоматический режим использует часовой пояс устройства. Можно
           выбрать другой.</small
-        ></label
-      >
+        >
+      </div>
       <div class="profile-goal-field">
         <label
           >Дневная цель, XP<input

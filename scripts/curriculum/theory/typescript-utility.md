@@ -9,7 +9,7 @@ Partial<T> делает свойства необязательными. Это 
 
 ```typescript
 type User = { id: string; name: string; active: boolean };
-type UserPatch = Partial<Pick<User, 'name' | 'active'>>;
+type UserPatch = Partial<User>;
 type UserView = Readonly<User>;
 ```
 

@@ -2,6 +2,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { outline } from './outline.mjs';
 import { additions, revisions } from './assessments.mjs';
+import { validateProgression, withScaffoldImports } from './progression.mjs';
 const directory=new URL('./',import.meta.url);
 const baseline=JSON.parse(readFileSync(new URL('base-lessons.json',directory),'utf8'));
 const bank=new Map([...baseline,...additions].map(l=>[l.id,l]));
@@ -45,6 +46,7 @@ const lessons=entries.map((entry,index)=>{
   const examples=sections.flatMap(s=>s.blocks).filter(b=>b.type==='code').length;
   if(sections.length<6||words<450||examples<3)throw new Error(`Incomplete ${entry.id}: ${sections.length} sections, ${words} words, ${examples} examples`);
   const exercise={...metadata.exercise,id:entry.id,title:entry.title,language:['typescript','nest'].includes(entry.trackId)?'typescript':'javascript'};
+  exercise.starterCode=withScaffoldImports(exercise);
   // Applied questions use only already-public examples, never hidden cases.
   const contractQuestions=[exercise.tests[0],exercise.tests[1]??exercise.tests[0]].map((test,exampleIndex)=>{
     const call=`${/\basync\s+function\s+solve\b/.test(exercise.starterCode)?'await ':''}solve(${test.input.map(v=>JSON.stringify(v)).join(', ')})`;
@@ -65,8 +67,10 @@ const lessons=entries.map((entry,index)=>{
   if(questions.length!==5)throw new Error(`Expected 3 conceptual and 2 applied questions: ${entry.id}`);
   const readingMinutes=Math.ceil(words/140)+examples;
   const previous=entries.slice(0,index).filter(x=>x.trackId===entry.trackId).at(-1);
+  const entryDependencies={typescript:['javascript-testing'],express:['javascript-testing'],nest:['typescript-modules','express-testing']};
+  const prerequisites=previous?[previous]: (entryDependencies[entry.trackId]??[]).map(id=>entries.find(item=>item.id===id));
   return {...entry,summary:metadata.summary,version:2,readingMinutes,minutes:readingMinutes+30,
-    prerequisites:previous?[{id:previous.id,title:previous.title}]:[],
+    prerequisites:prerequisites.map(({id,title})=>({id,title})),
     objectives:metadata.objectives??[metadata.summary,`Применить тему в задаче «${entry.title}» и объяснить граничные случаи.`],sections,exercise,
     questions:questions.map((q,i)=>{
       const shift=(index+i)%q.options.length;
@@ -74,6 +78,7 @@ const lessons=entries.map((entry,index)=>{
       return {...q,id:`${entry.id}-${i+1}`,options:q.options.slice(shift).concat(q.options.slice(0,shift)),answer:(q.answer-shift+q.options.length)%q.options.length,sectionId:`section-${sectionNumber}`};
     })};
 });
+validateProgression(lessons);
 mkdirSync(target,{recursive:true});
 writeFileSync(new URL('lessons.json',target),JSON.stringify(lessons,null,2)+'\n');
 console.log(`Built ${lessons.length} chapters, ${lessons.reduce((n,l)=>n+l.questions.length,0)} questions, ${lessons.reduce((n,l)=>n+l.exercise.tests.length,0)} code cases.`);

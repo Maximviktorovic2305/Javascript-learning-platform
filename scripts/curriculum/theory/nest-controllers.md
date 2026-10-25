@@ -52,8 +52,8 @@ class TitlesController {
 ```typescript
 @Post()
 @HttpCode(201)
-create(@Body() input: CreateBookDto) {
-  return this.books.create(input);
+create(@Body() input: { title: string }) {
+  return { title: input.title };
 }
 ```
 

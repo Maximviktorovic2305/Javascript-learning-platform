@@ -1410,11 +1410,42 @@ small {
   font-family: var(--mono);
   font-size: 12px;
 }
-.code-workspace:has(.code-input:focus) {
+.code-workspace:has(.cm-focused) {
   border-color: #c7f55b;
   outline: 1px solid #c7f55b;
   outline-offset: -1px;
   box-shadow: 0 0 6px #c7f55b2e;
+}
+.solution-editor {
+  min-width: 0;
+}
+.solution-editor-host {
+  min-width: 0;
+  overflow: hidden;
+}
+.editor-format-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #30372b;
+}
+.editor-format-bar > span,
+.editor-format-message {
+  font-size: 10px;
+  color: #b0bea3;
+}
+.editor-format-message {
+  margin: 0;
+  padding: 10px 12px;
+}
+.code-workspace .cm-editor input {
+  width: auto;
+  min-height: 24px;
+  padding: 3px 6px;
+  background: #151a13;
 }
 .code-input:focus,
 .code-input:focus-visible {

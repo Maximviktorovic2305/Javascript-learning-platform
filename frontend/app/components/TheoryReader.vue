@@ -18,6 +18,17 @@ const codeLabel = (language?: string) =>
 </script>
 <template>
   <article class="theory-reader">
+    <div v-if="lesson.prerequisites?.length" class="theory-intro-card">
+      <span class="eyebrow">До этой главы</span>
+      <p>В примерах используются понятия из предыдущей теории:</p>
+      <ul>
+        <li v-for="topic in lesson.prerequisites" :key="topic.id">
+          <NuxtLink :to="`/learn/${topic.id}`" class="text-link">{{
+            topic.title
+          }}</NuxtLink>
+        </li>
+      </ul>
+    </div>
     <div v-if="lesson.objectives?.length" class="theory-intro-card">
       <span class="eyebrow">После этой главы</span>
       <ul>

@@ -21,10 +21,13 @@
 OnModuleInit вызывается после разрешения зависимостей соответствующего модуля. OnApplicationBootstrap относится к готовности всех модулей до начала прослушивания. Асинхронный hook может вернуть Promise; Nest дождётся завершения. Это полезно для проверки обязательного ресурса, но долгие миграции и фоновые задачи лучше организовывать отдельно и контролировать их время.
 
 ```typescript
+import { Injectable } from '@nestjs/common';
+import type { OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 @Injectable()
 class Resource implements OnModuleInit, OnModuleDestroy {
-  onModuleInit() { this.client.connect(); }
-  onModuleDestroy() { return this.client.close(); }
+  private ready = false;
+  onModuleInit() { this.ready = true; }
+  onModuleDestroy() { this.ready = false; }
 }
 ```
 

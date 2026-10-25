@@ -42,17 +42,17 @@ console.log(sum(values)); // 6
 
 ```typescript
 const directions = ['left', 'right'] as const;
-type Direction = typeof directions[number];
-const current: Direction = 'left';
+const current: 'left' | 'right' = directions[0];
+// Вывод типа через typeof и индексный доступ изучаются в главе keyof.
 ```
 
-В этом примере typeof в позиции типа получает статический тип directions, а индекс number извлекает союз типов элементов. Это не тот же оператор, которым runtime-код проверяет typeof value === 'string'. Контекст записи определяет, о каком механизме идёт речь.
+В этом примере directions[0] читает первый элемент кортежа, а аннотация 'left' | 'right' перечисляет допустимые строки. Благодаря as const массив имеет фиксированные позиции и не допускает запись через эту ссылку. Извлечение типа элементов через typeof и индексный доступ оставим до главы keyof, где весь этот синтаксис будет объяснён отдельно.
 
 ## satisfies и сохранение полезного вывода
 satisfies проверяет соответствие выражения типу, не превращая его в произвольное принудительное утверждение. Он удобен, когда хочется убедиться в форме конфигурации и при этом сохранить более точные свойства выведенного значения. Это проверка на этапе компиляции; JSON и другие внешние данные всё равно требуют runtime-валидации.
 
 ```typescript
-const limits = { js: 22, ts: 12 } satisfies Record<string, number>;
+const limits = { js: 22, ts: 12 } satisfies { [key: string]: number };
 const point = [1, 2] satisfies [number, number];
 ```
 

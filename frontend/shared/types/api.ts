@@ -40,6 +40,7 @@ export interface Exercise {
   examples: { input: unknown[]; expected: unknown }[]
 }
 export interface Lesson extends LessonSummary {
+  prerequisites?: { id: string; title: string }[]
   trackId: TrackId
   sections: TheorySection[]
   readingMinutes?: number

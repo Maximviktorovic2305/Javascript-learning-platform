@@ -8,13 +8,15 @@ const api = useApi()
 const code = ref(props.exercise.starterCode)
 const busy = ref(false)
 const running = ref(false)
+const preparing = ref(false)
 const output = ref<string[]>([])
 const error = ref('')
 const grade = ref<Grade | null>(null)
 const hint = ref(false)
 const frame = useTemplateRef<HTMLIFrameElement>('sandbox')
-const editor = useTemplateRef<HTMLTextAreaElement>('editor')
-const lineNumbers = useTemplateRef<HTMLDivElement>('lines')
+const editor = useTemplateRef<{
+  format: (silent?: boolean) => Promise<boolean>
+}>('editor')
 const srcdoc = ref('')
 let requestId = ''
 let runGeneration = 0
@@ -92,7 +94,16 @@ function receive(event: MessageEvent<unknown>) {
   stop()
 }
 async function run() {
-  if (busy.value || running.value || !code.value.trim()) return
+  if (busy.value || running.value || preparing.value || !code.value.trim())
+    return
+  const beforeFormat = runGeneration
+  preparing.value = true
+  try {
+    await editor.value?.format(true)
+  } finally {
+    preparing.value = false
+  }
+  if (beforeFormat !== runGeneration) return
   grade.value = null
   if (props.exercise.runtime === 'node') {
     await runServerExamples()
@@ -179,7 +190,8 @@ async function runServerExamples() {
   }
 }
 async function submit() {
-  if (busy.value || running.value || !code.value.trim()) return
+  if (busy.value || running.value || preparing.value || !code.value.trim())
+    return
   if (!user.value) {
     await navigateTo('/auth/login')
     return
@@ -188,50 +200,42 @@ async function submit() {
   busy.value = true
   error.value = ''
   grade.value = null
-  controller = new AbortController()
+  const request = new AbortController()
+  const generation = runGeneration
+  const exerciseId = props.exercise.id
+  controller = request
   try {
-    const result = await api<Grade>(`/learning/${props.exercise.id}/submit`, {
+    await editor.value?.format(true)
+    if (
+      request.signal.aborted ||
+      user.value?.id !== owner ||
+      generation !== runGeneration
+    )
+      return
+    const result = await api<Grade>(`/learning/${exerciseId}/submit`, {
       method: 'POST',
       body: { code: code.value, language: props.exercise.language },
-      signal: controller.signal,
+      signal: request.signal,
     })
-    if (user.value?.id !== owner) return
+    if (user.value?.id !== owner || generation !== runGeneration) return
     grade.value = result
     emit('graded', result)
     await refreshNuxtData(`private:progress:${owner}`)
   } catch (e) {
-    if (!controller.signal.aborted) error.value = errorMessage(e)
+    if (!request.signal.aborted && user.value?.id === owner)
+      error.value = errorMessage(e)
   } finally {
-    busy.value = false
+    if (controller === request) busy.value = false
   }
 }
 function reset() {
   stop()
+  controller?.abort()
+  busy.value = false
   code.value = props.exercise.starterCode
   error.value = ''
   output.value = []
   grade.value = null
-}
-function syncScroll() {
-  if (lineNumbers.value && editor.value)
-    lineNumbers.value.scrollTop = editor.value.scrollTop
-}
-function keydown(event: KeyboardEvent) {
-  if (event.key === 'Tab' && !event.shiftKey && editor.value) {
-    event.preventDefault()
-    const start = editor.value.selectionStart
-    code.value =
-      code.value.slice(0, start) +
-      '  ' +
-      code.value.slice(editor.value.selectionEnd)
-    nextTick(() => {
-      editor.value?.setSelectionRange(start + 2, start + 2)
-    })
-  }
-  if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
-    event.preventDefault()
-    void run()
-  }
 }
 </script>
 <template>
@@ -276,25 +280,12 @@ function keydown(event: KeyboardEvent) {
         <AppIcon name="reset" :size="15" />
       </button>
     </div>
-    <div class="code-input-wrap">
-      <div ref="lines" class="line-numbers" aria-hidden="true">
-        <div v-for="number in code.split('\n').length" :key="number">
-          {{ number }}
-        </div>
-      </div>
-      <textarea
-        ref="editor"
-        v-model="code"
-        class="code-input ym-disable-keys"
-        aria-label="Редактор решения"
-        spellcheck="false"
-        autocapitalize="off"
-        autocomplete="off"
-        :maxlength="20000"
-        @keydown="keydown"
-        @scroll="syncScroll"
-      />
-    </div>
+    <SolutionEditor
+      ref="editor"
+      v-model="code"
+      :language="exercise.language"
+      @run="run"
+    />
     <div class="editor-toolbar">
       <span>{{ status || 'Функция solve · Ctrl + Enter для запуска' }}</span>
       <div>
@@ -307,13 +298,13 @@ function keydown(event: KeyboardEvent) {
         ><button
           v-else
           class="button button-small button-outline"
-          :disabled="busy || !code.trim()"
+          :disabled="busy || preparing || !code.trim()"
           @click="run"
         >
           <AppIcon name="play" :size="15" />Запустить примеры</button
         ><button
           class="button button-small"
-          :disabled="busy || running || !code.trim()"
+          :disabled="busy || running || preparing || !code.trim()"
           @click="submit"
         >
           <AppIcon

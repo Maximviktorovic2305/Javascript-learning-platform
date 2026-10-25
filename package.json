@@ -10,6 +10,6 @@
     "install:all": "npm --prefix backend ci && npm --prefix frontend ci",
     "build": "npm --prefix backend run build && npm --prefix frontend run build",
     "typecheck": "npm --prefix backend run typecheck && npm --prefix frontend run typecheck",
-    "test": "node --check runner/sandbox/execute.cjs && npm --prefix backend test -- --runInBand && npm --prefix frontend test && node --test runner/test/*.test.mjs"
+    "test": "node --check runner/sandbox/execute.cjs && node --test scripts/curriculum/*.test.mjs && npm --prefix backend test -- --runInBand && npm --prefix frontend test && node --test runner/test/*.test.mjs"
   }
 }

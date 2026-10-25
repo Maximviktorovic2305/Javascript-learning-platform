@@ -18,6 +18,7 @@ async find(@Param('id') id: string) {
 Catch задаёт типы исключений, которые обрабатывает фильтр. ExceptionFilter реализует catch с исключением и ArgumentsHost. Для HTTP switchToHttp предоставляет request и response. Пустой Catch перехватывает любые ошибки, поэтому требует аккуратного различения известных и неожиданных случаев. Не считайте произвольный объект исключением с getStatus без проверки.
 
 ```typescript
+import type { Response } from 'express';
 @Catch(HttpException)
 class RequestFilter implements ExceptionFilter {
   catch(error: HttpException, host: ArgumentsHost) {

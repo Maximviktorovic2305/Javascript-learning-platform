@@ -8,6 +8,7 @@
 addEventListener добавляет слушателя выбранного типа события. Функцию можно зарегистрировать отдельно и сохранить ссылку для последующего удаления. removeEventListener должен получить тот же объект функции и совместимые параметры подписки. Две одинаково написанные стрелки являются разными объектами и не отменяют регистрацию друг друга.
 
 ```javascript
+// Страница содержит <button id="save">Сохранить</button>.
 const button = document.querySelector('#save');
 function handleSave(event) {
   console.log('Сохраняем', event.type);
@@ -23,6 +24,8 @@ button.removeEventListener('click', handleSave);
 event.target описывает исходный объект события, а currentTarget — объект, чей обработчик выполняется сейчас. При всплытии обработчик родителя может получить событие, возникшее на вложенной иконке кнопки. Поэтому сравнение только target с самой кнопкой часто ломается при изменении её внутренней разметки.
 
 ```javascript
+// Страница содержит <ul id="actions"> с кнопками data-action внутри.
+const list = document.querySelector('#actions');
 list.addEventListener('click', event => {
   if (!(event.target instanceof Element)) return;
   const button = event.target.closest('button[data-action]');
@@ -37,6 +40,8 @@ list.addEventListener('click', event => {
 preventDefault отменяет отменяемое стандартное действие события: например, переход по ссылке или обычную отправку формы. stopPropagation останавливает дальнейшее распространение. Это разные механизмы. Отмена действия браузера не обязана отключить обработчик родителя, а остановка всплытия не является способом запретить стандартную навигацию.
 
 ```javascript
+// Страница содержит <form id="profile"> и поле name="name".
+const form = document.querySelector('#profile');
 form.addEventListener('submit', event => {
   event.preventDefault();
   const data = new FormData(form);

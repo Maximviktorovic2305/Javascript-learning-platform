@@ -23,7 +23,7 @@ async function doubled(value) {
   const received = await Promise.resolve(value);
   return received * 2;
 }
-console.log(await doubled(4)); // 8 в среде с top-level await
+doubled(4).then(value => console.log(value)); // 8
 ```
 
 В обычном немодульном фрагменте top-level await может быть недоступен. Тогда вызов помещают в async-функцию или используют then. Среда и формат файла снова имеют значение. Не добавляйте async только ради внешнего вида: сначала определите, какой шаг действительно асинхронен и кто должен дождаться результата.
@@ -49,8 +49,11 @@ async function loadName() {
 
 ```javascript
 const inputs = [3, 1, 2];
-const results = await Promise.all(inputs.map(async value => value * 10));
-console.log(results); // [30, 10, 20]
+async function calculateAll() {
+  const results = await Promise.all(inputs.map(async value => value * 10));
+  console.log(results); // [30, 10, 20]
+}
+calculateAll();
 ```
 
 Promise.allSettled полезен, когда нужно получить отдельный итог каждой операции независимо от отказов соседей. Promise.race выбирает первое завершение, а Promise.any — первое успешное завершение с соответствующим поведением общего отказа. Эти инструменты не заменяют ограничение конкурентности: запуск тысячи сетевых операций одновременно может перегрузить ресурсы.

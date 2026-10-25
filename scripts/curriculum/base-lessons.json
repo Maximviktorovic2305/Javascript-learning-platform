@@ -58,15 +58,15 @@
         "explanation": "В JavaScript обычные числовые значения имеют тип number."
       },
       {
-        "id": "javascript-values-3",
-        "prompt": "Можно ли выполнить const a = []; a.push(1)?",
+        "prompt": "Что произойдёт после let count = 1; count = count + 2?",
         "options": [
-          "Нет: const замораживает массив",
-          "Да: ссылка не переназначается",
-          "Только в strict mode"
+          "count станет равен 3",
+          "Возникнет TypeError",
+          "count останется равен 1"
         ],
-        "answer": 1,
-        "explanation": "const запрещает переназначение переменной, а не изменение содержимого объекта."
+        "answer": 0,
+        "explanation": "let допускает новое присваивание: сначала вычисляется 1 + 2, затем сохраняется 3.",
+        "section": 1
       }
     ]
   },
@@ -124,15 +124,15 @@
         "explanation": "Операнды имеют разные типы."
       },
       {
-        "id": "javascript-conditions-2",
         "prompt": "Какое значение истинно в условии if?",
         "options": [
-          "0",
-          "Пустая строка",
-          "Пустой массив []"
+          "Непустая строка \"JS\"",
+          "Пустая строка \"\"",
+          "Число 0"
         ],
-        "answer": 2,
-        "explanation": "Массивы — объекты, и объекты truthy, даже когда пусты."
+        "answer": 0,
+        "explanation": "Boolean(\"JS\") даёт true; пустая строка и ноль дают false.",
+        "section": 3
       },
       {
         "id": "javascript-conditions-3",
@@ -205,15 +205,15 @@
         "explanation": "Без явного return результат — undefined."
       },
       {
-        "id": "javascript-functions-2",
-        "prompt": "Что сохраняет замыкание?",
+        "prompt": "Как вызвать function square(value) { return value * value; } для числа 3?",
         "options": [
-          "Доступ к лексическому окружению",
-          "Копию всего процесса",
-          "Только имя функции"
+          "square(3)",
+          "square = 3",
+          "function(3)"
         ],
         "answer": 0,
-        "explanation": "Функция продолжает обращаться к переменным внешней области видимости."
+        "explanation": "Круглые скобки после имени вызывают функцию; аргумент 3 становится значением параметра value.",
+        "section": 1
       },
       {
         "id": "javascript-functions-3",
@@ -553,15 +553,15 @@
         "explanation": "finally выполняется и на пути возврата результата."
       },
       {
-        "id": "javascript-errors-3",
-        "prompt": "Как поймать отклонение промиса через try/catch?",
+        "prompt": "Какой блок перехватит исключение из JSON.parse(\"broken\")?",
         "options": [
-          "Запустить его без await",
-          "Вызвать console.log",
-          "Использовать await внутри try"
+          "catch после try с этим вызовом",
+          "Любой следующий if",
+          "return перед вызовом"
         ],
-        "answer": 2,
-        "explanation": "При await отклонение промиса становится исключением в текущей async-функции."
+        "answer": 0,
+        "explanation": "Поместите JSON.parse в try: возникшее исключение передаст управление соответствующему catch.",
+        "section": 2
       }
     ]
   },
@@ -639,15 +639,15 @@
         "explanation": "Два уникальных числа: 1 и 2."
       },
       {
-        "id": "javascript-collections-3",
-        "prompt": "Как публикуют значение в ES-модуле?",
+        "prompt": "Что вернёт new Map().get(\"missing\")?",
         "options": [
-          "export",
-          "require",
-          "console.log"
+          "undefined",
+          "0",
+          "Пустую строку"
         ],
         "answer": 0,
-        "explanation": "export объявляет публичный API ES-модуля; require относится к CommonJS."
+        "explanation": "get возвращает undefined для отсутствующего ключа; наличие проверяют методом has.",
+        "section": 3
       }
     ]
   },

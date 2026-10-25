@@ -1,11 +1,14 @@
 # Interceptors и RxJS
 
 ## Обёртка вокруг обработки
+До первого примера введём используемые операции RxJS. Observable описывает поток значений, pipe применяет к потоку операторы, а map преобразует каждое успешное значение своим callback. Это RxJS map, а не метод массива. Он импортируется из rxjs/operators. Метод next.handle() возвращает поток следующего этапа Nest; interceptor возвращает преобразованный поток, не вызывая subscribe самостоятельно.
+
 Interceptor получает управление до вызова обработчика и может преобразовать результат после него. Это удобно для общего конверта ответа, измерения времени, логирования завершения или согласованного преобразования значений. Guard отвечает за допуск, pipe проверяет аргумент, filter обрабатывает исключение. Выбор стадии делает обязанности кода понятными.
 
 Интерцептор реализует NestInterceptor. В intercept передаются ExecutionContext и CallHandler. Вызов next.handle возвращает Observable, представляющий дальнейшее выполнение цепочки. Верните этот поток Nest, чтобы framework управлял подпиской и отправкой ответа. Самостоятельный subscribe обычно отделяет работу от основной цепочки и ломает ожидание результата и ошибок.
 
 ```typescript
+import { map } from 'rxjs/operators';
 @Injectable()
 class EnvelopeInterceptor implements NestInterceptor {
   intercept(_context: ExecutionContext, next: CallHandler) {
@@ -18,7 +21,7 @@ class EnvelopeInterceptor implements NestInterceptor {
 Observable описывает последовательность значений, ошибок и завершения. В обычном HTTP handler результат часто один, но модель потока позволяет единообразно работать с асинхронными этапами. map преобразует каждое значение в новое. Он не должен неожиданно выполнять дополнительную запись в БД ради формирования JSON. Побочные действия выделяйте явно и оценивайте их жизненный цикл.
 
 ```typescript
-import { map } from 'rxjs/operators';
+import { of } from 'rxjs';
 const source = of({ title: 'JS' });
 const wrapped = source.pipe(map(book => ({ data: book })));
 // При подписке результат: { data: { title: 'JS' } }

@@ -49,6 +49,22 @@ jobs:
       - run: npm --prefix runner/sandbox ci --ignore-scripts --no-audit
       - run: npm --prefix runner/sandbox audit --omit=dev --audit-level=low
       - run: node scripts/test-sandbox.mjs
+      - name: Package the verified Linux runtime
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          DEPLOY_SHA: ${{ github.sha }}
+        run: |
+          printf '%s\n' "$DEPLOY_SHA" > deploy-sha.txt
+          tar -czf "$RUNNER_TEMP/jslab-runtime.tar.gz" frontend/.output backend/dist deploy-sha.txt
+          python3 deploy/validate-runtime.py "$RUNNER_TEMP/jslab-runtime.tar.gz" "$DEPLOY_SHA"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        with:
+          name: jslab-runtime-${{ github.sha }}
+          path: ${{ runner.temp }}/jslab-runtime.tar.gz
+          compression-level: 0
+          retention-days: 1
+          if-no-files-found: error
   deploy:
     needs: check
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
@@ -62,6 +78,10 @@ jobs:
       cancel-in-progress: false
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+        with:
+          name: jslab-runtime-${{ github.sha }}
+          path: ${{ runner.temp }}/jslab-runtime
       - name: Build, back up, migrate and publish the verified commit
         shell: bash
         env:
@@ -81,7 +101,14 @@ jobs:
           trap 'rm -f -- "$key" "$hosts"' EXIT
           printf '%s\n' "$SSH_PRIVATE_KEY" > "$key"
           printf '%s\n' "$SSH_KNOWN_HOSTS" > "$hosts"
-          ssh -i "$key" -o BatchMode=yes -o IdentitiesOnly=yes \
-            -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$hosts" \
-            -o ConnectTimeout=20 -o ServerAliveInterval=30 -o ServerAliveCountMax=6 \
-            "$SSH_USERNAME@$SSH_HOST" "bash -s -- '$DEPLOY_SHA'" < deploy/release.sh
+          archive="$RUNNER_TEMP/jslab-runtime/jslab-runtime.tar.gz"
+          digest="$(sha256sum "$archive" | cut -d ' ' -f 1)"
+          options=(-i "$key" -o BatchMode=yes -o IdentitiesOnly=yes
+            -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$hosts"
+            -o ConnectTimeout=20 -o ServerAliveInterval=30 -o ServerAliveCountMax=6)
+          ssh "${options[@]}" "$SSH_USERNAME@$SSH_HOST" 'mkdir -p /home/max/jslab/incoming'
+          scp "${options[@]}" "$archive" "$SSH_USERNAME@$SSH_HOST:/home/max/jslab/incoming/$DEPLOY_SHA.tar.gz.partial"
+          ssh "${options[@]}" "$SSH_USERNAME@$SSH_HOST" \
+            "mv -- /home/max/jslab/incoming/$DEPLOY_SHA.tar.gz.partial /home/max/jslab/incoming/$DEPLOY_SHA.tar.gz"
+          ssh "${options[@]}" "$SSH_USERNAME@$SSH_HOST" \
+            "bash -s -- '$DEPLOY_SHA' '$digest'" < deploy/release.sh

@@ -1,5 +1,19 @@
 import { describe, expect, it, vi } from 'vitest'
-import { createMusicPlayback } from '../app/composables/useBackgroundMusic'
+import {
+  createRenderer,
+  defineComponent,
+  h,
+  inject,
+  nextTick,
+  provide,
+  ref,
+  shallowRef,
+} from 'vue'
+import {
+  backgroundMusicKey,
+  createMusicPlayback,
+  useBackgroundMusic,
+} from '../app/composables/useBackgroundMusic'
 
 function deferred() {
   let resolve!: () => void
@@ -37,6 +51,78 @@ function fixture(saved: string | null = null) {
 }
 
 describe('background music preference and playback', () => {
+  it('keeps playback and position when layout controls unmount and remount', async () => {
+    type HostNode = { parent: HostNode | null; children: HostNode[] }
+    const node = (): HostNode => ({ parent: null, children: [] })
+    const renderer = createRenderer<HostNode, HostNode>({
+      createElement: node,
+      createText: node,
+      createComment: node,
+      patchProp() {},
+      setText() {},
+      setElementText() {},
+      parentNode: (value) => value.parent,
+      nextSibling: (value) =>
+        value.parent?.children[value.parent.children.indexOf(value) + 1] ??
+        null,
+      insert(value, parent, anchor) {
+        value.parent = parent
+        const index = anchor ? parent.children.indexOf(anchor) : -1
+        if (index < 0) parent.children.push(value)
+        else parent.children.splice(index, 0, value)
+      },
+      remove(value) {
+        const parent = value.parent
+        if (parent) parent.children.splice(parent.children.indexOf(value), 1)
+        value.parent = null
+      },
+    })
+    const { audio } = fixture()
+    const element = Object.assign(audio, { currentTime: 0, volume: 1 })
+    const events = { addEventListener: vi.fn(), removeEventListener: vi.fn() }
+    vi.stubGlobal('document', events)
+    vi.stubGlobal('window', events)
+    vi.stubGlobal('localStorage', { getItem: () => null, setItem: vi.fn() })
+    const layout = ref('public')
+    let control!: ReturnType<typeof useBackgroundMusic>
+    const Header = defineComponent({
+      setup() {
+        control = inject(backgroundMusicKey)!
+        return () => h('button')
+      },
+    })
+    const Provider = defineComponent({
+      setup(_, { slots }) {
+        const player = useBackgroundMusic(
+          shallowRef(element as unknown as HTMLAudioElement),
+        )
+        provide(backgroundMusicKey, player)
+        return () => slots.default?.()
+      },
+    })
+    const app = renderer.createApp({
+      setup: () => () => h(Provider, () => h(Header, { key: layout.value })),
+    })
+    try {
+      app.mount(node())
+      await nextTick()
+      expect(control.playing.value).toBe(true)
+      const original = control
+      element.currentTime = 37.5
+      layout.value = 'workspace'
+      await nextTick()
+      expect(control).toBe(original)
+      expect(element.currentTime).toBe(37.5)
+      expect(element.volume).toBe(0.24)
+      expect(audio.play).toHaveBeenCalledOnce()
+      expect(audio.pause).not.toHaveBeenCalled()
+      await control.toggle()
+      expect(audio.pause).toHaveBeenCalledOnce()
+    } finally {
+      app.unmount()
+      vi.unstubAllGlobals()
+    }
+  })
   it('attempts playback by default without overwriting an unset preference', async () => {
     const { player, audio, storage } = fixture()
     await player.restore()

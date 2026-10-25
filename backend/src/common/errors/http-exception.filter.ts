@@ -28,16 +28,21 @@ export class HttpExceptionFilter implements ExceptionFilter {
         exception instanceof Error ? exception.name : 'UnknownError',
       );
     const message =
-      exception instanceof HttpException && status < 500
-        ? exception.getResponse()
-        : {
+      status === 429
+        ? {
             message:
-              status === 413
-                ? 'Слишком большой запрос.'
-                : status === 400
-                  ? 'Некорректный JSON.'
-                  : 'Сервис временно недоступен. Попробуйте позже.',
-          };
+              'Слишком много запросов. Подождите минуту и попробуйте снова.',
+          }
+        : exception instanceof HttpException && status < 500
+          ? exception.getResponse()
+          : {
+              message:
+                status === 413
+                  ? 'Слишком большой запрос.'
+                  : status === 400
+                    ? 'Некорректный JSON.'
+                    : 'Сервис временно недоступен. Попробуйте позже.',
+            };
     host
       .switchToHttp()
       .getResponse<Response>()

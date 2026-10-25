@@ -73,6 +73,27 @@ describe('JS/TS curriculum', () => {
         ).toEqual([]);
       }
   });
+  it('shows the complete condition and concrete invocation for every applied question', () => {
+    for (const lesson of catalog.allLessons()) {
+      const applied = lesson.questions.slice(3);
+      expect(applied).toHaveLength(2);
+      applied.forEach((question, index) => {
+        const test =
+          lesson.exercise.tests[
+            Math.min(index, lesson.exercise.tests.length - 1)
+          ];
+        expect(question.context).toBe(lesson.exercise.prompt);
+        expect(question.code).toContain(
+          `solve(${test.input.map((value) => JSON.stringify(value)).join(', ')})`,
+        );
+        expect(question.prompt).not.toMatch(
+          /опубликованном примере|контракт задачи/,
+        );
+      });
+    }
+    const generics = catalog.getLesson('typescript-generics').questions[1];
+    expect(generics.code).toContain('function first<T>');
+  });
   it('rejects missing content instead of returning a placeholder', () => {
     expect(() => catalog.getLesson('not-a-lesson')).toThrow('Тема не найдена.');
   });

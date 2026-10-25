@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Project, ProjectSubmission } from '#shared/types/api'
+import { projectUrlError } from '~/utils/formValidation'
 const props = defineProps<{
   project: Project
   submission?: ProjectSubmission
@@ -8,6 +9,8 @@ const emit = defineEmits<{ submitted: [] }>()
 const { user } = useSession()
 const api = useApi()
 const url = ref(props.submission?.url ?? '')
+const touched = ref(false)
+const validation = computed(() => projectUrlError(url.value))
 watch(
   () => props.submission?.url,
   (value, previous) => {
@@ -21,6 +24,7 @@ const expanded = ref(false),
   message = ref(''),
   error = ref('')
 async function submit() {
+  if (busy.value || validation.value) return
   if (!user.value) {
     await navigateTo('/auth/login')
     return
@@ -72,20 +76,30 @@ async function submit() {
     <form
       v-if="expanded"
       class="project-form ym-hide-content"
+      novalidate
       @submit.prevent="submit"
     >
       <label
         >Ссылка на репозиторий или демо<input
           v-model="url"
+          :aria-invalid="touched && !!validation"
+          :aria-describedby="`${project.id}-url-error`"
+          @blur="touched = true"
           type="url"
           required
           maxlength="2000"
           pattern="https://.*"
           placeholder="https://github.com/you/project"
-      /></label>
+        /><span
+          v-if="touched && validation"
+          :id="`${project.id}-url-error`"
+          class="error-text"
+          >{{ validation }}</span
+        ></label
+      >
       <p v-if="error" class="error-text" role="alert">{{ error }}</p>
       <p v-if="message" class="success-text" role="status">{{ message }}</p>
-      <button class="button button-small" :disabled="busy">
+      <button class="button button-small" :disabled="busy || !!validation">
         {{
           busy
             ? 'Сохраняем…'

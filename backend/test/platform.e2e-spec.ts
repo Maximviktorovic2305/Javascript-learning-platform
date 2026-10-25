@@ -121,6 +121,59 @@ describe('Script Lab HTTP and PostgreSQL', () => {
       .send({ email, password: 'wrong-password-here' })
       .expect(401);
   });
+  it('runs public server examples with session, CSRF and DTO checks without changing progress', async () => {
+    const endpoint = '/api/learning/express-http/examples';
+    const exercise = catalog.getLesson('express-http').exercise;
+    const body = { code: exercise.starterCode, language: exercise.language };
+    const callsBefore = runner.execute.mock.calls.length;
+    await request(app.getHttpServer())
+      .post(endpoint)
+      .set(headers)
+      .send(body)
+      .expect(401);
+    await request(app.getHttpServer())
+      .post(endpoint)
+      .set('cookie', cookie)
+      .set('origin', origin)
+      .send(body)
+      .expect(403);
+    await request(app.getHttpServer())
+      .post(endpoint)
+      .set('cookie', cookie)
+      .set(headers)
+      .send({ ...body, inputs: [[]] })
+      .expect(400);
+    await request(app.getHttpServer())
+      .post(endpoint)
+      .set('cookie', cookie)
+      .set(headers)
+      .send({ ...body, code: '' })
+      .expect(400);
+    expect(runner.execute.mock.calls).toHaveLength(callsBefore);
+    const before = await db.attempt.count({ where: { userId } });
+    runner.execute.mockResolvedValueOnce({
+      ok: true,
+      outputs: exercise.tests.slice(0, 2).map((test) => test.expected),
+      message: '',
+    });
+    const response = await request(app.getHttpServer())
+      .post(endpoint)
+      .set('cookie', cookie)
+      .set(headers)
+      .send(body)
+      .expect(201);
+    expect(response.body).toEqual({
+      ok: true,
+      outputs: exercise.tests.slice(0, 2).map((test) => test.expected),
+      message: '',
+    });
+    expect(runner.execute).toHaveBeenLastCalledWith(body.code, body.language, {
+      ...exercise,
+      tests: exercise.tests.slice(0, 2),
+    });
+    expect(await db.attempt.count({ where: { userId } })).toBe(before);
+    expect(await db.award.count({ where: { userId } })).toBe(0);
+  });
   it('awards XP only once under concurrent requests and grades quizzes server-side', async () => {
     const read = await Promise.all(
       Array.from({ length: 4 }, () =>
@@ -365,5 +418,8 @@ describe('Script Lab HTTP and PostgreSQL', () => {
           .send({ email: 'invalid', password: 'short' }),
       );
     expect(results.some((r) => r.status === 429)).toBe(true);
+    expect(results.find((r) => r.status === 429)?.body.message).toBe(
+      'Слишком много запросов. Подождите минуту и попробуйте снова.',
+    );
   });
 });

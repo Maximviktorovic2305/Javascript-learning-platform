@@ -4,7 +4,7 @@
   align-items: center;
   flex-shrink: 0;
 }
-.background-music audio {
+.background-audio {
   display: none;
 }
 .music-toggle.is-playing {

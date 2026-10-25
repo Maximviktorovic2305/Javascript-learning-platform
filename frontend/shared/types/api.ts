@@ -46,7 +46,13 @@ export interface Lesson extends LessonSummary {
   objectives?: string[]
   sources?: { title: string; url: string }[]
   exercise: Exercise
-  questions: { id: string; prompt: string; options: string[] }[]
+  questions: {
+    id: string
+    prompt: string
+    context?: string
+    code?: string
+    options: string[]
+  }[]
 }
 export interface User {
   id: string
@@ -100,6 +106,11 @@ export interface Grade {
   xp: number
   message: string
   tests: { passed: boolean; index: number }[]
+}
+export interface ExampleRun {
+  ok: boolean
+  outputs: unknown[]
+  message: string
 }
 export interface QuizResult {
   passed: boolean

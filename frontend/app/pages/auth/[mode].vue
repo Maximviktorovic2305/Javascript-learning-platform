@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { LEGAL_VERSION } from "~/utils/legal";
+import { nameError, emailError, passwordError } from "~/utils/formValidation";
 const route = useRoute();
 const mode = computed(() =>
   route.params.mode === "register" ? "register" : "login",
@@ -17,13 +18,30 @@ const busy = ref(false),
   error = ref("");
 const termsAccepted = ref(false),
   dataConsent = ref(false);
+const touched = reactive({ name: false, email: false, password: false });
+const validation = computed(() => ({
+  name: mode.value === "register" ? nameError(name.value) : "",
+  email: emailError(email.value),
+  password: passwordError(password.value),
+}));
+const canSubmit = computed(
+  () =>
+    !busy.value &&
+    !Object.values(validation.value).some(Boolean) &&
+    (mode.value === "login" || (termsAccepted.value && dataConsent.value)),
+);
+watch([name, email, password, termsAccepted, dataConsent], () => {
+  error.value = "";
+});
 watch(mode, () => {
   error.value = "";
   password.value = "";
   termsAccepted.value = false;
   dataConsent.value = false;
+  Object.assign(touched, { name: false, email: false, password: false });
 });
 async function submit() {
+  if (!canSubmit.value) return;
   busy.value = true;
   error.value = "";
   try {
@@ -85,29 +103,50 @@ async function submit() {
             : "Войди, чтобы открыть свой прогресс."
         }}
       </p>
-      <form @submit.prevent="submit">
+      <form novalidate @submit.prevent="submit">
         <label v-if="mode === 'register'"
           >Как тебя зовут<input
             v-model="name"
+            :aria-invalid="touched.name && !!validation.name"
+            aria-describedby="name-error"
+            @blur="touched.name = true"
             type="text"
             name="name"
             autocomplete="name"
             minlength="2"
             maxlength="60"
             required
-            placeholder="Твоё имя" /></label
+            placeholder="Твоё имя"
+          /><span
+            v-if="touched.name && validation.name"
+            id="name-error"
+            class="error-text"
+            >{{ validation.name }}</span
+          ></label
         ><label
           >Электронная почта<input
             v-model="email"
+            :aria-invalid="touched.email && !!validation.email"
+            aria-describedby="email-error"
+            @blur="touched.email = true"
             type="email"
             name="email"
             autocomplete="email"
             maxlength="254"
             required
-            placeholder="you@example.com" /></label
+            placeholder="you@example.com"
+          /><span
+            v-if="touched.email && validation.email"
+            id="email-error"
+            class="error-text"
+            >{{ validation.email }}</span
+          ></label
         ><label
           >Пароль<input
             v-model="password"
+            :aria-invalid="touched.password && !!validation.password"
+            aria-describedby="password-error"
+            @blur="touched.password = true"
             type="password"
             name="password"
             :autocomplete="
@@ -117,7 +156,13 @@ async function submit() {
             maxlength="128"
             required
             placeholder="Не менее 10 символов"
-        /></label>
+          /><span
+            v-if="touched.password && validation.password"
+            id="password-error"
+            class="error-text"
+            >{{ validation.password }}</span
+          ></label
+        >
         <div v-if="mode === 'register'" class="consent-fields">
           <label
             ><input
@@ -164,7 +209,7 @@ async function submit() {
           </label>
         </div>
         <p v-if="error" class="error-text" role="alert">{{ error }}</p>
-        <button class="button" type="submit" :disabled="busy">
+        <button class="button" type="submit" :disabled="!canSubmit">
           {{
             busy
               ? "Подождите…"
@@ -199,17 +244,30 @@ async function submit() {
 }
 .consent-fields label {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.6rem;
   font-size: 0.75rem;
   line-height: 1.65;
   font-weight: 400;
+  cursor: pointer;
 }
 .consent-fields input {
   width: 1rem;
   height: 1rem;
   flex: 0 0 1rem;
-  margin: 0.2rem 0 0;
+  min-height: 0;
+  margin: 0;
   padding: 0;
+}
+.consent-fields .text-link {
+  display: inline;
+}
+.consent-fields label:hover {
+  color: var(--interaction);
+}
+.consent-fields label:has(input:focus-visible) {
+  outline: 1px solid var(--interaction);
+  outline-offset: 4px;
+  border-radius: 3px;
 }
 </style>

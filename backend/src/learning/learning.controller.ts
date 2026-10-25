@@ -32,4 +32,9 @@ export class LearningController {
   ) {
     return this.learning.code(req.user.id, id, dto);
   }
+  @Post(':id/examples')
+  @Throttle({ default: { limit: 10, ttl: 60000 } })
+  examples(@Param('id') id: string, @Body() dto: CodeDto) {
+    return this.learning.examples(id, dto);
+  }
 }

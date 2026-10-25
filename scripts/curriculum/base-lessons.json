@@ -945,7 +945,8 @@
       },
       {
         "id": "typescript-generics-2",
-        "prompt": "Какой тип результата у first([\"a\",\"b\"]) из примера?",
+        "prompt": "Какой тип TypeScript выведет для переменной result в строгом режиме?",
+        "code": "function first<T>(items: T[]): T | undefined {\n  return items[0];\n}\nconst result = first([\"a\", \"b\"]);",
         "options": [
           "number",
           "string | undefined",

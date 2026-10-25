@@ -56,6 +56,13 @@ async function submit() {
           >Вопрос {{ index + 1 }} / {{ lesson.questions.length }}</span
         >{{ question.prompt }}
       </legend>
+      <p v-if="question.context" class="question-context">
+        {{ question.context }}
+      </p>
+      <pre
+        v-if="question.code"
+        class="question-code"
+      ><code>{{ question.code }}</code></pre>
       <label
         v-for="(option, choice) in question.options"
         :key="choice"

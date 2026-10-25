@@ -17,6 +17,8 @@ export interface Exercise {
 export interface Question {
   id: string;
   prompt: string;
+  context?: string;
+  code?: string;
   options: string[];
   answer: number;
   explanation: string;

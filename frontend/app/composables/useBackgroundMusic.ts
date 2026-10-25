@@ -1,4 +1,15 @@
-import { computed, onBeforeUnmount, onMounted, ref, type Ref } from 'vue'
+import {
+  computed,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  type Ref,
+  type InjectionKey,
+} from 'vue'
+
+export const backgroundMusicKey: InjectionKey<
+  ReturnType<typeof useBackgroundMusic>
+> = Symbol('backgroundMusic')
 
 export const MUSIC_PREFERENCE_KEY = 'jslab:background-music'
 

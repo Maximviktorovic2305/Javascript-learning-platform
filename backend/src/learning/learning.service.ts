@@ -48,6 +48,16 @@ export class LearningService {
       review,
     };
   }
+  async examples(id: string, dto: CodeDto) {
+    const exercise = this.catalog.getLesson(id).exercise;
+    if (dto.language !== exercise.language)
+      throw new BadRequestException('Выберите язык задания.');
+    // Only public cases go to the runner; previews never award XP or record attempts.
+    return this.runner.execute(dto.code, dto.language, {
+      ...exercise,
+      tests: exercise.tests.slice(0, 2),
+    });
+  }
   async code(userId: string, id: string, dto: CodeDto) {
     const exercise = this.catalog.getLesson(id).exercise;
     if (dto.language !== exercise.language)

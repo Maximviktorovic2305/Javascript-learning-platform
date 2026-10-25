@@ -7,7 +7,7 @@ export class RunnerService {
   async execute(code: string, language: string, exercise: Exercise) {
     if (this.config.get<string>('EXECUTION_RUNNER') !== 'remote')
       throw new ServiceUnavailableException(
-        'Серверная проверка сейчас отключена. Запуск примеров в браузере остаётся доступен.',
+        'Серверный исполнитель сейчас отключён. Попробуйте позже.',
       );
     try {
       const response = await fetch(

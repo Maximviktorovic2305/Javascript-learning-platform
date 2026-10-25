@@ -212,6 +212,20 @@ input[type='radio'],
 input[type='checkbox'] {
   accent-color: var(--interaction);
 }
+input[type='radio']:not(:disabled),
+input[type='checkbox']:not(:disabled),
+select:not(:disabled) {
+  cursor: pointer;
+}
+input[type='radio']:hover:not(:disabled),
+input[type='checkbox']:hover:not(:disabled) {
+  box-shadow: 0 0 0 3px var(--interaction-surface);
+}
+input:not([type='radio']):not([type='checkbox']):hover:not(:disabled):not(:focus),
+select:hover:not(:disabled):not(:focus),
+textarea:hover:not(:disabled):not(:focus) {
+  border-color: var(--muted);
+}
 input[type='radio']:focus-visible,
 input[type='checkbox']:focus-visible {
   outline: 0;
@@ -447,6 +461,16 @@ small {
 }
 .login-link {
   font-size: 12px;
+}
+.login-link:hover {
+  color: var(--interaction);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.mobile-nav > a:hover,
+.mobile-nav > button:hover:not(:disabled) {
+  color: var(--interaction);
+  background: var(--interaction-surface);
 }
 .mobile-menu-toggle,
 .mobile-nav {
@@ -1335,6 +1359,11 @@ small {
   padding: 0;
   margin-bottom: 20px;
 }
+.hint-button:hover:not(:disabled) {
+  color: var(--interaction);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .hint-box {
   font-size: 12px !important;
   background: var(--surface-2);
@@ -1342,6 +1371,12 @@ small {
   padding: 15px;
 }
 .code-workspace {
+  --ink: #e3eadc;
+  --muted: #a0ad96;
+  --line: #46523d;
+  --surface-2: #28341e;
+  --interaction: #c7f55b;
+  --interaction-surface: #232d17;
   border: 1px solid #394330;
   background: #151a13;
   border-radius: 10px;
@@ -1496,6 +1531,22 @@ small {
   padding: 0;
   margin: 30px 0;
 }
+.question-context {
+  font-size: 13px;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+.question-code {
+  padding: 16px;
+  margin: 0 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--ink);
+  font: 13px/1.8 var(--mono);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
 .quiz-question legend {
   font-size: 16px;
   line-height: 1.7;
@@ -1598,6 +1649,15 @@ small {
   padding-left: 20px;
   border-left: 2px solid var(--line);
 }
+:root[data-theme='light'] .auth-code .code-green {
+  color: #47650c;
+}
+:root[data-theme='light'] .auth-code .code-purple {
+  color: #7451a8;
+}
+:root[data-theme='light'] .auth-code .code-comment {
+  color: #59644f;
+}
 .auth-card {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -1637,6 +1697,11 @@ small {
 .auth-switch a {
   color: var(--ink);
   font-weight: 700;
+}
+.auth-switch a:hover {
+  color: var(--interaction);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .auth-card .auth-privacy {
   display: flex;

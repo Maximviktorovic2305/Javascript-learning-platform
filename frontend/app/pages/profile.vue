@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import type { User, Track } from '#shared/types/api'
+import {
+  nameError,
+  timezoneError,
+  passwordError as validatePassword,
+} from '~/utils/formValidation'
 definePageMeta({ layout: 'workspace', middleware: 'auth' })
 usePageSeo({ title: 'Профиль', robots: 'noindex' })
 const { user, clear } = useSession()
@@ -36,12 +41,22 @@ const timezone = ref(user.value?.timezone ?? 'Asia/Vladivostok')
 const dailyGoal = ref(user.value?.dailyGoal ?? 50)
 const currentPassword = ref(''),
   nextPassword = ref('')
+const validation = computed(() => ({
+  name: nameError(name.value),
+  timezone: timezoneError(timezone.value),
+}))
+const passwordValidation = computed(() => ({
+  current: validatePassword(currentPassword.value),
+  next: validatePassword(nextPassword.value),
+}))
+const touched = reactive({ current: false, next: false })
 const busy = ref(false),
   passwordBusy = ref(false),
   message = ref(''),
   error = ref(''),
   passwordError = ref('')
 async function save() {
+  if (busy.value || Object.values(validation.value).some(Boolean)) return
   const owner = user.value?.id
   busy.value = true
   message.value = ''
@@ -66,6 +81,11 @@ async function save() {
   }
 }
 async function password() {
+  if (
+    passwordBusy.value ||
+    Object.values(passwordValidation.value).some(Boolean)
+  )
+    return
   passwordBusy.value = true
   passwordError.value = ''
   try {
@@ -113,7 +133,7 @@ async function password() {
       :timezone="user.timezone"
     />
   </AsyncState>
-  <form class="settings-card" @submit.prevent="save">
+  <form class="settings-card" novalidate @submit.prevent="save">
     <div class="profile-section-heading">
       <h2>Учись в своём ритме</h2>
       <AppIcon name="user" />
@@ -122,16 +142,31 @@ async function password() {
       <label
         >Имя<input
           v-model="name"
+          :aria-invalid="!!validation.name"
+          aria-describedby="profile-name-error"
           autocomplete="name"
           minlength="2"
           maxlength="60"
-          required /></label
+          required
+        /><span
+          v-if="validation.name"
+          id="profile-name-error"
+          class="error-text"
+          >{{ validation.name }}</span
+        ></label
       ><label
         >Часовой пояс<input
           v-model="timezone"
+          :aria-invalid="!!validation.timezone"
+          aria-describedby="timezone-error"
           required
           maxlength="80"
-          list="timezones" /><datalist id="timezones">
+          list="timezones" /><span
+          v-if="validation.timezone"
+          id="timezone-error"
+          class="error-text"
+          >{{ validation.timezone }}</span
+        ><datalist id="timezones">
           <option value="Europe/Moscow" />
           <option value="Asia/Vladivostok" />
           <option value="Asia/Yekaterinburg" />
@@ -150,7 +185,10 @@ async function password() {
     </div>
     <p v-if="message" class="success-text" role="status">{{ message }}</p>
     <p v-if="error" class="error-text" role="alert">{{ error }}</p>
-    <button class="button" :disabled="busy">
+    <button
+      class="button"
+      :disabled="busy || Object.values(validation).some(Boolean)"
+    >
       {{ busy ? 'Сохраняем…' : 'Сохранить изменения' }}
     </button>
   </form>
@@ -169,7 +207,7 @@ async function password() {
       </article>
     </div>
   </section>
-  <form class="settings-card" @submit.prevent="password">
+  <form class="settings-card" novalidate @submit.prevent="password">
     <div class="profile-section-heading">
       <h2>Изменить пароль</h2>
       <AppIcon name="shield" />
@@ -179,25 +217,48 @@ async function password() {
       <label
         >Текущий пароль<input
           v-model="currentPassword"
+          :aria-invalid="touched.current && !!passwordValidation.current"
+          aria-describedby="current-password-error"
+          @blur="touched.current = true"
           type="password"
           autocomplete="current-password"
           minlength="10"
           maxlength="128"
-          required /></label
+          required
+        /><span
+          v-if="touched.current && passwordValidation.current"
+          id="current-password-error"
+          class="error-text"
+          >{{ passwordValidation.current }}</span
+        ></label
       ><label
         >Новый пароль<input
           v-model="nextPassword"
+          :aria-invalid="touched.next && !!passwordValidation.next"
+          aria-describedby="next-password-error"
+          @blur="touched.next = true"
           type="password"
           autocomplete="new-password"
           minlength="10"
           maxlength="128"
           required
-      /></label>
+        /><span
+          v-if="touched.next && passwordValidation.next"
+          id="next-password-error"
+          class="error-text"
+          >{{ passwordValidation.next }}</span
+        ></label
+      >
     </div>
     <p v-if="passwordError" class="error-text" role="alert">
       {{ passwordError }}
     </p>
-    <button class="button button-outline" :disabled="passwordBusy">
+    <button
+      class="button button-outline"
+      :disabled="
+        passwordBusy || Object.values(passwordValidation).some(Boolean)
+      "
+    >
       {{ passwordBusy ? 'Сохраняем…' : 'Изменить пароль' }}
     </button>
   </form>

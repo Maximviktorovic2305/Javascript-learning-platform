@@ -29,4 +29,21 @@ describe('Separate registration consent', () => {
       (await validate(plainToInstance(RegisterDto, body))).length,
     ).toBeGreaterThan(0);
   });
+  it('returns Russian validation messages without reflecting submitted credentials', async () => {
+    const errors = await validate(
+      plainToInstance(RegisterDto, {
+        email: 'bad',
+        password: 'short',
+        name: ' ',
+        termsAccepted: false,
+        dataConsent: false,
+      }),
+    );
+    const messages = errors.flatMap((error) =>
+      Object.values(error.constraints ?? {}),
+    );
+    expect(messages.length).toBeGreaterThan(0);
+    expect(messages.every((message) => /[А-Яа-яЁё]/.test(message))).toBe(true);
+    expect(messages.join(' ')).not.toContain('short');
+  });
 });

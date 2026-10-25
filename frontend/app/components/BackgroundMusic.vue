@@ -1,19 +1,12 @@
 <script setup lang="ts">
-const audio = useTemplateRef<HTMLAudioElement>('audio')
-const { playing, pending, error, ready, label, toggle, paused, failed } =
-  useBackgroundMusic(audio)
+import { backgroundMusicKey } from '~/composables/useBackgroundMusic'
+const music = inject(backgroundMusicKey)
+if (!music) throw new Error('Background music provider is missing')
+const { playing, pending, error, ready, label, toggle } = music
 </script>
 
 <template>
   <div class="background-music" data-music-control>
-    <audio
-      ref="audio"
-      src="/audio/scott-buckley-reverie.mp3"
-      loop
-      preload="none"
-      @pause="paused"
-      @error="failed"
-    />
     <button
       type="button"
       class="icon-button music-toggle"

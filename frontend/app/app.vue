@@ -31,11 +31,13 @@ const privatePage = computed(() =>
 )
 </script>
 <template>
-  <NuxtLoadingIndicator color="#c7f55b" />
-  <NuxtLayout
-    ><div class="analytics-page" :class="{ 'ym-hide-content': privatePage }">
-      <NuxtPage /></div
-  ></NuxtLayout>
+  <BackgroundMusicProvider>
+    <NuxtLoadingIndicator color="#c7f55b" />
+    <NuxtLayout
+      ><div class="analytics-page" :class="{ 'ym-hide-content': privatePage }">
+        <NuxtPage /></div
+    ></NuxtLayout>
+  </BackgroundMusicProvider>
 </template>
 <style>
 .analytics-page {

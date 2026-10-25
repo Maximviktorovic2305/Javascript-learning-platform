@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Exercise, Grade } from '#shared/types/api'
+import type { Exercise, Grade, ExampleRun } from '#shared/types/api'
 import { sandboxDocument, isPreviewResult } from '~/utils/sandbox'
 const props = defineProps<{ exercise: Exercise }>()
 const emit = defineEmits<{ graded: [result: Grade] }>()
@@ -65,6 +65,7 @@ onBeforeUnmount(() => {
 })
 function stop() {
   runGeneration++
+  if (running.value) controller?.abort()
   clearTimeout(timeout)
   running.value = false
   srcdoc.value = ''
@@ -91,9 +92,10 @@ function receive(event: MessageEvent<unknown>) {
   stop()
 }
 async function run() {
+  if (busy.value || running.value || !code.value.trim()) return
+  grade.value = null
   if (props.exercise.runtime === 'node') {
-    error.value =
-      'Это задание использует Node.js. Нажмите «Проверить решение» для запуска на сервере.'
+    await runServerExamples()
     return
   }
   error.value = ''
@@ -141,7 +143,43 @@ async function run() {
     error.value = e instanceof Error ? e.message : 'Не удалось запустить код'
   }
 }
+async function runServerExamples() {
+  if (!user.value) {
+    await navigateTo('/auth/login')
+    return
+  }
+  const owner = user.value.id
+  const generation = ++runGeneration
+  const request = new AbortController()
+  controller = request
+  error.value = ''
+  output.value = []
+  running.value = true
+  try {
+    const result = await api<ExampleRun>(
+      `/learning/${props.exercise.id}/examples`,
+      {
+        method: 'POST',
+        body: { code: code.value, language: props.exercise.language },
+        signal: request.signal,
+      },
+    )
+    if (generation !== runGeneration || user.value?.id !== owner) return
+    if (result.ok)
+      output.value = result.outputs.map(
+        (value, index) =>
+          `Пример ${index + 1}: ${JSON.stringify(value) ?? 'undefined'}`,
+      )
+    else error.value = result.message
+  } catch (e) {
+    if (!request.signal.aborted && generation === runGeneration)
+      error.value = errorMessage(e)
+  } finally {
+    if (generation === runGeneration) running.value = false
+  }
+}
 async function submit() {
+  if (busy.value || running.value || !code.value.trim()) return
   if (!user.value) {
     await navigateTo('/auth/login')
     return
@@ -168,6 +206,7 @@ async function submit() {
   }
 }
 function reset() {
+  stop()
   code.value = props.exercise.starterCode
   error.value = ''
   output.value = []
@@ -268,13 +307,13 @@ function keydown(event: KeyboardEvent) {
         ><button
           v-else
           class="button button-small button-outline"
-          :disabled="busy || exercise.runtime === 'node'"
+          :disabled="busy || !code.trim()"
           @click="run"
         >
           <AppIcon name="play" :size="15" />Запустить примеры</button
         ><button
           class="button button-small"
-          :disabled="busy || running"
+          :disabled="busy || running || !code.trim()"
           @click="submit"
         >
           <AppIcon
@@ -292,9 +331,11 @@ function keydown(event: KeyboardEvent) {
     </div>
     <p v-if="!output.length && !error && !grade" class="muted">
       {{
-        exercise.runtime === 'node'
-          ? 'Express и NestJS запускаются в серверной песочнице.'
-          : 'Запусти примеры или отправь решение на проверку.'
+        running
+          ? 'Выполняем примеры…'
+          : exercise.runtime === 'node'
+            ? 'Нажми «Запустить примеры», чтобы выполнить код в серверной песочнице.'
+            : 'Запусти примеры или отправь решение на проверку.'
       }}
     </p>
     <pre v-for="(line, index) in output" :key="index">{{ line }}</pre>
@@ -317,7 +358,9 @@ function keydown(event: KeyboardEvent) {
   </div>
   <p class="editor-note">
     Запуск примеров — самопроверка{{
-      exercise.language === 'typescript' ? ', без полной проверки типов' : ''
+      exercise.language === 'typescript' && exercise.runtime !== 'node'
+        ? ', без полной проверки типов'
+        : ''
     }}. XP начисляются после серверной проверки всех тестов.
   </p>
   <iframe

@@ -26,12 +26,14 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
-          node-version: '24'
+          node-version-file: .nvmrc
           cache: npm
           cache-dependency-path: |
             frontend/package-lock.json
             backend/package-lock.json
       - run: npm run install:all
+      - run: npm --prefix backend audit --audit-level=low
+      - run: npm --prefix frontend audit --audit-level=low
       - run: node scripts/build-curriculum.mjs
       - run: git diff --exit-code -- backend/src/catalog/data/lessons.json
       - run: npm run typecheck
@@ -46,6 +48,9 @@ jobs:
       - run: npm --prefix frontend/.output/server install --package-lock-only --ignore-scripts --no-audit
       - run: npm --prefix frontend/.output/server audit --omit=dev --audit-level=low
       - run: docker build -t script-lab-sandbox:1 runner/sandbox
+      - run: docker build --pull -t script-lab-runner:ci runner
+      - run: docker run --rm --entrypoint node script-lab-runner:ci --version
+      - run: docker run --rm --entrypoint docker script-lab-runner:ci --version
       - run: npm --prefix runner/sandbox ci --ignore-scripts --no-audit
       - run: npm --prefix runner/sandbox audit --omit=dev --audit-level=low
       - run: node scripts/test-sandbox.mjs
